@@ -12,10 +12,41 @@ const projectCategory = (project, lang) => localized(project.category, lang, 'Ca
 const projectLocation = (project, lang) => localized(project.location, lang, 'Ubicación a confirmar');
 const projectStatus = (project, lang) => localized(project.status, lang, 'Estado a confirmar');
 const projectScope = (project, lang) => localized(project.scope, lang, 'Alcance a confirmar');
+let optimizedImages = {};
+const setOptimizedImages = content => {
+  optimizedImages = content?.optimized || {};
+};
 const mediaPath = (project, file) => {
   if (!file) return 'assets/project-placeholder.svg';
   if (/^(assets|img|IMG|projects)\//.test(file)) return file;
   return project ? projectAsset(project, file) : file;
+};
+const isVideo = file => /\.(mp4|mov|webm)$/i.test(file || '');
+const Media = ({
+  alt = '',
+  className = '',
+  file,
+  loading = 'lazy',
+  project,
+  sizes,
+  video = false
+}) => {
+  const src = mediaPath(project, file);
+  const cls = className ? ` class="${escapeHtml(className)}"` : '';
+  if (video || isVideo(file)) {
+    return `<video${cls} autoplay muted loop playsinline preload="metadata" aria-label="${escapeHtml(alt)}"><source src="${escapeHtml(src)}" type="video/${src.endsWith('.webm') ? 'webm' : 'mp4'}" /></video>`;
+  }
+  const optimized = optimizedImages[src];
+  if (!optimized?.variants?.length) {
+    return `<img${cls} ${imageAttrs({ src, alt, loading, sizes })} />`;
+  }
+  const srcset = optimized.variants.map(variant => `${escapeHtml(variant.src)} ${variant.w}w`).join(', ');
+  return `
+    <picture${cls}>
+      <source type="image/webp" srcset="${srcset}" sizes="${escapeHtml(sizes || '(max-width: 680px) 92vw, 50vw')}" />
+      <img ${imageAttrs({ src, alt, loading, sizes })} width="${optimized.width}" height="${optimized.height}" />
+    </picture>
+  `;
 };
 
 export const BaseChrome = (content, page, children) => `
@@ -58,9 +89,12 @@ export const Footer = page => `
 `;
 
 export const HomePage = content => {
+  setOptimizedImages(content);
   const { assets, site, projects, featuredProjects, lang } = content;
   const featured = featuredProjects.length ? featuredProjects : projects.slice(0, 4);
-  const heroImages = assets?.hero?.length ? assets.hero : featured[0]
+  const heroImages = assets?.heroDesktop?.length
+    ? assets.heroDesktop.map((desktop, index) => ({ desktop, mobile: assets.heroMobile?.[index] }))
+    : assets?.hero?.length ? assets.hero : featured[0]
     ? [featured[0].cover, ...(featured[0].gallery || []).slice(0, 2).map(item => item.file)]
     : [];
   return BaseChrome(content, 'home', `
@@ -78,16 +112,23 @@ export const HomePage = content => {
 
 export const HeroVideo = (project, heroImages = []) => {
   const slides = heroImages.length ? heroImages : ['assets/project-placeholder.svg'];
+  const slideDesktop = slide => typeof slide === 'string' ? slide : slide.desktop;
+  const slideMobile = slide => typeof slide === 'string' ? null : slide.mobile;
   return `
     <section class="hero" id="inicio" aria-label="Portada">
       <div class="hero__fallback" aria-hidden="true">
-        ${slides.map((file, index) => `
+        ${slides.map((slide, index) => `
           <figure class="hero-slide ${index === 0 ? 'is-active' : ''}">
-            <img src="${escapeHtml(mediaPath(project, file))}" alt="" />
+            ${slideMobile(slide) ? `
+              <picture>
+                <source media="(max-width: 680px)" srcset="${escapeHtml(mediaPath(project, slideMobile(slide)))}" />
+                <img src="${escapeHtml(mediaPath(project, slideDesktop(slide)))}" alt="" />
+              </picture>
+            ` : `<img src="${escapeHtml(mediaPath(project, slideDesktop(slide)))}" alt="" />`}
           </figure>
         `).join('')}
       </div>
-      <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="${escapeHtml(mediaPath(project, slides[0]))}">
+      <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="${escapeHtml(mediaPath(project, slideDesktop(slides[0])))}">
         <source src="assets/video/resumen-nudo.mp4" type="video/mp4" />
       </video>
       <div class="hero__veil"></div>
@@ -141,8 +182,8 @@ export const FeaturedProjectsRail = (projects, lang) => `
         <h2>Conocé nuestros trabajos.</h2>
         <a href="proyectos.html" class="arrow-link arrow-link--light" data-transition>VER PROYECTOS <span>↗</span></a>
       </div>
-    </div>
-    <div class="project-rail-wrap reveal">
+      </div>
+      <div class="project-rail-wrap reveal">
       <div class="project-rail" data-project-rail tabindex="0" aria-label="Proyectos destacados">
         ${projects.map((project, index) => ProjectRailCard(project, index, lang)).join('')}
       </div>
@@ -153,13 +194,13 @@ export const FeaturedProjectsRail = (projects, lang) => `
 export const ProjectRailCard = (project, index, lang) => `
   <a class="project-card ${index === 0 ? 'project-card--feature' : ''}" href="${projectHref(project)}" data-transition>
     <figure>
-      <img ${imageAttrs({
-        src: projectAsset(project, project.cover),
+      ${Media({
+        project,
+        file: project.cover,
         alt: projectTitle(project, lang),
         loading: index === 0 ? 'eager' : 'lazy',
-        sizes: '(max-width: 680px) 88vw, 76vw',
-        position: project.cover_position
-      })} />
+        sizes: '(max-width: 680px) 88vw, 76vw'
+      })}
       <div class="project-card__shade"></div>
       <div class="project-card__number">${String(index + 1).padStart(2, '0')}</div>
       <figcaption>
@@ -222,7 +263,12 @@ export const ProcessSection = (site, project, lang, processAssets = []) => {
         <div class="process__visual reveal">
           <div class="process__images" data-process-images>
             ${fallback.map((file, index) => `
-              <img class="${index === 0 ? 'is-active' : ''}" src="${escapeHtml(mediaPath(project, file))}" alt="${index === 0 ? 'Proyecto construido' : 'Proceso de trabajo'}" loading="lazy" decoding="async" />
+              ${Media({
+                className: index === 0 ? 'is-active' : '',
+                project,
+                file,
+                alt: index === 0 ? 'Proyecto construido' : 'Proceso de trabajo'
+              })}
             `).join('')}
           </div>
           <span>DEL PROYECTO A LA OBRA</span>
@@ -244,8 +290,16 @@ export const ProcessSection = (site, project, lang, processAssets = []) => {
   `;
 };
 
+const normalizeAssetName = value => value
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase();
+
 const directorPhoto = (assets, patterns, fallbackIndex) => {
-  const byName = assets.find(asset => patterns.some(pattern => asset.toLowerCase().includes(pattern)));
+  const byName = assets.find(asset => {
+    const normalized = normalizeAssetName(asset);
+    return patterns.some(pattern => normalized.includes(normalizeAssetName(pattern)));
+  });
   return byName || assets[fallbackIndex];
 };
 
@@ -256,14 +310,13 @@ const PersonPhoto = ({ asset, initials, alt, modifier }) => `
 `;
 
 export const TeamSection = (directorAssets = []) => {
-  const juanPhoto = directorPhoto(directorAssets, ['juan', 'pablo', 'puletto', 'jp'], 0);
-  const joaquinPhoto = directorPhoto(directorAssets, ['joaquin', 'joaquín', 'rivera', 'jr'], 1);
+  const juanPhoto = directorPhoto(directorAssets, ['juan', 'pablo', 'puletto'], 0);
+  const joaquinPhoto = directorPhoto(directorAssets, ['joaquin', 'joaquín', 'rivera'], 1);
   return `
     <section class="team section-light">
     <div class="section-shell">
       <div class="team__heading reveal">
         <p class="section-index">EQUIPO</p>
-        <p>Dirección general del estudio</p>
       </div>
       <div class="team-grid">
         <article class="person reveal">
@@ -310,7 +363,9 @@ export const ContactSection = site => `
   </section>
 `;
 
-export const ProjectsPage = content => BaseChrome(content, 'projects', `
+export const ProjectsPage = content => {
+  setOptimizedImages(content);
+  return BaseChrome(content, 'projects', `
   <section class="archive-hero section-light">
     <div class="section-shell archive-hero__grid">
       <p class="section-index reveal">01 / ARCHIVO</p>
@@ -332,17 +387,18 @@ export const ProjectsPage = content => BaseChrome(content, 'projects', `
   <section class="archive-cta section-dark">
     <div class="section-shell reveal"><a href="index.html#contacto" data-transition>Ponete en contacto con nosotros <span>↗</span></a></div>
   </section>
-`);
+  `);
+};
 
 export const ArchiveCard = (project, index, lang) => `
   <a class="archive-card reveal" href="${projectHref(project)}" data-transition>
     <figure>
-      <img ${imageAttrs({
-        src: projectAsset(project, project.cover),
+      ${Media({
+        project,
+        file: project.cover,
         alt: projectTitle(project, lang),
-        sizes: '(max-width: 680px) 92vw, (max-width: 980px) 45vw, 30vw',
-        position: project.cover_position
-      })} />
+        sizes: '(max-width: 680px) 92vw, (max-width: 980px) 45vw, 30vw'
+      })}
       <div class="archive-card__overlay"></div>
       <span class="archive-card__id">${String(index + 1).padStart(2, '0')}</span>
       <figcaption><h2>${escapeHtml(projectTitle(project, lang))}</h2><p>${escapeHtml(projectCategory(project, lang))}</p></figcaption>
@@ -351,6 +407,7 @@ export const ArchiveCard = (project, index, lang) => `
 `;
 
 export const ProjectPage = (content, slug) => {
+  setOptimizedImages(content);
   const { projects, lang } = content;
   const project = projects.find(item => item.slug === slug) || projects[0];
   if (!project) {
@@ -370,13 +427,13 @@ export const ProjectPage = (content, slug) => {
 
 export const ProjectHero = (project, lang) => `
   <section class="project-hero">
-    <img ${imageAttrs({
-      src: projectAsset(project, project.cover),
+    ${Media({
+      project,
+      file: project.cover,
       alt: `Vista exterior del proyecto ${projectTitle(project, lang)}`,
       loading: 'eager',
-      sizes: '100vw',
-      position: project.cover_position
-    })} />
+      sizes: '100vw'
+    })}
     <div class="project-hero__veil"></div>
     <div class="project-hero__meta"><span>${escapeHtml(projectCategory(project, lang))}</span><span>${escapeHtml(project.year || 'AÑO A CONFIRMAR')}</span></div>
     <div class="project-hero__title reveal"><p>${String(project.order || 1).padStart(2, '0')} / PROYECTO</p><h1>${escapeHtml(projectTitle(project, lang)).replace(/\s+/g, '<br>')}</h1></div>
@@ -391,6 +448,7 @@ export const ProjectSummary = (project, lang) => `
         <p class="section-index">DATOS</p>
         <dl>
           <div><dt>UBICACIÓN</dt><dd>${escapeHtml(projectLocation(project, lang))}</dd></div>
+          ${project.client ? `<div><dt>CLIENTE</dt><dd>${escapeHtml(localized(project.client, lang))}</dd></div>` : ''}
           <div><dt>AÑO</dt><dd>${escapeHtml(project.year || 'A confirmar')}</dd></div>
           <div><dt>ESTADO</dt><dd>${escapeHtml(projectStatus(project, lang))}</dd></div>
           <div><dt>ALCANCE</dt><dd>${escapeHtml(projectScope(project, lang))}</dd></div>
@@ -398,7 +456,7 @@ export const ProjectSummary = (project, lang) => `
         </dl>
       </aside>
       <div class="project-description reveal">
-        <p class="project-description__lead">${escapeHtml(localized(project.summary, lang, 'Resumen a confirmar.'))}</p>
+        <p class="project-description__lead">${escapeHtml(localized(project.summary, lang, 'Memoria de proyecto'))}</p>
         <p>${escapeHtml(localized(project.description, lang, 'Memoria del proyecto en desarrollo.'))}</p>
         ${project.surface_m2 ? '' : '<p class="project-description__note">Memoria en desarrollo. Este texto se actualizará con la información definitiva del proyecto.</p>'}
       </div>
@@ -410,13 +468,13 @@ export const ProjectGallery = (project, lang) => `
   <section class="project-gallery-detail section-light">
     <div class="section-shell project-gallery-detail__grid">
       ${(project.gallery || []).map((image, index) => `
-        <figure class="detail-image ${index % 3 === 0 ? 'detail-image--wide' : 'detail-image--portrait'} reveal" data-lightbox>
-          <img ${imageAttrs({
-            src: projectAsset(project, image.file),
+        <figure class="detail-image ${index % 3 === 0 ? 'detail-image--wide' : 'detail-image--portrait'} reveal" ${isVideo(image.file) ? '' : 'data-lightbox'}>
+          ${Media({
+            project,
+            file: image.file,
             alt: localized(image.alt_es ? { es: image.alt_es, en: image.alt_en } : image.alt, lang, `${projectTitle(project, lang)} ${index + 1}`),
-            sizes: index % 3 === 0 ? '92vw' : '(max-width: 680px) 92vw, 46vw',
-            position: image.position
-          })} />
+            sizes: index % 3 === 0 ? '92vw' : '(max-width: 680px) 92vw, 46vw'
+          })}
           <figcaption>${String(index + 1).padStart(2, '0')} / ${escapeHtml(localized(image.caption_es ? { es: image.caption_es, en: image.caption_en } : image.caption, lang, 'Imagen'))}</figcaption>
         </figure>
       `).join('')}

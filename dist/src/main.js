@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js';
-import { loadContent } from './lib/content.js';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=optimized-1';
+import { loadContent } from './lib/content.js?v=optimized-1';
 
 const body = document.body;
 const page = body.dataset.page || 'home';

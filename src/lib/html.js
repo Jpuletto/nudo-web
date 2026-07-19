@@ -15,7 +15,7 @@ export const formatNumber = value => new Intl.NumberFormat('es-UY').format(Numbe
 
 export const projectHref = project => `proyecto-${project.slug}.html`;
 
-export const projectAsset = (project, file) => `projects/${project.slug}/${file || project.cover || ''}`;
+export const projectAsset = (project, file) => `projects/${project.folder || project.slug}/${file || project.cover || ''}`;
 
 export const imageAttrs = ({
   src,

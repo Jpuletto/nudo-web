@@ -7,6 +7,7 @@ import {
   readJson,
   rootDir,
   shell,
+  writeOptimizedImages,
   writeGeneratedAssets,
   writeGeneratedProjects
 } from './site-tools.mjs';
@@ -14,11 +15,10 @@ import {
 const distDir = path.join(rootDir, 'dist');
 
 const run = async () => {
-  const [site, generated] = await Promise.all([
-    readJson(path.join(rootDir, 'site.json')),
-    writeGeneratedProjects(),
-    writeGeneratedAssets()
-  ]);
+  const site = await readJson(path.join(rootDir, 'site.json'));
+  const generated = await writeGeneratedProjects();
+  await writeGeneratedAssets();
+  await writeOptimizedImages();
 
   const publishedProjects = generated.projects.filter(project => project.published);
   await fs.rm(distDir, { recursive: true, force: true });
@@ -32,6 +32,8 @@ const run = async () => {
     copyRecursive(path.join(rootDir, 'site.json'), path.join(distDir, 'site.json')),
     copyRecursive(path.join(rootDir, 'projects.generated.json'), path.join(distDir, 'projects.generated.json')),
     copyRecursive(path.join(rootDir, 'assets.generated.json'), path.join(distDir, 'assets.generated.json')),
+    copyRecursive(path.join(rootDir, 'optimized.generated.json'), path.join(distDir, 'optimized.generated.json')),
+    copyIfExists(path.join(rootDir, 'optimized'), path.join(distDir, 'optimized')),
     copyIfExists(path.join(rootDir, 'IMG'), path.join(distDir, 'IMG')),
     copyIfExists(path.join(rootDir, 'img'), path.join(distDir, 'img'))
   ]);

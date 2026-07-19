@@ -20,10 +20,11 @@ const validateProject = project => {
 };
 
 export const loadContent = async () => {
-  const [site, projects, assets] = await Promise.all([
+  const [site, projects, assets, optimized] = await Promise.all([
     fetchJson('site.json'),
     fetchJson('projects.generated.json'),
-    fetchJson('assets.generated.json').catch(() => ({ hero: [], process: [], directors: [] }))
+    fetchJson('assets.generated.json').catch(() => ({ hero: [], process: [], directors: [] })),
+    fetchJson('optimized.generated.json').catch(() => ({}))
   ]);
 
   const normalizedProjects = projects
@@ -34,6 +35,7 @@ export const loadContent = async () => {
   return {
     lang: site.default_language || 'es',
     assets,
+    optimized,
     site,
     projects: normalizedProjects,
     featuredProjects: normalizedProjects.filter(project => project.featured)

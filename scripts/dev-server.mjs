@@ -1,7 +1,7 @@
 import { createReadStream, promises as fs } from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
-import { rootDir, shell, writeGeneratedAssets, writeGeneratedProjects } from './site-tools.mjs';
+import { rootDir, shell, writeGeneratedAssets, writeGeneratedProjects, writeOptimizedImages } from './site-tools.mjs';
 
 const port = Number(process.env.PORT || 8080);
 const host = process.env.HOST || '127.0.0.1';
@@ -20,10 +20,9 @@ const contentTypes = {
   '.mp4': 'video/mp4'
 };
 
-await Promise.all([
-  writeGeneratedProjects(),
-  writeGeneratedAssets()
-]);
+await writeGeneratedProjects();
+await writeGeneratedAssets();
+await writeOptimizedImages();
 
 const server = http.createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);

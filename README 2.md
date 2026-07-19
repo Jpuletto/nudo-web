@@ -24,7 +24,18 @@ npm run dev
 node scripts/build-site.mjs
 ```
 
-El build detecta carpetas dentro de `projects/`, genera `projects.generated.json`, genera `assets.generated.json` y publica la salida en `dist/`.
+El build detecta carpetas dentro de `projects/`, genera `projects.generated.json`, genera `assets.generated.json`, crea versiones responsive WebP en `optimized/` y publica la salida en `dist/`.
+
+## Optimización de imágenes
+
+El sitio mantiene las imágenes originales como fallback y genera variantes WebP de alta calidad para la carga normal del navegador.
+
+- Calidad WebP: alta, pensada para arquitectura y líneas finas.
+- Anchos generados: `480`, `640`, `960`, `1280`, `1600`, `1920`, `2400`, sin agrandar por encima del original.
+- Manifiesto: `optimized.generated.json`.
+- Salida: `optimized/`.
+
+Los componentes renderizan `<picture>` con `srcset` y `sizes`; si una imagen no tiene versión optimizada, se usa el archivo original.
 
 ## Proyectos
 
@@ -53,6 +64,8 @@ projects/
 ```
 
 La imagen `01` se toma como portada del proyecto. El resto de las imágenes se ordenan por número y se usan en la galería.
+
+Si `01` es un video `.mp4`, `.webm` o `.mov`, se usa como portada animada del proyecto y también como primera pieza de la ficha. Las carpetas sin `.txt`, `project.json`, imágenes o videos no se publican.
 
 Campos útiles dentro del `.txt`:
 

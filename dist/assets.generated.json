@@ -1,5 +1,44 @@
 {
-  "hero": [],
-  "process": [],
-  "directors": []
+  "hero": [
+    "IMG/Portadas/Mobile/02.jpg",
+    "IMG/Portadas/Mobile/03.jpg",
+    "IMG/Portadas/Mobile/04.jpg",
+    "IMG/Portadas/Mobile/05.jpg",
+    "IMG/Portadas/Mobile/06.jpg",
+    "IMG/Portadas/Mobile/07.jpg",
+    "IMG/Portadas/Mobile/08.jpg",
+    "IMG/Portadas/PC/01.jpg",
+    "IMG/Portadas/PC/02.jpg",
+    "IMG/Portadas/PC/03.jpg",
+    "IMG/Portadas/PC/04.jpg",
+    "IMG/Portadas/PC/05.jpg",
+    "IMG/Portadas/PC/06.jpg"
+  ],
+  "heroDesktop": [
+    "IMG/Portadas/PC/01.jpg",
+    "IMG/Portadas/PC/02.jpg",
+    "IMG/Portadas/PC/03.jpg",
+    "IMG/Portadas/PC/04.jpg",
+    "IMG/Portadas/PC/05.jpg",
+    "IMG/Portadas/PC/06.jpg"
+  ],
+  "heroMobile": [
+    "IMG/Portadas/Mobile/02.jpg",
+    "IMG/Portadas/Mobile/03.jpg",
+    "IMG/Portadas/Mobile/04.jpg",
+    "IMG/Portadas/Mobile/05.jpg",
+    "IMG/Portadas/Mobile/06.jpg",
+    "IMG/Portadas/Mobile/07.jpg",
+    "IMG/Portadas/Mobile/08.jpg"
+  ],
+  "process": [
+    "IMG/Procesos/EVALUAR.jpg",
+    "IMG/Procesos/PROYECTAR.png",
+    "IMG/Procesos/DOCUMENTAR.png",
+    "IMG/Procesos/CONSTRUIR.jpg"
+  ],
+  "directors": [
+    "IMG/Directores/Joaquín.jpg",
+    "IMG/Directores/Juan Pablo.jpg"
+  ]
 }

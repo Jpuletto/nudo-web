@@ -1,7 +1,263 @@
 [
   {
-    "slug": "delta-riego",
+    "slug": "alfalider",
+    "folder": "ALFALIDER",
     "order": 1,
+    "published": true,
+    "featured": true,
+    "title": {
+      "es": "Alfalider"
+    },
+    "client": {
+      "es": "Alfalider"
+    },
+    "scope": {
+      "es": "Proyecto / Dirección de obra"
+    },
+    "category": {
+      "es": "Comercial"
+    },
+    "surface_m2": 350,
+    "location": {
+      "es": "Punta del Este, Maldonado."
+    },
+    "year": "2025 - 2026",
+    "status": {
+      "es": "Finalizado"
+    },
+    "description": {
+      "es": "Se realizó la ampliación del showroom principal. El antiguo showroom se abría hacia una doble altura que balconeaba al sector de taller y servicios. Utilizando esta doble altura se extendió al doble el área locativa para exponer vehículos. En este proyecto se realizó junto con asesores el proyecto estructural y de diseño, el vínculo con el proveedor de la estructura, en este caso un proveedor fuera de país y la dirección del montaje."
+    },
+    "cover": "01.jpg",
+    "gallery": [
+      {
+        "file": "01.jpg",
+        "caption_es": "Imagen 01",
+        "alt_es": "Alfalider 01"
+      },
+      {
+        "file": "02.jpg",
+        "caption_es": "Imagen 02",
+        "alt_es": "Alfalider 02"
+      },
+      {
+        "file": "03.jpg",
+        "caption_es": "Imagen 03",
+        "alt_es": "Alfalider 03"
+      },
+      {
+        "file": "04.jpg",
+        "caption_es": "Imagen 04",
+        "alt_es": "Alfalider 04"
+      },
+      {
+        "file": "05.jpg",
+        "caption_es": "Imagen 05",
+        "alt_es": "Alfalider 05"
+      }
+    ]
+  },
+  {
+    "slug": "araruama",
+    "folder": "ARARUAMA",
+    "order": 2,
+    "published": true,
+    "featured": true,
+    "title": {
+      "es": "Araruama"
+    },
+    "client": {
+      "es": "Edificio Araruama"
+    },
+    "scope": {
+      "es": "Proyecto / Dirección de obra"
+    },
+    "category": {
+      "es": "Residencial"
+    },
+    "surface_m2": 300,
+    "location": {
+      "es": "Punta Carretas, Montevideo"
+    },
+    "year": "2025 - 2026",
+    "status": {
+      "es": "En curso"
+    },
+    "description": {
+      "es": "Renovación de fachada en un edificio de los años 70 ubicado en el barrio residencial Punta Carreta, junto con los propietarios definimos el nuevo estilo para la fachada del mismo. Actualmente estamos en la etapa de producción de documentación para luego pasar a la obra."
+    },
+    "cover": "01.jpg",
+    "gallery": [
+      {
+        "file": "01.jpg",
+        "caption_es": "Imagen 01",
+        "alt_es": "Araruama 01"
+      },
+      {
+        "file": "02.jpg",
+        "caption_es": "Imagen 02",
+        "alt_es": "Araruama 02"
+      },
+      {
+        "file": "03.jpg",
+        "caption_es": "Imagen 03",
+        "alt_es": "Araruama 03"
+      },
+      {
+        "file": "04.jpg",
+        "caption_es": "Imagen 04",
+        "alt_es": "Araruama 04"
+      }
+    ]
+  },
+  {
+    "slug": "classic-cars",
+    "folder": "CLASSIC CARS",
+    "order": 3,
+    "published": true,
+    "featured": true,
+    "title": {
+      "es": "Classic Cars"
+    },
+    "client": {
+      "es": "Alfalider"
+    },
+    "scope": {
+      "es": "Proyecto / Asistencia de dirección de obra"
+    },
+    "category": {
+      "es": "Comercial"
+    },
+    "surface_m2": 1500,
+    "location": {
+      "es": "Punta del Este, Maldonado"
+    },
+    "year": "2021-2022",
+    "status": {
+      "es": "Finalizado"
+    },
+    "comments": {
+      "es": "Estructura importada, montaje en sitio"
+    },
+    "description": {
+      "es": "Las necesidades programáticas de este proyecto surgen como un local de showroom y mecánica ligera en planta baja, mientras en la planta alta se dispone una planta libre para la guardería de autos clásicos y deportivos. Un bloque de servicios, oficinas y respuestas se ubica en el centro de la planta baja. Se buscó la optimización del ingreso de luz solar, accesos y circulaciones cómodas, así como también un acceso mediante un ascensor de vehículos a la planta alta."
+    },
+    "cover": "01.mp4",
+    "gallery": [
+      {
+        "file": "01.mp4",
+        "caption_es": "Imagen 01",
+        "alt_es": "Classic Cars 01"
+      },
+      {
+        "file": "02.jpg",
+        "caption_es": "Imagen 02",
+        "alt_es": "Classic Cars 02"
+      },
+      {
+        "file": "03.jpg",
+        "caption_es": "Imagen 03",
+        "alt_es": "Classic Cars 03"
+      },
+      {
+        "file": "04.jpg",
+        "caption_es": "Imagen 04",
+        "alt_es": "Classic Cars 04"
+      }
+    ]
+  },
+  {
+    "slug": "colegio-maturana",
+    "folder": "COLEGIO MATURANA",
+    "order": 4,
+    "published": true,
+    "featured": true,
+    "title": {
+      "es": "Colegio Maturana"
+    },
+    "client": {
+      "es": "Colegio Maturana"
+    },
+    "scope": {
+      "es": "Proyecto / Dirección de obra / Gestión de obra"
+    },
+    "category": {
+      "es": "Educativo"
+    },
+    "surface_m2": 800,
+    "location": {
+      "es": "Montevideo"
+    },
+    "year": "2022-2024",
+    "status": {
+      "es": "Finalizado"
+    },
+    "description": {
+      "es": "Ante la necesidad de nuevo salones por parte del colegio, y la imposibilidad normativa de construir desde cero, en este proyecto se optó por la reforma interna del histórico Cine Maturana, un emblema para el barrio Prado. Dejar de contar con un espacio escénico y expositivo no era una opción, por tanto el proyecto se articula mediante dos grandes bloques, un sector de aulas, donde se diseñaron 5 salones de distintos tamaños, un salón de usos múltiples , salas de adscripción y salones de guardado. Mientras el otro bloque se conforma como un moderno auditorio multiuso que cuenta con un amplio escenario, así como con la posibilidad de un uso no frontal gracias al sistema de gradas retráctiles. Un espacio para espectáculos diseñado y equipado con audio e iluminación profesional."
+    },
+    "cover": "01.jpg",
+    "gallery": [
+      {
+        "file": "01.jpg",
+        "caption_es": "Imagen 01",
+        "alt_es": "Colegio Maturana 01"
+      },
+      {
+        "file": "02.jpg",
+        "caption_es": "Imagen 02",
+        "alt_es": "Colegio Maturana 02"
+      },
+      {
+        "file": "03.jpg",
+        "caption_es": "Imagen 03",
+        "alt_es": "Colegio Maturana 03"
+      },
+      {
+        "file": "04.jpg",
+        "caption_es": "Imagen 04",
+        "alt_es": "Colegio Maturana 04"
+      },
+      {
+        "file": "05.jpg",
+        "caption_es": "Imagen 05",
+        "alt_es": "Colegio Maturana 05"
+      },
+      {
+        "file": "06.jpg",
+        "caption_es": "Imagen 06",
+        "alt_es": "Colegio Maturana 06"
+      },
+      {
+        "file": "07.jpg",
+        "caption_es": "Imagen 07",
+        "alt_es": "Colegio Maturana 07"
+      },
+      {
+        "file": "08.jpg",
+        "caption_es": "Imagen 08",
+        "alt_es": "Colegio Maturana 08"
+      },
+      {
+        "file": "09.jpg",
+        "caption_es": "Imagen 09",
+        "alt_es": "Colegio Maturana 09"
+      },
+      {
+        "file": "10.jpg",
+        "caption_es": "Imagen 10",
+        "alt_es": "Colegio Maturana 10"
+      },
+      {
+        "file": "11.jpg",
+        "caption_es": "Imagen 11",
+        "alt_es": "Colegio Maturana 11"
+      }
+    ]
+  },
+  {
+    "slug": "delta-riego",
+    "folder": "DELTARIEGO",
+    "order": 5,
     "published": true,
     "featured": true,
     "title": {
@@ -9,60 +265,282 @@
       "en": "Delta Riego"
     },
     "category": {
-      "es": "Comercial / Industrial",
-      "en": "Commercial / Industrial"
+      "es": "Industrial / Comercial"
     },
     "location": {
-      "es": "Uruguay",
-      "en": "Uruguay"
+      "es": "Mercedes, Soriano"
     },
-    "year": 2024,
+    "year": "2024-2025",
     "status": {
-      "es": "Construido",
-      "en": "Completed"
+      "es": "Finalizado"
     },
     "scope": {
-      "es": "Proyecto y dirección de obra",
-      "en": "Architectural design and construction management"
+      "es": "Proyecto / Dirección de obra / Gestión de obra"
     },
-    "surface_m2": null,
+    "surface_m2": 310,
     "summary": {
       "es": "Un edificio comercial e industrial resuelto como una pieza clara, funcional y reconocible.",
       "en": "A commercial and industrial building conceived as a clear, functional and recognizable piece."
     },
     "description": {
-      "es": "El proyecto integra área de exhibición, atención comercial y depósito dentro de una envolvente de lenguaje unitario. La estructura, la materialidad y la organización interior se definieron considerando desde el comienzo su ejecución y funcionamiento cotidiano.",
-      "en": "The project integrates display, customer service and warehouse areas within a unified architectural envelope. Structure, materials and internal organization were defined from the outset with construction and daily operation in mind."
+      "es": "Galpón logístico que cuenta con 2 grandes áreas delimitadas, por un lado el sector de almacenamiento de productos y por otro el sector de showroom, oficinas y servicios. Ubicado en un sitio privilegiado, entre cruce de rutas nacionales, se utilizó las virtudes del terreno, para implantar el terreno de tal manera que resalte y se conforme como un punto de referencia en la zona."
     },
-    "cover": "images/01-cover.jpg",
+    "cover": "01.jpg",
     "gallery": [
       {
-        "file": "images/04-perspective-night.jpg",
-        "caption_es": "Vista nocturna",
-        "caption_en": "Night view",
-        "alt_es": "Fachada nocturna de Delta Riego",
-        "alt_en": "Delta Riego night facade"
+        "file": "01.jpg",
+        "caption_es": "Imagen 01",
+        "alt_es": "Delta Riego 01"
       },
       {
-        "file": "images/02-process.jpg",
-        "caption_es": "Proceso de obra",
-        "caption_en": "Construction process",
-        "alt_es": "Fachada durante la obra",
-        "alt_en": "Facade during construction"
+        "file": "02.jpg",
+        "caption_es": "Imagen 02",
+        "alt_es": "Delta Riego 02"
       },
       {
-        "file": "images/03-front-night.jpg",
-        "caption_es": "Fachada principal",
-        "caption_en": "Main facade",
-        "alt_es": "Vista nocturna frontal",
-        "alt_en": "Front night view"
+        "file": "03.jpg",
+        "caption_es": "Imagen 03",
+        "alt_es": "Delta Riego 03"
       },
       {
-        "file": "images/01-cover.jpg",
-        "caption_es": "Vista general",
-        "caption_en": "General view",
-        "alt_es": "Perspectiva exterior de Delta Riego",
-        "alt_en": "Exterior perspective of Delta Riego"
+        "file": "04.jpg",
+        "caption_es": "Imagen 04",
+        "alt_es": "Delta Riego 04"
+      },
+      {
+        "file": "05.jpg",
+        "caption_es": "Imagen 05",
+        "alt_es": "Delta Riego 05"
+      }
+    ],
+    "client": {
+      "es": "Deltariego"
+    }
+  },
+  {
+    "slug": "ingreso-berro",
+    "folder": "INGRESO BERRO",
+    "order": 6,
+    "published": true,
+    "featured": true,
+    "title": {
+      "es": "Ingreso Berro"
+    },
+    "client": {
+      "es": "Particular"
+    },
+    "scope": {
+      "es": "Proyecto / Dirección de obra"
+    },
+    "category": {
+      "es": "Residencial"
+    },
+    "surface_m2": 30,
+    "location": {
+      "es": "Prado, Montevideo"
+    },
+    "year": "2025",
+    "status": {
+      "es": "Finalizado"
+    },
+    "description": {
+      "es": "Reforma de ingreso a vivienda unifamiliar, se realizó una adecuación estética y funcional acorde a la casa. Además de mejorar la estética el pedido suponía la adición de jardineras y vegetación, así como también diseñar el ingreso vehícular"
+    },
+    "cover": "01.jpg",
+    "gallery": [
+      {
+        "file": "01.jpg",
+        "caption_es": "Imagen 01",
+        "alt_es": "Ingreso Berro 01"
+      },
+      {
+        "file": "02.jpg",
+        "caption_es": "Imagen 02",
+        "alt_es": "Ingreso Berro 02"
+      },
+      {
+        "file": "03.jpg",
+        "caption_es": "Imagen 03",
+        "alt_es": "Ingreso Berro 03"
+      },
+      {
+        "file": "04.jpg",
+        "caption_es": "Imagen 04",
+        "alt_es": "Ingreso Berro 04"
+      },
+      {
+        "file": "05.jpg",
+        "caption_es": "Imagen 05",
+        "alt_es": "Ingreso Berro 05"
+      }
+    ]
+  },
+  {
+    "slug": "matisse",
+    "folder": "MATISSE",
+    "order": 7,
+    "published": true,
+    "featured": true,
+    "title": {
+      "es": "Matisse"
+    },
+    "client": {
+      "es": "Matisse Parque"
+    },
+    "scope": {
+      "es": "Proyecto / Dirección de obra / Gestión de obra"
+    },
+    "category": {
+      "es": "Social / Gastronómico"
+    },
+    "surface_m2": 150,
+    "location": {
+      "es": "Parque Miramar, Canelones"
+    },
+    "year": "2024-2025",
+    "status": {
+      "es": "Finalizado"
+    },
+    "description": {
+      "es": "Se diseño un nuevo rooftop para el centro comercial, dotándolo de nuevas funcionalidades pensadas en eventos, charlas, shows musicales, entre otros. Se logró un espacio cálido que invita a quedarse y disfrutar el rooftop de una nueva manera, dejando de ser un espacio completamente al aire libre pero pudiendo abrirse cuando el clima lo americe."
+    },
+    "cover": "01.jpg",
+    "gallery": [
+      {
+        "file": "01.jpg",
+        "caption_es": "Imagen 01",
+        "alt_es": "Matisse 01"
+      },
+      {
+        "file": "02.jpg",
+        "caption_es": "Imagen 02",
+        "alt_es": "Matisse 02"
+      },
+      {
+        "file": "03.jpg",
+        "caption_es": "Imagen 03",
+        "alt_es": "Matisse 03"
+      },
+      {
+        "file": "04.jpg",
+        "caption_es": "Imagen 04",
+        "alt_es": "Matisse 04"
+      },
+      {
+        "file": "05.jpg",
+        "caption_es": "Imagen 05",
+        "alt_es": "Matisse 05"
+      },
+      {
+        "file": "06.jpg",
+        "caption_es": "Imagen 06",
+        "alt_es": "Matisse 06"
+      }
+    ]
+  },
+  {
+    "slug": "punta-espinillo",
+    "folder": "PUNTA ESPINILLO",
+    "order": 8,
+    "published": true,
+    "featured": true,
+    "title": {
+      "es": "Punta Espinillo"
+    },
+    "client": {
+      "es": "Particular"
+    },
+    "scope": {
+      "es": "Dirección de obra"
+    },
+    "category": {
+      "es": "Vivienda unifamiliar"
+    },
+    "surface_m2": 200,
+    "location": {
+      "es": "Punta espinillo, Montevideo."
+    },
+    "year": "2024-2025",
+    "status": {
+      "es": "Finalizado"
+    },
+    "description": {
+      "es": "En esta casa Unifamiliar fuimos los encargados de llevar a cabo la dirección  de obra de la misma para lograr un correcto desarrollo, optimizar procesos y tomar decisiones a tiempo para mejorar las especialidades."
+    },
+    "cover": "01.jpg",
+    "gallery": [
+      {
+        "file": "01.jpg",
+        "caption_es": "Imagen 01",
+        "alt_es": "Punta Espinillo 01"
+      },
+      {
+        "file": "02.jpg",
+        "caption_es": "Imagen 02",
+        "alt_es": "Punta Espinillo 02"
+      },
+      {
+        "file": "03.jpg",
+        "caption_es": "Imagen 03",
+        "alt_es": "Punta Espinillo 03"
+      },
+      {
+        "file": "04.jpg",
+        "caption_es": "Imagen 04",
+        "alt_es": "Punta Espinillo 04"
+      }
+    ]
+  },
+  {
+    "slug": "reforma-nelson",
+    "folder": "REFORMA NELSON",
+    "order": 9,
+    "published": true,
+    "featured": true,
+    "title": {
+      "es": "Reforma Nelson"
+    },
+    "client": {
+      "es": "Particular"
+    },
+    "scope": {
+      "es": "Proyecto / Dirección de obra"
+    },
+    "category": {
+      "es": "Vivienda unifamiliar"
+    },
+    "surface_m2": 50,
+    "location": {
+      "es": "Prado, Montevideo"
+    },
+    "year": "2025",
+    "status": {
+      "es": "Finalizado"
+    },
+    "description": {
+      "es": "La necesidad de familiar de ganar un nuevo espacio de estar y living concluyó en la reforma de un antiguo deposito en desuso, dandole una nueva vida y cambiando la forma de habitar la vivienda."
+    },
+    "cover": "01.jpg",
+    "gallery": [
+      {
+        "file": "01.jpg",
+        "caption_es": "Imagen 01",
+        "alt_es": "Reforma Nelson 01"
+      },
+      {
+        "file": "02.jpg",
+        "caption_es": "Imagen 02",
+        "alt_es": "Reforma Nelson 02"
+      },
+      {
+        "file": "03.jpg",
+        "caption_es": "Imagen 03",
+        "alt_es": "Reforma Nelson 03"
+      },
+      {
+        "file": "04.jpg",
+        "caption_es": "Imagen 04",
+        "alt_es": "Reforma Nelson 04"
       }
     ]
   }

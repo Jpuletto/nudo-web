@@ -1,8 +1,11 @@
 import { promises as fs } from 'node:fs';
+import { spawn } from 'node:child_process';
 import path from 'node:path';
 
 export const rootDir = process.cwd();
 const imageExtensions = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp']);
+const videoExtensions = new Set(['.mp4', '.mov', '.webm']);
+const mediaExtensions = new Set([...imageExtensions, ...videoExtensions]);
 
 export const shell = ({ page, slug, title, description }) => `<!doctype html>
 <html lang="es">
@@ -12,6 +15,8 @@ export const shell = ({ page, slug, title, description }) => `<!doctype html>
   <meta name="description" content="${escapeAttribute(description)}" />
   <meta name="theme-color" content="#000000" />
   <title>${escapeHtml(title)}</title>
+  <link rel="icon" href="img/favicon.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="img/favicon.jpg" />
   <link rel="stylesheet" href="styles.css" />
   <script type="module" src="src/main.js"></script>
 </head>
@@ -53,23 +58,28 @@ export const readProjects = async () => {
   const projects = [];
   const warnings = [];
 
+  let fallbackOrder = 1;
   for (const entry of entries) {
     if (!entry.isDirectory() || entry.name.startsWith('_')) continue;
     const projectDir = path.join(projectsDir, entry.name);
     const projectPath = path.join(projectsDir, entry.name, 'project.json');
     const txtPath = await findProjectTxt(projectDir);
-    const imageFiles = await listProjectImages(projectDir);
+    const mediaFiles = await listProjectMedia(projectDir);
+
+    if (!txtPath && !await pathExists(projectPath) && !mediaFiles.length) continue;
 
     try {
       const project = await readProjectData({
+        fallbackOrder,
         folderName: entry.name,
-        imageFiles,
+        mediaFiles,
         projectPath,
         txtPath
       });
       const normalized = { ...project, slug: project.slug || entry.name };
       warnings.push(...validateProject(normalized, projectPath));
       projects.push(normalized);
+      fallbackOrder += 1;
     } catch (error) {
       warnings.push(`${entry.name}: no se pudo leer el proyecto (${error.message})`);
     }
@@ -79,26 +89,30 @@ export const readProjects = async () => {
   return { projects, warnings };
 };
 
-const readProjectData = async ({ folderName, imageFiles, projectPath, txtPath }) => {
+const readProjectData = async ({ fallbackOrder, folderName, mediaFiles, projectPath, txtPath }) => {
   const jsonData = await pathExists(projectPath) ? await readJson(projectPath) : {};
   const txtData = txtPath ? parseProjectTxt(await fs.readFile(txtPath, 'utf8')) : {};
-  const inferredCover = imageFiles.find(file => /^images\/0?1[\s._-]/i.test(file) || /^0?1[\s._-]/i.test(file)) || imageFiles[0];
+  const inferredCover = mediaFiles.find(file => /^images\/0?1[\s._-]/i.test(file) || /^0?1[\s._-]/i.test(file)) || mediaFiles[0];
   const gallery = Array.isArray(jsonData.gallery) && jsonData.gallery.length
+    && !mediaFiles.length
     ? jsonData.gallery
-    : imageFiles.map((file, index) => ({
+    : mediaFiles.map((file, index) => ({
       file,
       caption_es: txtData.galleryCaptions?.[index] || `Imagen ${String(index + 1).padStart(2, '0')}`,
-      alt_es: `${txtData.title?.es || jsonData.title?.es || folderName} ${String(index + 1).padStart(2, '0')}`
+      alt_es: `${txtData.title?.es || jsonData.title?.es || titleFromFolder(folderName)} ${String(index + 1).padStart(2, '0')}`
     }));
 
   return {
-    slug: folderName,
-    order: 999,
+    slug: slugify(folderName),
+    folder: folderName,
+    order: fallbackOrder,
     published: true,
-    featured: false,
-    ...txtData,
+    featured: true,
+    title: { es: titleFromFolder(folderName) },
     ...jsonData,
-    cover: jsonData.cover || txtData.cover || inferredCover,
+    ...txtData,
+    order: txtData.order ?? fallbackOrder,
+    cover: txtData.cover || inferredCover || jsonData.cover,
     gallery
   };
 };
@@ -140,12 +154,18 @@ const txtFieldName = label => {
     destacado: 'featured',
     estado: 'status',
     featured: 'featured',
+    cliente: 'client',
+    client: 'client',
+    comentarios: 'comments',
+    comments: 'comments',
     location: 'location',
     memoria: 'description',
+    metraje: 'surface_m2',
     nombre: 'title',
     order: 'order',
     orden: 'order',
     portada: 'cover',
+    programa: 'category',
     publicado: 'published',
     published: 'published',
     resumen: 'summary',
@@ -153,6 +173,7 @@ const txtFieldName = label => {
     status: 'status',
     superficie: 'surface_m2',
     surface: 'surface_m2',
+    tareas: 'scope',
     titulo: 'title',
     title: 'title',
     ubicacion: 'location',
@@ -169,7 +190,7 @@ const normalizeLabel = value => value
 
 const assignTxtField = (fields, field, value, append = false) => {
   if (!value) return;
-  if (['title', 'category', 'location', 'status', 'scope', 'summary', 'description'].includes(field)) {
+  if (['title', 'category', 'location', 'status', 'scope', 'summary', 'description', 'client', 'comments'].includes(field)) {
     const previous = fields[field]?.es || '';
     fields[field] = { es: append && previous ? `${previous}\n${value}` : value };
     return;
@@ -179,13 +200,17 @@ const assignTxtField = (fields, field, value, append = false) => {
     return;
   }
   if (field === 'surface_m2') {
-    const numeric = Number(value.replace(/[^\d.,]/g, '').replace(',', '.'));
-    fields[field] = Number.isFinite(numeric) ? numeric : null;
+    const numeric = Number(value.match(/\d+(?:[.,]\d+)?/)?.[0].replace(',', '.'));
+    fields[field] = Number.isFinite(numeric) ? numeric : value;
     return;
   }
-  if (field === 'year' || field === 'order') {
+  if (field === 'order') {
     const numeric = Number.parseInt(value, 10);
     fields[field] = Number.isFinite(numeric) ? numeric : value;
+    return;
+  }
+  if (field === 'year') {
+    fields[field] = value;
     return;
   }
   fields[field] = value;
@@ -200,20 +225,31 @@ const findProjectTxt = async projectDir => {
   return txt[0] ? path.join(projectDir, txt[0]) : null;
 };
 
-const listProjectImages = async projectDir => {
+const listProjectMedia = async projectDir => {
   const roots = [projectDir, path.join(projectDir, 'images')];
   const files = [];
   for (const dir of roots) {
     if (!await pathExists(dir)) continue;
     const entries = await fs.readdir(dir, { withFileTypes: true });
     entries.forEach(entry => {
-      if (!entry.isFile() || !imageExtensions.has(path.extname(entry.name).toLowerCase())) return;
+      if (!entry.isFile() || !mediaExtensions.has(path.extname(entry.name).toLowerCase())) return;
       const absolute = path.join(dir, entry.name);
       files.push(path.relative(projectDir, absolute).split(path.sep).join('/'));
     });
   }
   return [...new Set(files)].sort((a, b) => a.localeCompare(b, 'es', { numeric: true }));
 };
+
+const titleFromFolder = folderName => folderName
+  .toLowerCase()
+  .split(/[\s_-]+/)
+  .filter(Boolean)
+  .map(word => word.length <= 3 ? word.toUpperCase() : `${word[0].toUpperCase()}${word.slice(1)}`)
+  .join(' ');
+
+const slugify = value => normalizeLabel(value)
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
 
 export const validateProject = (project, projectPath) => {
   const warnings = [];
@@ -228,8 +264,10 @@ export const validateProject = (project, projectPath) => {
 export const readGeneralAssets = async () => {
   const folders = await findImageRootFolders();
   return {
-    hero: await listFirstMatchingFolderImages(folders, ['portada', 'portada-principal', 'hero', 'home']),
-    process: await listFirstMatchingFolderImages(folders, ['proceso', 'process']),
+    hero: await listFirstMatchingFolderImages(folders, ['portada', 'portadas', 'portada-principal', 'hero', 'home']),
+    heroDesktop: await listNestedFolderImages(folders, ['portada', 'portadas'], ['pc', 'desktop', 'escritorio']),
+    heroMobile: await listNestedFolderImages(folders, ['portada', 'portadas'], ['mobile', 'movil', 'móvil']),
+    process: await listProcessAssets(folders),
     directors: await listFirstMatchingFolderImages(folders, ['directores', 'directors', 'equipo', 'team'])
   };
 };
@@ -253,6 +291,33 @@ const listFirstMatchingFolderImages = async (rootFolders, names) => {
     return files.map(file => path.relative(rootDir, file).split(path.sep).join('/'));
   }
   return [];
+};
+
+const listNestedFolderImages = async (rootFolders, parentNames, childNames) => {
+  for (const root of rootFolders) {
+    const entries = await fs.readdir(root, { withFileTypes: true });
+    const parent = entries.find(entry => entry.isDirectory() && parentNames.includes(normalizeLabel(entry.name)));
+    if (!parent) continue;
+    const parentFolder = path.join(root, parent.name);
+    const children = await fs.readdir(parentFolder, { withFileTypes: true });
+    const child = children.find(entry => entry.isDirectory() && childNames.includes(normalizeLabel(entry.name)));
+    if (!child) continue;
+    const files = await listImagesRecursive(path.join(parentFolder, child.name));
+    return files.map(file => path.relative(rootDir, file).split(path.sep).join('/'));
+  }
+  return [];
+};
+
+const listProcessAssets = async rootFolders => {
+  const files = await listFirstMatchingFolderImages(rootFolders, ['proceso', 'procesos', 'process']);
+  const order = ['evaluar', 'proyectar', 'documentar', 'construir'];
+  return [...files].sort((a, b) => {
+    const aName = normalizeLabel(path.basename(a, path.extname(a)));
+    const bName = normalizeLabel(path.basename(b, path.extname(b)));
+    const aIndex = order.findIndex(key => aName.includes(key));
+    const bIndex = order.findIndex(key => bName.includes(key));
+    return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex) || a.localeCompare(b, 'es', { numeric: true });
+  });
 };
 
 const listImagesRecursive = async dir => {
@@ -283,6 +348,43 @@ export const writeGeneratedAssets = async () => {
   );
   return assets;
 };
+
+export const writeOptimizedImages = async () => {
+  const python = await findPython();
+  if (!python) {
+    await fs.writeFile(path.join(rootDir, 'optimized.generated.json'), '{}\n');
+    return { ok: false, message: 'No se encontró Python para optimizar imágenes.' };
+  }
+
+  await runCommand(python, [path.join(rootDir, 'scripts', 'optimize-images.py')]);
+  return { ok: true };
+};
+
+const findPython = async () => {
+  const candidates = [
+    process.env.PYTHON,
+    '/Users/jpuletto/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3',
+    'python3'
+  ].filter(Boolean);
+
+  for (const candidate of candidates) {
+    if (candidate.includes(path.sep)) {
+      if (await pathExists(candidate)) return candidate;
+      continue;
+    }
+    return candidate;
+  }
+  return null;
+};
+
+const runCommand = (command, args) => new Promise((resolve, reject) => {
+  const child = spawn(command, args, { cwd: rootDir, stdio: 'inherit' });
+  child.on('error', reject);
+  child.on('exit', code => {
+    if (code === 0) resolve();
+    else reject(new Error(`${command} terminó con código ${code}`));
+  });
+});
 
 export const copyRecursive = async (from, to) => {
   const stat = await fs.stat(from);
