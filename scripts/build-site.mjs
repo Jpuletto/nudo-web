@@ -46,6 +46,12 @@ const writeStaticShells = async (targetDir, site, publishedProjects) => {
     description: 'Archivo de proyectos de NUDO Arquitectura: trabajos construidos, en ejecución y en desarrollo.'
   }));
 
+  await fs.writeFile(path.join(targetDir, '404.html'), shell({
+    page: '',
+    title: 'NUDO Arquitectura',
+    description: 'NUDO Arquitectura — proyecto arquitectónico, dirección y gestión de obra en Montevideo y Maldonado.'
+  }));
+
   await Promise.all(publishedProjects.map(project => fs.writeFile(
     path.join(targetDir, `proyecto-${project.slug}.html`),
     shell({
@@ -116,12 +122,14 @@ const copyFavicon = async () => {
   );
   if (await exists(faviconSource)) {
     const png = await fs.readFile(faviconSource);
+    const width = png.readUInt32BE(16);
+    const height = png.readUInt32BE(20);
     const header = Buffer.alloc(22);
     header.writeUInt16LE(0, 0);
     header.writeUInt16LE(1, 2);
     header.writeUInt16LE(1, 4);
-    header.writeUInt8(42, 6);
-    header.writeUInt8(42, 7);
+    header.writeUInt8(width >= 256 ? 0 : width, 6);
+    header.writeUInt8(height >= 256 ? 0 : height, 7);
     header.writeUInt8(0, 8);
     header.writeUInt8(0, 9);
     header.writeUInt16LE(1, 10);
@@ -156,7 +164,7 @@ const copyPublicationAssets = async assets => {
 const copyProjectVideos = async projects => {
   const videos = new Set();
   projects.forEach(project => {
-    [project.cover, ...(project.gallery || []).map(item => item.file)].forEach(file => {
+    [project.cover, project.listingCover, ...(project.gallery || []).map(item => item.file)].forEach(file => {
       if (!file || !videoExtensions.has(path.extname(file).toLowerCase())) return;
       videos.add(path.join('projects', project.folder || project.slug, file));
     });
@@ -174,7 +182,10 @@ const assertOptimizedImagesCoverContent = async (projects, assets) => {
   };
 
   projects.forEach(project => {
-    expectOptimized(path.join('projects', project.folder || project.slug, project.cover).split(path.sep).join('/'));
+    [project.cover, project.listingCover].forEach(file => {
+      if (!file || videoExtensions.has(path.extname(file).toLowerCase())) return;
+      expectOptimized(path.join('projects', project.folder || project.slug, file).split(path.sep).join('/'));
+    });
     (project.gallery || []).forEach(item => {
       expectOptimized(path.join('projects', project.folder || project.slug, item.file).split(path.sep).join('/'));
     });

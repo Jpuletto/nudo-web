@@ -29,6 +29,7 @@
       "es": "Se realizó la ampliación del showroom principal. El antiguo showroom se abría hacia una doble altura que balconeaba al sector de taller y servicios. Utilizando esta doble altura se extendió al doble el área locativa para exponer vehículos. En este proyecto se realizó junto con asesores el proyecto estructural y de diseño, el vínculo con el proveedor de la estructura, en este caso un proveedor fuera de país y la dirección del montaje."
     },
     "cover": "01.jpg",
+    "listingCover": "01.jpg",
     "gallery": [
       {
         "file": "01.jpg",
@@ -87,6 +88,7 @@
       "es": "Renovación de fachada en un edificio de los años 70 ubicado en el barrio residencial Punta Carreta, junto con los propietarios definimos el nuevo estilo para la fachada del mismo. Actualmente estamos en la etapa de producción de documentación para luego pasar a la obra."
     },
     "cover": "01.jpg",
+    "listingCover": "01.jpg",
     "gallery": [
       {
         "file": "01.jpg",
@@ -143,6 +145,7 @@
       "es": "Las necesidades programáticas de este proyecto surgen como un local de showroom y mecánica ligera en planta baja, mientras en la planta alta se dispone una planta libre para la guardería de autos clásicos y deportivos. Un bloque de servicios, oficinas y respuestas se ubica en el centro de la planta baja. Se buscó la optimización del ingreso de luz solar, accesos y circulaciones cómodas, así como también un acceso mediante un ascensor de vehículos a la planta alta."
     },
     "cover": "01.mp4",
+    "listingCover": "02.jpg",
     "gallery": [
       {
         "file": "01.mp4",
@@ -196,6 +199,7 @@
       "es": "Ante la necesidad de nuevo salones por parte del colegio, y la imposibilidad normativa de construir desde cero, en este proyecto se optó por la reforma interna del histórico Cine Maturana, un emblema para el barrio Prado. Dejar de contar con un espacio escénico y expositivo no era una opción, por tanto el proyecto se articula mediante dos grandes bloques, un sector de aulas, donde se diseñaron 5 salones de distintos tamaños, un salón de usos múltiples , salas de adscripción y salones de guardado. Mientras el otro bloque se conforma como un moderno auditorio multiuso que cuenta con un amplio escenario, así como con la posibilidad de un uso no frontal gracias al sistema de gradas retráctiles. Un espacio para espectáculos diseñado y equipado con audio e iluminación profesional."
     },
     "cover": "01.jpg",
+    "listingCover": "01.jpg",
     "gallery": [
       {
         "file": "01.jpg",
@@ -315,7 +319,8 @@
     ],
     "client": {
       "es": "Deltariego"
-    }
+    },
+    "listingCover": "01.jpg"
   },
   {
     "slug": "ingreso-berro",
@@ -347,6 +352,7 @@
       "es": "Reforma de ingreso a vivienda unifamiliar, se realizó una adecuación estética y funcional acorde a la casa. Además de mejorar la estética el pedido suponía la adición de jardineras y vegetación, así como también diseñar el ingreso vehícular"
     },
     "cover": "01.jpg",
+    "listingCover": "01.jpg",
     "gallery": [
       {
         "file": "01.jpg",
@@ -405,6 +411,7 @@
       "es": "Se diseño un nuevo rooftop para el centro comercial, dotándolo de nuevas funcionalidades pensadas en eventos, charlas, shows musicales, entre otros. Se logró un espacio cálido que invita a quedarse y disfrutar el rooftop de una nueva manera, dejando de ser un espacio completamente al aire libre pero pudiendo abrirse cuando el clima lo americe."
     },
     "cover": "01.jpg",
+    "listingCover": "01.jpg",
     "gallery": [
       {
         "file": "01.jpg",
@@ -468,6 +475,7 @@
       "es": "En esta casa Unifamiliar fuimos los encargados de llevar a cabo la dirección  de obra de la misma para lograr un correcto desarrollo, optimizar procesos y tomar decisiones a tiempo para mejorar las especialidades."
     },
     "cover": "01.jpg",
+    "listingCover": "01.jpg",
     "gallery": [
       {
         "file": "01.jpg",
@@ -521,6 +529,7 @@
       "es": "La necesidad de familiar de ganar un nuevo espacio de estar y living concluyó en la reforma de un antiguo deposito en desuso, dandole una nueva vida y cambiando la forma de habitar la vivienda."
     },
     "cover": "01.jpg",
+    "listingCover": "01.jpg",
     "gallery": [
       {
         "file": "01.jpg",

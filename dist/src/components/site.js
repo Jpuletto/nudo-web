@@ -12,6 +12,7 @@ const projectCategory = (project, lang) => localized(project.category, lang, 'Ca
 const projectLocation = (project, lang) => localized(project.location, lang, 'Ubicación a confirmar');
 const projectStatus = (project, lang) => localized(project.status, lang, 'Estado a confirmar');
 const projectScope = (project, lang) => localized(project.scope, lang, 'Alcance a confirmar');
+const projectListingCover = project => project.listingCover || project.cover;
 const ARROW_NE = '↗︎';
 const ARROW_SE = '↘︎';
 const ARROW_LEFT = '←';
@@ -232,7 +233,7 @@ export const ProjectRailCard = (project, index, lang) => `
     <figure>
       ${Media({
         project,
-        file: project.cover,
+        file: projectListingCover(project),
         alt: projectTitle(project, lang),
         loading: index === 0 ? 'eager' : 'lazy',
         sizes: '(max-width: 680px) 88vw, 76vw'
@@ -435,7 +436,7 @@ export const ArchiveCard = (project, index, lang) => `
     <figure>
       ${Media({
         project,
-        file: project.cover,
+        file: projectListingCover(project),
         alt: projectTitle(project, lang),
         sizes: '(max-width: 680px) 92vw, (max-width: 980px) 45vw, 30vw'
       })}

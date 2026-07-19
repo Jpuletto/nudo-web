@@ -41,7 +41,7 @@ def referenced_image_paths() -> list[Path]:
         if project.get("published") is False:
             continue
         folder = project.get("folder") or project.get("slug")
-        for file_name in [project.get("cover"), *[item.get("file") for item in project.get("gallery", []) if isinstance(item, dict)]]:
+        for file_name in [project.get("cover"), project.get("listingCover"), *[item.get("file") for item in project.get("gallery", []) if isinstance(item, dict)]]:
             if not file_name:
                 continue
             relative = Path("projects") / str(folder) / str(file_name)

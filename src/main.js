@@ -1,8 +1,8 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260719-anchors-8';
-import { loadContent } from './lib/content.js?v=20260719-anchors-8';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260719-classic-404-9';
+import { loadContent } from './lib/content.js?v=20260719-classic-404-9';
 
 const body = document.body;
-const page = body.dataset.page || 'home';
+const page = body.dataset.page || pageFromPath(window.location.pathname);
 const mount = document.querySelector('#app');
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -18,7 +18,7 @@ window.addEventListener('pageshow', event => {
 const renderPage = async () => {
   if (page === 'project' && !window.location.hash) window.scrollTo(0, 0);
   const content = await loadContent();
-  const slug = body.dataset.projectSlug;
+  const slug = body.dataset.projectSlug || projectSlugFromPath(window.location.pathname);
   const html = page === 'projects'
     ? ProjectsPage(content)
     : page === 'project'
@@ -30,6 +30,18 @@ const renderPage = async () => {
   initInteractions();
   scrollToHashTarget();
 };
+
+function pageFromPath(pathname) {
+  const file = pathname.split('/').pop() || 'index.html';
+  if (file === 'proyectos.html') return 'projects';
+  if (/^proyecto-[a-z0-9-]+\.html$/i.test(file)) return 'project';
+  return 'home';
+}
+
+function projectSlugFromPath(pathname) {
+  const file = pathname.split('/').pop() || '';
+  return file.match(/^proyecto-([a-z0-9-]+)\.html$/i)?.[1] || '';
+}
 
 const getPageTitle = (content, currentPage, slug) => {
   if (currentPage === 'projects') return 'Proyectos — NUDO Arquitectura';

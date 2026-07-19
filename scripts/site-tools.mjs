@@ -6,7 +6,7 @@ export const rootDir = process.cwd();
 const imageExtensions = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp']);
 const videoExtensions = new Set(['.mp4', '.mov', '.webm']);
 const mediaExtensions = new Set([...imageExtensions, ...videoExtensions]);
-export const assetVersion = '20260719-anchors-8';
+export const assetVersion = '20260719-classic-404-9';
 export const faviconAsset = `img/favicon-nudo-${assetVersion}.png`;
 
 export const shell = ({ page, slug, title, description }) => `<!doctype html>
@@ -24,7 +24,7 @@ export const shell = ({ page, slug, title, description }) => `<!doctype html>
   <link rel="stylesheet" href="styles.css?v=${assetVersion}" />
   <script type="module" src="src/main.js?v=${assetVersion}"></script>
 </head>
-<body data-page="${page}"${slug ? ` data-project-slug="${escapeAttribute(slug)}"` : ''}>
+<body${page ? ` data-page="${page}"` : ''}${slug ? ` data-project-slug="${escapeAttribute(slug)}"` : ''}>
   <div id="app"></div>
 </body>
 </html>
@@ -101,6 +101,10 @@ const readProjectData = async ({ fallbackOrder, folderName, mediaFiles, projectP
   const title = data.title || { es: fallbackTitle };
   const slug = slugify(data.slug || localized(title, 'es', fallbackTitle));
   const inferredCover = mediaFiles.find(file => /^images\/0?1[\s._-]/i.test(file) || /^0?1[\s._-]/i.test(file)) || mediaFiles[0];
+  const listingCover = data.listingCover || data.listing_cover || data.previewCover || data.preview_cover
+    || (videoExtensions.has(path.extname(inferredCover || '').toLowerCase())
+      ? mediaFiles.find(file => imageExtensions.has(path.extname(file).toLowerCase()))
+      : inferredCover);
   const gallery = Array.isArray(jsonData.gallery) && jsonData.gallery.length
     && !mediaFiles.length
     ? jsonData.gallery
@@ -122,6 +126,7 @@ const readProjectData = async ({ fallbackOrder, folderName, mediaFiles, projectP
     slug,
     order: txtData.order ?? fallbackOrder,
     cover: txtData.cover || inferredCover || jsonData.cover,
+    listingCover,
     gallery
   };
 };
