@@ -20,10 +20,13 @@ export const projectAsset = (project, file) => `projects/${project.folder || pro
 export const imageAttrs = ({
   src,
   alt,
+  fetchPriority,
   loading = 'lazy',
+  decoding = 'async',
   sizes = '(max-width: 680px) 92vw, 50vw',
   position
 }) => {
   const style = position ? ` style="object-position: ${escapeHtml(position)}"` : '';
-  return `src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="${loading}" decoding="async" sizes="${escapeHtml(sizes)}"${style}`;
+  const priority = fetchPriority ? ` fetchpriority="${escapeHtml(fetchPriority)}"` : '';
+  return `src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="${loading}" decoding="${decoding}" sizes="${escapeHtml(sizes)}"${priority}${style}`;
 };

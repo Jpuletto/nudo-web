@@ -12,20 +12,38 @@ const projectCategory = (project, lang) => localized(project.category, lang, 'Ca
 const projectLocation = (project, lang) => localized(project.location, lang, 'Ubicación a confirmar');
 const projectStatus = (project, lang) => localized(project.status, lang, 'Estado a confirmar');
 const projectScope = (project, lang) => localized(project.scope, lang, 'Alcance a confirmar');
+const ARROW_NE = '↗︎';
+const ARROW_SE = '↘︎';
+const ARROW_LEFT = '←';
+const ARROW_RIGHT = '→';
+const ARROW_UP = '↑';
 let optimizedImages = {};
 const setOptimizedImages = content => {
   optimizedImages = content?.optimized || {};
 };
 const mediaPath = (project, file) => {
   if (!file) return 'assets/project-placeholder.svg';
-  if (/^(assets|img|IMG|projects)\//.test(file)) return file;
+  if (/^(assets|img|projects)\//.test(file)) return file;
   return project ? projectAsset(project, file) : file;
 };
 const isVideo = file => /\.(mp4|mov|webm)$/i.test(file || '');
+const optimizedSrcset = src => {
+  const optimized = optimizedImages[src];
+  return optimized?.variants?.length
+    ? optimized.variants.map(variant => `${escapeHtml(variant.src)} ${variant.w}w`).join(', ')
+    : '';
+};
+const optimizedFallback = src => {
+  const optimized = optimizedImages[src];
+  return optimized?.variants?.length
+    ? optimized.variants[optimized.variants.length - 1].src
+    : src;
+};
 const Media = ({
   alt = '',
   className = '',
   file,
+  fetchPriority,
   loading = 'lazy',
   project,
   sizes,
@@ -38,13 +56,13 @@ const Media = ({
   }
   const optimized = optimizedImages[src];
   if (!optimized?.variants?.length) {
-    return `<img${cls} ${imageAttrs({ src, alt, loading, sizes })} />`;
+    return `<img${cls} ${imageAttrs({ src, alt, fetchPriority, loading, sizes })} />`;
   }
-  const srcset = optimized.variants.map(variant => `${escapeHtml(variant.src)} ${variant.w}w`).join(', ');
+  const srcset = optimizedSrcset(src);
   return `
     <picture${cls}>
       <source type="image/webp" srcset="${srcset}" sizes="${escapeHtml(sizes || '(max-width: 680px) 92vw, 50vw')}" />
-      <img ${imageAttrs({ src, alt, loading, sizes })} width="${optimized.width}" height="${optimized.height}" />
+      <img ${imageAttrs({ src: optimizedFallback(src), alt, fetchPriority, loading, sizes })} width="${optimized.width}" height="${optimized.height}" />
     </picture>
   `;
 };
@@ -84,7 +102,7 @@ export const Footer = page => `
   <footer class="site-footer ${page === 'projects' ? 'site-footer--compact' : ''}">
     <img src="assets/brand/logo-nudo-white.png" alt="NUDO Arquitectura" />
     <span>© <span data-year></span> NUDO ARQUITECTURA</span>
-    ${page === 'projects' ? '' : `<a href="${page === 'home' ? '#inicio' : 'index.html#contacto'}" ${page === 'home' ? '' : 'data-transition'}>${page === 'home' ? 'VOLVER ARRIBA ↑' : 'CONTACTO ↗'}</a>`}
+    ${page === 'projects' ? '' : `<a href="${page === 'home' ? '#inicio' : 'index.html#contacto'}" ${page === 'home' ? '' : 'data-transition'}>${page === 'home' ? `VOLVER ARRIBA ${ARROW_UP}` : `CONTACTO ${ARROW_NE}`}</a>`}
   </footer>
 `;
 
@@ -98,7 +116,7 @@ export const HomePage = content => {
     ? [featured[0].cover, ...(featured[0].gallery || []).slice(0, 2).map(item => item.file)]
     : [];
   return BaseChrome(content, 'home', `
-    ${HeroVideo(featured[0], heroImages)}
+    ${HeroVideo(featured[0], heroImages, assets?.heroVideo)}
     ${IntroSection()}
     ${Metrics(site)}
     ${FeaturedProjectsRail(featured, lang)}
@@ -110,27 +128,45 @@ export const HomePage = content => {
   `);
 };
 
-export const HeroVideo = (project, heroImages = []) => {
+export const HeroVideo = (project, heroImages = [], heroVideo = '') => {
   const slides = heroImages.length ? heroImages : ['assets/project-placeholder.svg'];
   const slideDesktop = slide => typeof slide === 'string' ? slide : slide.desktop;
   const slideMobile = slide => typeof slide === 'string' ? null : slide.mobile;
+  const poster = optimizedFallback(mediaPath(project, slideDesktop(slides[0])));
+  const videoType = heroVideo.endsWith('.webm') ? 'webm' : 'mp4';
   return `
     <section class="hero" id="inicio" aria-label="Portada">
       <div class="hero__fallback" aria-hidden="true">
-        ${slides.map((slide, index) => `
+        ${slides.map((slide, index) => {
+          const desktopSrc = mediaPath(project, slideDesktop(slide));
+          const mobileSrc = slideMobile(slide) ? mediaPath(project, slideMobile(slide)) : '';
+          const desktopWebp = optimizedSrcset(desktopSrc);
+          const mobileWebp = mobileSrc ? optimizedSrcset(mobileSrc) : '';
+          const imageLoading = index === 0 ? 'eager' : 'lazy';
+          const fetchPriority = index === 0 ? 'high' : 'low';
+          return `
           <figure class="hero-slide ${index === 0 ? 'is-active' : ''}">
             ${slideMobile(slide) ? `
               <picture>
-                <source media="(max-width: 680px)" srcset="${escapeHtml(mediaPath(project, slideMobile(slide)))}" />
-                <img src="${escapeHtml(mediaPath(project, slideDesktop(slide)))}" alt="" />
+                ${mobileWebp ? `<source media="(max-width: 680px)" type="image/webp" srcset="${mobileWebp}" sizes="100vw" />` : ''}
+                <source media="(max-width: 680px)" srcset="${escapeHtml(optimizedFallback(mobileSrc))}" />
+                ${desktopWebp ? `<source type="image/webp" srcset="${desktopWebp}" sizes="100vw" />` : ''}
+                <img ${imageAttrs({ src: optimizedFallback(desktopSrc), alt: '', fetchPriority, loading: imageLoading, sizes: '100vw' })} />
               </picture>
-            ` : `<img src="${escapeHtml(mediaPath(project, slideDesktop(slide)))}" alt="" />`}
+            ` : desktopWebp ? `
+              <picture>
+                <source type="image/webp" srcset="${desktopWebp}" sizes="100vw" />
+                <img ${imageAttrs({ src: optimizedFallback(desktopSrc), alt: '', fetchPriority, loading: imageLoading, sizes: '100vw' })} />
+              </picture>
+            ` : `<img ${imageAttrs({ src: desktopSrc, alt: '', fetchPriority, loading: imageLoading, sizes: '100vw' })} />`}
           </figure>
-        `).join('')}
+        `;}).join('')}
       </div>
-      <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="${escapeHtml(mediaPath(project, slideDesktop(slides[0])))}">
-        <source src="assets/video/resumen-nudo.mp4" type="video/mp4" />
-      </video>
+      ${heroVideo ? `
+        <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="${escapeHtml(poster)}">
+          <source src="${escapeHtml(heroVideo)}" type="video/${videoType}" />
+        </video>
+      ` : ''}
       <div class="hero__veil"></div>
       <div class="hero__grain"></div>
       <div class="hero__meta hero__meta--lines" aria-hidden="true"></div>
@@ -148,7 +184,7 @@ export const IntroSection = () => `
         <h1 class="intro__title reveal">Diseñamos, documentamos y dirigimos cada proyecto como un proceso único.</h1>
         <div class="intro__aside reveal">
           <p>Participamos directamente desde los primeros trazos hasta la ejecución, integrando decisiones arquitectónicas, técnicas y constructivas.</p>
-          <a class="arrow-link" href="#estudio">CONOCER EL ESTUDIO <span>↘</span></a>
+          <a class="arrow-link" href="#estudio">CONOCER EL ESTUDIO <span>${ARROW_SE}</span></a>
         </div>
       </div>
     </div>
@@ -180,7 +216,7 @@ export const FeaturedProjectsRail = (projects, lang) => `
       <div class="section-heading section-heading--light reveal">
         <p class="section-index">01 / PROYECTOS</p>
         <h2>Conocé nuestros trabajos.</h2>
-        <a href="proyectos.html" class="arrow-link arrow-link--light" data-transition>VER PROYECTOS <span>↗</span></a>
+        <a href="proyectos.html" class="arrow-link arrow-link--light" data-transition>VER PROYECTOS <span>${ARROW_NE}</span></a>
       </div>
       </div>
       <div class="project-rail-wrap reveal">
@@ -207,7 +243,7 @@ export const ProjectRailCard = (project, index, lang) => `
         <div><span>${escapeHtml(projectTitle(project, lang))}</span><small>${escapeHtml(projectCategory(project, lang))}</small></div>
         <div><small>${escapeHtml(projectLocation(project, lang))}</small></div>
       </figcaption>
-      <i class="project-card__open">↗</i>
+      <i class="project-card__open">${ARROW_NE}</i>
     </figure>
   </a>
 `;
@@ -303,11 +339,15 @@ const directorPhoto = (assets, patterns, fallbackIndex) => {
   return byName || assets[fallbackIndex];
 };
 
-const PersonPhoto = ({ asset, initials, alt, modifier }) => `
-  <div class="person__photo ${modifier}">
-    ${asset ? `<img class="person__image" src="${escapeHtml(asset)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />` : `<span>${initials}</span><small>FOTOGRAFÍA PENDIENTE</small>`}
-  </div>
-`;
+const PersonPhoto = ({ asset, initials, alt, modifier }) => {
+  const optimized = optimizedImages[asset];
+  const dimensions = optimized ? ` width="${optimized.width}" height="${optimized.height}"` : '';
+  return `
+    <div class="person__photo ${modifier}">
+      ${asset ? `<img class="person__image" src="${escapeHtml(optimizedFallback(asset))}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"${dimensions} />` : `<span>${initials}</span><small>FOTOGRAFÍA PENDIENTE</small>`}
+    </div>
+  `;
+};
 
 export const TeamSection = (directorAssets = []) => {
   const juanPhoto = directorPhoto(directorAssets, ['juan', 'pablo', 'puletto'], 0);
@@ -352,10 +392,10 @@ export const ContactSection = site => `
               `).join('')}
             </strong>
           </span>
-          <i>↗</i>
+          <i>${ARROW_NE}</i>
         </div>
         <a class="contact-card" href="mailto:${escapeHtml(site.contact?.email || '')}">
-          <span><small>ESCRIBINOS UN CORREO</small><strong>${escapeHtml(site.contact?.email || '')}</strong></span><i>↗</i>
+          <span><small>ESCRIBINOS UN CORREO</small><strong>${escapeHtml(site.contact?.email || '')}</strong></span><i>${ARROW_NE}</i>
         </a>
       </div>
       <div class="contact__meta"><span>MONTEVIDEO · MALDONADO · URUGUAY</span></div>
@@ -385,7 +425,7 @@ export const ProjectsPage = content => {
     </div>
   </section>
   <section class="archive-cta section-dark">
-    <div class="section-shell reveal"><a href="index.html#contacto" data-transition>Ponete en contacto con nosotros <span>↗</span></a></div>
+    <div class="section-shell reveal"><a href="index.html#contacto" data-transition>Ponete en contacto con nosotros <span>${ARROW_NE}</span></a></div>
   </section>
   `);
 };
@@ -431,13 +471,14 @@ export const ProjectHero = (project, lang) => `
       project,
       file: project.cover,
       alt: `Vista exterior del proyecto ${projectTitle(project, lang)}`,
+      fetchPriority: 'high',
       loading: 'eager',
       sizes: '100vw'
     })}
     <div class="project-hero__veil"></div>
     <div class="project-hero__meta"><span>${escapeHtml(projectCategory(project, lang))}</span><span>${escapeHtml(project.year || 'AÑO A CONFIRMAR')}</span></div>
     <div class="project-hero__title reveal"><p>${String(project.order || 1).padStart(2, '0')} / PROYECTO</p><h1>${escapeHtml(projectTitle(project, lang)).replace(/\s+/g, '<br>')}</h1></div>
-    <a class="project-hero__back" href="proyectos.html" data-transition>← ARCHIVO</a>
+    <a class="project-hero__back" href="proyectos.html" data-transition>${ARROW_LEFT} ARCHIVO</a>
   </section>
 `;
 
@@ -485,8 +526,8 @@ export const ProjectGallery = (project, lang) => `
 export const ProjectNavigation = (previous, next) => `
   <nav class="project-navigation section-light" aria-label="Navegación entre proyectos">
     <div class="section-shell">
-      <a href="${previous ? projectHref(previous) : 'proyectos.html'}" data-transition><span>←</span><small>${previous ? 'ANTERIOR' : 'VOLVER A'}</small><b>${previous ? escapeHtml(projectTitle(previous, 'es')) : 'TODOS LOS PROYECTOS'}</b></a>
-      <a href="${next ? projectHref(next) : 'proyectos.html'}" data-transition><small>${next ? 'SIGUIENTE' : 'VER'}</small><b>${next ? escapeHtml(projectTitle(next, 'es')) : 'ARCHIVO COMPLETO'}</b><span>→</span></a>
+      <a href="${previous ? projectHref(previous) : 'proyectos.html'}" data-transition><span>${ARROW_LEFT}</span><small>${previous ? 'ANTERIOR' : 'VOLVER A'}</small><b>${previous ? escapeHtml(projectTitle(previous, 'es')) : 'TODOS LOS PROYECTOS'}</b></a>
+      <a href="${next ? projectHref(next) : 'proyectos.html'}" data-transition><small>${next ? 'SIGUIENTE' : 'VER'}</small><b>${next ? escapeHtml(projectTitle(next, 'es')) : 'ARCHIVO COMPLETO'}</b><span>${ARROW_RIGHT}</span></a>
     </div>
   </nav>
 `;

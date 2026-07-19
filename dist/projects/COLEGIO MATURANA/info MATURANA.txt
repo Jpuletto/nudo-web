@@ -1,9 +1,0 @@
-Cliente: Colegio Maturana
-Tareas: Proyecto / Dirección de obra / Gestión de obra
-Programa: Educativo
-Metraje: 800m2
-Ubicación: Montevideo
-Año: 2022-2024
-Estado: Finalizado
-
-Descripción: Ante la necesidad de nuevo salones por parte del colegio, y la imposibilidad normativa de construir desde cero, en este proyecto se optó por la reforma interna del histórico Cine Maturana, un emblema para el barrio Prado. Dejar de contar con un espacio escénico y expositivo no era una opción, por tanto el proyecto se articula mediante dos grandes bloques, un sector de aulas, donde se diseñaron 5 salones de distintos tamaños, un salón de usos múltiples , salas de adscripción y salones de guardado. Mientras el otro bloque se conforma como un moderno auditorio multiuso que cuenta con un amplio escenario, así como con la posibilidad de un uso no frontal gracias al sistema de gradas retráctiles. Un espacio para espectáculos diseñado y equipado con audio e iluminación profesional.

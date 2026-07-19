@@ -15,8 +15,8 @@ export const shell = ({ page, slug, title, description }) => `<!doctype html>
   <meta name="description" content="${escapeAttribute(description)}" />
   <meta name="theme-color" content="#000000" />
   <title>${escapeHtml(title)}</title>
-  <link rel="icon" href="img/favicon.jpg" type="image/jpeg" />
-  <link rel="apple-touch-icon" href="img/favicon.jpg" />
+  <link rel="icon" href="img/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="img/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
   <script type="module" src="src/main.js"></script>
 </head>
@@ -92,6 +92,10 @@ export const readProjects = async () => {
 const readProjectData = async ({ fallbackOrder, folderName, mediaFiles, projectPath, txtPath }) => {
   const jsonData = await pathExists(projectPath) ? await readJson(projectPath) : {};
   const txtData = txtPath ? parseProjectTxt(await fs.readFile(txtPath, 'utf8')) : {};
+  const data = { ...jsonData, ...txtData };
+  const fallbackTitle = titleFromFolder(folderName);
+  const title = data.title || { es: fallbackTitle };
+  const slug = slugify(data.slug || localized(title, 'es', fallbackTitle));
   const inferredCover = mediaFiles.find(file => /^images\/0?1[\s._-]/i.test(file) || /^0?1[\s._-]/i.test(file)) || mediaFiles[0];
   const gallery = Array.isArray(jsonData.gallery) && jsonData.gallery.length
     && !mediaFiles.length
@@ -99,18 +103,19 @@ const readProjectData = async ({ fallbackOrder, folderName, mediaFiles, projectP
     : mediaFiles.map((file, index) => ({
       file,
       caption_es: txtData.galleryCaptions?.[index] || `Imagen ${String(index + 1).padStart(2, '0')}`,
-      alt_es: `${txtData.title?.es || jsonData.title?.es || titleFromFolder(folderName)} ${String(index + 1).padStart(2, '0')}`
+      alt_es: `${localized(title, 'es', fallbackTitle)} ${String(index + 1).padStart(2, '0')}`
     }));
 
   return {
-    slug: slugify(folderName),
+    slug,
     folder: folderName,
     order: fallbackOrder,
     published: true,
     featured: true,
-    title: { es: titleFromFolder(folderName) },
+    title,
     ...jsonData,
     ...txtData,
+    slug,
     order: txtData.order ?? fallbackOrder,
     cover: txtData.cover || inferredCover || jsonData.cover,
     gallery
@@ -170,6 +175,7 @@ const txtFieldName = label => {
     published: 'published',
     resumen: 'summary',
     scope: 'scope',
+    slug: 'slug',
     status: 'status',
     superficie: 'surface_m2',
     surface: 'surface_m2',
@@ -240,7 +246,11 @@ const listProjectMedia = async projectDir => {
   return [...new Set(files)].sort((a, b) => a.localeCompare(b, 'es', { numeric: true }));
 };
 
-const titleFromFolder = folderName => folderName
+const readableFolderName = folderName => folderName
+  .replace(/[_-]+/g, ' ')
+  .replace(/^(ingreso|reforma|punta|delta)(?=[a-z])/i, '$1 ');
+
+const titleFromFolder = folderName => readableFolderName(folderName)
   .toLowerCase()
   .split(/[\s_-]+/)
   .filter(Boolean)
@@ -267,13 +277,14 @@ export const readGeneralAssets = async () => {
     hero: await listFirstMatchingFolderImages(folders, ['portada', 'portadas', 'portada-principal', 'hero', 'home']),
     heroDesktop: await listNestedFolderImages(folders, ['portada', 'portadas'], ['pc', 'desktop', 'escritorio']),
     heroMobile: await listNestedFolderImages(folders, ['portada', 'portadas'], ['mobile', 'movil', 'móvil']),
+    heroVideo: await findHeroVideo(),
     process: await listProcessAssets(folders),
     directors: await listFirstMatchingFolderImages(folders, ['directores', 'directors', 'equipo', 'team'])
   };
 };
 
 const findImageRootFolders = async () => {
-  const candidates = ['IMG', 'img'].map(folder => path.join(rootDir, folder));
+  const candidates = ['img'].map(folder => path.join(rootDir, folder));
   const existing = [];
   for (const folder of candidates) {
     if (await pathExists(folder)) existing.push(folder);
@@ -320,13 +331,25 @@ const listProcessAssets = async rootFolders => {
   });
 };
 
+const findHeroVideo = async () => {
+  const videoDir = path.join(rootDir, 'assets', 'video');
+  if (!await pathExists(videoDir)) return '';
+  const files = await listFilesRecursive(videoDir, videoExtensions);
+  const preferred = files.find(file => normalizeLabel(path.basename(file, path.extname(file))).includes('resumen-nudo')) || files[0];
+  return preferred ? path.relative(rootDir, preferred).split(path.sep).join('/') : '';
+};
+
 const listImagesRecursive = async dir => {
+  return listFilesRecursive(dir, imageExtensions);
+};
+
+const listFilesRecursive = async (dir, extensions) => {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
     const absolute = path.join(dir, entry.name);
-    if (entry.isDirectory()) files.push(...await listImagesRecursive(absolute));
-    if (entry.isFile() && imageExtensions.has(path.extname(entry.name).toLowerCase())) files.push(absolute);
+    if (entry.isDirectory()) files.push(...await listFilesRecursive(absolute, extensions));
+    if (entry.isFile() && extensions.has(path.extname(entry.name).toLowerCase())) files.push(absolute);
   }
   return files.sort((a, b) => a.localeCompare(b, 'es', { numeric: true }));
 };
@@ -399,5 +422,7 @@ export const copyRecursive = async (from, to) => {
 };
 
 export const copyIfExists = async (from, to) => {
-  if (await pathExists(from)) await copyRecursive(from, to);
+  if (!await pathExists(from)) return false;
+  await copyRecursive(from, to);
+  return true;
 };

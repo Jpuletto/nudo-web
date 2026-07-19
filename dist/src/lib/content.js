@@ -3,7 +3,7 @@ import { localized } from './html.js';
 const DEV = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
 const fetchJson = async path => {
-  const response = await fetch(path, { cache: 'no-store' });
+  const response = await fetch(path);
   if (!response.ok) throw new Error(`No se pudo cargar ${path}`);
   return response.json();
 };

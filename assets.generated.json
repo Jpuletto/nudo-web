@@ -1,44 +1,45 @@
 {
   "hero": [
-    "IMG/Portadas/Mobile/02.jpg",
-    "IMG/Portadas/Mobile/03.jpg",
-    "IMG/Portadas/Mobile/04.jpg",
-    "IMG/Portadas/Mobile/05.jpg",
-    "IMG/Portadas/Mobile/06.jpg",
-    "IMG/Portadas/Mobile/07.jpg",
-    "IMG/Portadas/Mobile/08.jpg",
-    "IMG/Portadas/PC/01.jpg",
-    "IMG/Portadas/PC/02.jpg",
-    "IMG/Portadas/PC/03.jpg",
-    "IMG/Portadas/PC/04.jpg",
-    "IMG/Portadas/PC/05.jpg",
-    "IMG/Portadas/PC/06.jpg"
+    "img/portadas/mobile/02.jpg",
+    "img/portadas/mobile/03.jpg",
+    "img/portadas/mobile/04.jpg",
+    "img/portadas/mobile/05.jpg",
+    "img/portadas/mobile/06.jpg",
+    "img/portadas/mobile/07.jpg",
+    "img/portadas/mobile/08.jpg",
+    "img/portadas/pc/01.jpg",
+    "img/portadas/pc/02.jpg",
+    "img/portadas/pc/03.jpg",
+    "img/portadas/pc/04.jpg",
+    "img/portadas/pc/05.jpg",
+    "img/portadas/pc/06.jpg"
   ],
   "heroDesktop": [
-    "IMG/Portadas/PC/01.jpg",
-    "IMG/Portadas/PC/02.jpg",
-    "IMG/Portadas/PC/03.jpg",
-    "IMG/Portadas/PC/04.jpg",
-    "IMG/Portadas/PC/05.jpg",
-    "IMG/Portadas/PC/06.jpg"
+    "img/portadas/pc/01.jpg",
+    "img/portadas/pc/02.jpg",
+    "img/portadas/pc/03.jpg",
+    "img/portadas/pc/04.jpg",
+    "img/portadas/pc/05.jpg",
+    "img/portadas/pc/06.jpg"
   ],
   "heroMobile": [
-    "IMG/Portadas/Mobile/02.jpg",
-    "IMG/Portadas/Mobile/03.jpg",
-    "IMG/Portadas/Mobile/04.jpg",
-    "IMG/Portadas/Mobile/05.jpg",
-    "IMG/Portadas/Mobile/06.jpg",
-    "IMG/Portadas/Mobile/07.jpg",
-    "IMG/Portadas/Mobile/08.jpg"
+    "img/portadas/mobile/02.jpg",
+    "img/portadas/mobile/03.jpg",
+    "img/portadas/mobile/04.jpg",
+    "img/portadas/mobile/05.jpg",
+    "img/portadas/mobile/06.jpg",
+    "img/portadas/mobile/07.jpg",
+    "img/portadas/mobile/08.jpg"
   ],
+  "heroVideo": "",
   "process": [
-    "IMG/Procesos/EVALUAR.jpg",
-    "IMG/Procesos/PROYECTAR.png",
-    "IMG/Procesos/DOCUMENTAR.png",
-    "IMG/Procesos/CONSTRUIR.jpg"
+    "img/procesos/evaluar.jpg",
+    "img/procesos/proyectar.png",
+    "img/procesos/documentar.png",
+    "img/procesos/construir.jpg"
   ],
   "directors": [
-    "IMG/Directores/Joaquín.jpg",
-    "IMG/Directores/Juan Pablo.jpg"
+    "img/directores/joaquin.jpg",
+    "img/directores/juan pablo.jpg"
   ]
 }

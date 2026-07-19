@@ -1,7 +1,7 @@
 [
   {
     "slug": "alfalider",
-    "folder": "ALFALIDER",
+    "folder": "alfalider",
     "order": 1,
     "published": true,
     "featured": true,
@@ -59,7 +59,7 @@
   },
   {
     "slug": "araruama",
-    "folder": "ARARUAMA",
+    "folder": "araruama",
     "order": 2,
     "published": true,
     "featured": true,
@@ -112,7 +112,7 @@
   },
   {
     "slug": "classic-cars",
-    "folder": "CLASSIC CARS",
+    "folder": "classic cars",
     "order": 3,
     "published": true,
     "featured": true,
@@ -168,7 +168,7 @@
   },
   {
     "slug": "colegio-maturana",
-    "folder": "COLEGIO MATURANA",
+    "folder": "colegio maturana",
     "order": 4,
     "published": true,
     "featured": true,
@@ -256,7 +256,7 @@
   },
   {
     "slug": "delta-riego",
-    "folder": "DELTARIEGO",
+    "folder": "deltariego",
     "order": 5,
     "published": true,
     "featured": true,
@@ -319,7 +319,7 @@
   },
   {
     "slug": "ingreso-berro",
-    "folder": "INGRESO BERRO",
+    "folder": "ingresoberro",
     "order": 6,
     "published": true,
     "featured": true,
@@ -377,7 +377,7 @@
   },
   {
     "slug": "matisse",
-    "folder": "MATISSE",
+    "folder": "matisse",
     "order": 7,
     "published": true,
     "featured": true,
@@ -440,7 +440,7 @@
   },
   {
     "slug": "punta-espinillo",
-    "folder": "PUNTA ESPINILLO",
+    "folder": "puntaespinillo",
     "order": 8,
     "published": true,
     "featured": true,
@@ -493,7 +493,7 @@
   },
   {
     "slug": "reforma-nelson",
-    "folder": "REFORMA NELSON",
+    "folder": "reformanelson",
     "order": 9,
     "published": true,
     "featured": true,

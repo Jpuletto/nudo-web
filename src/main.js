@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=optimized-1';
-import { loadContent } from './lib/content.js?v=optimized-1';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=deploy-fixes-1';
+import { loadContent } from './lib/content.js?v=deploy-fixes-1';
 
 const body = document.body;
 const page = body.dataset.page || 'home';
@@ -40,11 +40,12 @@ const initInteractions = () => {
   const transitionLayer = document.querySelector('.page-transition');
 
   const hideLoader = () => {
-    window.setTimeout(() => loader?.classList.add('is-hidden'), reducedMotion ? 0 : 450);
+    window.setTimeout(() => loader?.classList.add('is-hidden'), reducedMotion ? 0 : 180);
   };
   if (document.readyState === 'complete') hideLoader();
   window.addEventListener('load', hideLoader, { once: true });
-  window.setTimeout(hideLoader, 1400);
+  window.addEventListener('pageshow', hideLoader);
+  window.setTimeout(hideLoader, 650);
 
   const updateScrollUI = () => {
     header?.classList.toggle('is-scrolled', window.scrollY > 28);
@@ -79,7 +80,7 @@ const initInteractions = () => {
       transitionLayer?.classList.add('is-active');
       window.setTimeout(() => {
         window.location.href = href;
-      }, reducedMotion ? 0 : 420);
+      }, reducedMotion ? 0 : 180);
     });
   });
 
@@ -89,9 +90,18 @@ const initInteractions = () => {
   initProjectRail();
   initProcess();
   initLightbox();
+  initMediaProtection();
 
   document.querySelectorAll('[data-year]').forEach(node => {
     node.textContent = new Date().getFullYear();
+  });
+};
+
+const initMediaProtection = () => {
+  document.querySelectorAll('img, video, picture').forEach(media => {
+    media.setAttribute('draggable', 'false');
+    media.addEventListener('dragstart', event => event.preventDefault());
+    media.addEventListener('contextmenu', event => event.preventDefault());
   });
 };
 
@@ -174,12 +184,29 @@ const initCounters = () => {
 const initProjectRail = () => {
   const rail = document.querySelector('[data-project-rail]');
   if (!rail) return;
+  let movedDuringPointer = false;
 
   rail.addEventListener('wheel', event => {
     if (Math.abs(event.deltaY) <= Math.abs(event.deltaX) || rail.scrollWidth <= rail.clientWidth) return;
     event.preventDefault();
     rail.scrollLeft += event.deltaY;
   }, { passive: false });
+
+  rail.addEventListener('click', event => {
+    const card = event.target.closest('.project-card');
+    if (!card) return;
+    if (movedDuringPointer) {
+      event.preventDefault();
+      return;
+    }
+    const href = card.getAttribute('href');
+    if (!href) return;
+    event.preventDefault();
+    document.querySelector('.page-transition')?.classList.add('is-active');
+    window.setTimeout(() => {
+      window.location.href = href;
+    }, reducedMotion ? 0 : 120);
+  });
 
   if (!window.matchMedia('(pointer:fine)').matches) return;
 
@@ -189,6 +216,7 @@ const initProjectRail = () => {
 
   rail.addEventListener('pointerdown', event => {
     dragging = true;
+    movedDuringPointer = false;
     startX = event.clientX;
     startScroll = rail.scrollLeft;
     rail.classList.add('is-dragging');
@@ -197,6 +225,7 @@ const initProjectRail = () => {
 
   rail.addEventListener('pointermove', event => {
     if (!dragging) return;
+    if (Math.abs(event.clientX - startX) > 8) movedDuringPointer = true;
     rail.scrollLeft = startScroll - (event.clientX - startX) * 1.2;
   });
 
@@ -210,7 +239,7 @@ const initProjectRail = () => {
 
 const initProcess = () => {
   const processItems = [...document.querySelectorAll('[data-process]')];
-  const processImages = [...document.querySelectorAll('[data-process-images] img')];
+  const processImages = [...document.querySelectorAll('[data-process-images] > picture, [data-process-images] > img, [data-process-images] > video')];
   processItems.forEach(item => {
     const activate = () => {
       const index = Number(item.dataset.process || 0);

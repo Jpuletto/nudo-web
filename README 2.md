@@ -26,6 +26,17 @@ node scripts/build-site.mjs
 
 El build detecta carpetas dentro de `projects/`, genera `projects.generated.json`, genera `assets.generated.json`, crea versiones responsive WebP en `optimized/` y publica la salida en `dist/`.
 
+Para subir la web al hosting, subir el contenido completo de `dist/`. Esa carpeta ya queda limpia para publicación:
+
+- `index.html`, `proyectos.html` y todos los `proyecto-<slug>.html`.
+- `src/`, `styles.css`, `site.json`, `projects.generated.json`, `assets.generated.json` y `optimized.generated.json`.
+- `assets/` con marca y placeholders necesarios.
+- `img/favicon.png`.
+- `optimized/` con las imágenes WebP responsive.
+- `projects/` solamente cuando haya videos originales usados por algún proyecto.
+
+No subir solo los HTML sueltos: las imágenes responsivas y las páginas individuales dependen de esos JSON y carpetas generadas. Las fotos originales, `.txt`, `project.json`, plantillas y carpetas de trabajo quedan fuera de `dist/`.
+
 ## Optimización de imágenes
 
 El sitio mantiene las imágenes originales como fallback y genera variantes WebP de alta calidad para la carga normal del navegador.
@@ -88,10 +99,10 @@ Si existe `project.json`, se usa como fuente más precisa y puede convivir con e
 
 ## Imágenes generales
 
-Colocar las imágenes generales en `IMG/` o `img/` con estos nombres de carpetas:
+Colocar las imágenes generales siempre en `img/` en minúscula con estos nombres de carpetas.
 
 ```text
-IMG/
+img/
   portada/
     01.jpg
     02.jpg
