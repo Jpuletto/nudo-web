@@ -1129,3 +1129,23 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
     font-size: clamp(26px, 8vw, 38px);
   }
 }
+
+/* ===== Ajuste final — header mobile siempre negro ===== */
+@media (max-width: 980px) {
+  .site-header,
+  .site-header:not(.is-scrolled),
+  body[data-page="project"] .site-header,
+  body[data-page="project"] .site-header:not(.is-scrolled),
+  body[data-page="project"] .site-header:not(.is-scrolled) .site-nav,
+  body.menu-open .site-header {
+    background-color: #000;
+    border-color: rgba(255,255,255,.12);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .site-nav,
+  .site-nav.is-open {
+    background-color: #000;
+  }
+}

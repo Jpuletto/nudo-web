@@ -1,9 +1,0 @@
-Cliente: Edificio Araruama
-Tareas: Proyecto / Dirección de obra 
-Programa: Residencial
-Metraje: 300m2 de fachada
-Ubicación: Punta Carretas, Montevideo
-Año: 2025 - 2026
-Estado: En curso
-
-Descripción: Renovación de fachada en un edificio de los años 70 ubicado en el barrio residencial Punta Carreta, junto con los propietarios definimos el nuevo estilo para la fachada del mismo. Actualmente estamos en la etapa de producción de documentación para luego pasar a la obra.

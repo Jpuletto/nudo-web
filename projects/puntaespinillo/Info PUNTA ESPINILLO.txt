@@ -1,9 +1,0 @@
-Cliente: Particular
-Tareas: Dirección de obra 
-Programa: Vivienda unifamiliar
-Metraje: 200m2
-Ubicación: Punta espinillo, Montevideo.
-Año: 2024-2025
-Estado: Finalizado
-
-Descripción: En esta casa Unifamiliar fuimos los encargados de llevar a cabo la dirección  de obra de la misma para lograr un correcto desarrollo, optimizar procesos y tomar decisiones a tiempo para mejorar las especialidades.

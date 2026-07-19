@@ -1,9 +1,0 @@
-Cliente: Matisse Parque
-Tareas: Proyecto / Dirección de obra / Gestión de obra
-Programa: Social / Gastronómico
-Metraje: 150m2
-Ubicación: Parque Miramar, Canelones
-Año: 2024-2025
-Estado: Finalizado
-
-Descripción: Se diseño un nuevo rooftop para el centro comercial, dotándolo de nuevas funcionalidades pensadas en eventos, charlas, shows musicales, entre otros. Se logró un espacio cálido que invita a quedarse y disfrutar el rooftop de una nueva manera, dejando de ser un espacio completamente al aire libre pero pudiendo abrirse cuando el clima lo americe.

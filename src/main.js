@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260719-classic-404-9';
-import { loadContent } from './lib/content.js?v=20260719-classic-404-9';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260719-mobile-header-10';
+import { loadContent } from './lib/content.js?v=20260719-mobile-header-10';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);

@@ -1,9 +1,0 @@
-Cliente: Deltariego
-Tareas: Proyecto / Dirección de obra / Gestión de obra
-Programa: Industrial / Comercial
-Metraje: 310m2
-Ubicación: Mercedes, Soriano
-Año: 2024-2025
-Estado: Finalizado
-
-Descripción: Galpón logístico que cuenta con 2 grandes áreas delimitadas, por un lado el sector de almacenamiento de productos y por otro el sector de showroom, oficinas y servicios. Ubicado en un sitio privilegiado, entre cruce de rutas nacionales, se utilizó las virtudes del terreno, para implantar el terreno de tal manera que resalte y se conforme como un punto de referencia en la zona.

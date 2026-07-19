@@ -1,9 +1,0 @@
-Cliente: Alfalider
-Tareas: Proyecto / Dirección de obra 
-Programa: Comercial
-Metraje: 350m2
-Ubicación: Punta del Este, Maldonado.
-Año: 2025 - 2026
-Estado: Finalizado
-
-Descripción: Se realizó la ampliación del showroom principal. El antiguo showroom se abría hacia una doble altura que balconeaba al sector de taller y servicios. Utilizando esta doble altura se extendió al doble el área locativa para exponer vehículos. En este proyecto se realizó junto con asesores el proyecto estructural y de diseño, el vínculo con el proveedor de la estructura, en este caso un proveedor fuera de país y la dirección del montaje.
