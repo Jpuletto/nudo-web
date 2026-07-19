@@ -1,0 +1,67 @@
+{
+  "slug": "delta-riego",
+  "order": 1,
+  "published": true,
+  "featured": true,
+  "title": {
+    "es": "Delta Riego",
+    "en": "Delta Riego"
+  },
+  "category": {
+    "es": "Comercial / Industrial",
+    "en": "Commercial / Industrial"
+  },
+  "location": {
+    "es": "Uruguay",
+    "en": "Uruguay"
+  },
+  "year": 2024,
+  "status": {
+    "es": "Construido",
+    "en": "Completed"
+  },
+  "scope": {
+    "es": "Proyecto y dirección de obra",
+    "en": "Architectural design and construction management"
+  },
+  "surface_m2": null,
+  "summary": {
+    "es": "Un edificio comercial e industrial resuelto como una pieza clara, funcional y reconocible.",
+    "en": "A commercial and industrial building conceived as a clear, functional and recognizable piece."
+  },
+  "description": {
+    "es": "El proyecto integra área de exhibición, atención comercial y depósito dentro de una envolvente de lenguaje unitario. La estructura, la materialidad y la organización interior se definieron considerando desde el comienzo su ejecución y funcionamiento cotidiano.",
+    "en": "The project integrates display, customer service and warehouse areas within a unified architectural envelope. Structure, materials and internal organization were defined from the outset with construction and daily operation in mind."
+  },
+  "cover": "images/01-cover.jpg",
+  "gallery": [
+    {
+      "file": "images/04-perspective-night.jpg",
+      "caption_es": "Vista nocturna",
+      "caption_en": "Night view",
+      "alt_es": "Fachada nocturna de Delta Riego",
+      "alt_en": "Delta Riego night facade"
+    },
+    {
+      "file": "images/02-process.jpg",
+      "caption_es": "Proceso de obra",
+      "caption_en": "Construction process",
+      "alt_es": "Fachada durante la obra",
+      "alt_en": "Facade during construction"
+    },
+    {
+      "file": "images/03-front-night.jpg",
+      "caption_es": "Fachada principal",
+      "caption_en": "Main facade",
+      "alt_es": "Vista nocturna frontal",
+      "alt_en": "Front night view"
+    },
+    {
+      "file": "images/01-cover.jpg",
+      "caption_es": "Vista general",
+      "caption_en": "General view",
+      "alt_es": "Perspectiva exterior de Delta Riego",
+      "alt_en": "Exterior perspective of Delta Riego"
+    }
+  ]
+}

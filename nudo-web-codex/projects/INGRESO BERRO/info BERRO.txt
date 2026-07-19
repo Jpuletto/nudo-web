@@ -1,0 +1,9 @@
+Cliente: Particular
+Tareas: Proyecto / Dirección de obra 
+Programa: Residencial
+Metraje: 30m2
+Ubicación: Prado, Montevideo
+Año: 2025
+Estado: Finalizado
+
+Descripción: Reforma de ingreso a vivienda unifamiliar, se realizó una adecuación estética y funcional acorde a la casa. Además de mejorar la estética el pedido suponía la adición de jardineras y vegetación, así como también diseñar el ingreso vehícular

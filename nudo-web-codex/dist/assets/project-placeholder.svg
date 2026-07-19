@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200">
+<rect width="1600" height="1200" fill="#000"/>
+<g fill="none" stroke="#fff" stroke-opacity="0.20" stroke-width="2">
+  <path d="M0 180H1600M0 420H1600M0 660H1600M0 900H1600"/>
+  <path d="M220 0V1200M580 0V1200M940 0V1200M1300 0V1200"/>
+  <rect x="430" y="280" width="740" height="640"/>
+  <path d="M430 600H1170M800 280V920"/>
+</g>
+<text x="800" y="625" text-anchor="middle" fill="#fff" fill-opacity="0.58" font-family="Arial, sans-serif" font-size="92" font-weight="700" letter-spacing="18">NUDO</text>
+</svg>

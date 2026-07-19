@@ -1,0 +1,64 @@
+{
+  "studio": "NUDO Arquitectura",
+  "founded": 2022,
+  "metrics": {
+    "projects": 12,
+    "projected_m2": 6500,
+    "years_creating": 5
+  },
+  "operational_base": {
+    "es": "Trabajamos en todo el país, nuestra base operativa se encuentra en Montevideo y Maldonado.",
+    "en": "We work throughout Uruguay, with our operational base in Montevideo and Maldonado."
+  },
+  "contact": {
+    "phones": [
+      {
+        "name": "Juan Pablo",
+        "display": "098 589 065",
+        "href": "+59898589065"
+      },
+      {
+        "name": "Joaquín",
+        "display": "098 840 441",
+        "href": "+59898840441"
+      }
+    ],
+    "email": "nudoarq.uy@gmail.com"
+  },
+  "languages": [
+    "es",
+    "en"
+  ],
+  "default_language": "es",
+  "about": {
+    "es": {
+      "lead_html": "<strong>NUDO</strong> es un estudio joven creado en 2022, cuando sus fundadores decidieron sumar su experiencia.",
+      "body": [
+        "Nos enfocamos en proyectos de pequeña y mediana escala, abarcando anteproyecto, diseño arquitectónico, proyecto ejecutivo, dirección y gestión de obra.",
+        "Estamos en constante búsqueda de proyectos innovadores y que nos desafíen a nivel profesional."
+      ]
+    }
+  },
+  "process": [
+    {
+      "order": 1,
+      "title": "Evaluar",
+      "description": "Entender necesidades, sitio, presupuesto y restricciones."
+    },
+    {
+      "order": 2,
+      "title": "Proyectar",
+      "description": "Una solución integral, viable y coherente."
+    },
+    {
+      "order": 3,
+      "title": "Documentar",
+      "description": "Definiciones técnicas para construir con precisión."
+    },
+    {
+      "order": 4,
+      "title": "Construir",
+      "description": "Dirección cercana y resolución directa en obra."
+    }
+  ]
+}

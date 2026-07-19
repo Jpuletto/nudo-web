@@ -1,0 +1,9 @@
+Cliente: Particular
+Tareas: Proyecto / Dirección de obra 
+Programa: Vivienda unifamiliar
+Metraje: 50m2
+Ubicación: Montevideo
+Año: 2025
+Estado: Finalizado
+
+Descripción: La necesidad de familiar de ganar un nuevo espacio de estar y living concluyó en la reforma de un antiguo deposito en desuso, dandole una nueva vida y cambiando la forma de habitar la vivienda.
