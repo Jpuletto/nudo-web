@@ -1,6 +1,7 @@
 [
   {
     "slug": "alfalider",
+    "publicFolder": "alfalider",
     "folder": "alfalider",
     "order": 1,
     "published": true,
@@ -60,6 +61,7 @@
   },
   {
     "slug": "araruama",
+    "publicFolder": "araruama",
     "folder": "araruama",
     "order": 2,
     "published": true,
@@ -114,6 +116,7 @@
   },
   {
     "slug": "classic-cars",
+    "publicFolder": "classic-cars",
     "folder": "classic cars",
     "order": 3,
     "published": true,
@@ -171,6 +174,7 @@
   },
   {
     "slug": "colegio-maturana",
+    "publicFolder": "colegio-maturana",
     "folder": "colegio maturana",
     "order": 4,
     "published": true,
@@ -260,6 +264,7 @@
   },
   {
     "slug": "delta-riego",
+    "publicFolder": "delta-riego",
     "folder": "deltariego",
     "order": 5,
     "published": true,
@@ -324,6 +329,7 @@
   },
   {
     "slug": "ingreso-berro",
+    "publicFolder": "ingreso-berro",
     "folder": "ingresoberro",
     "order": 6,
     "published": true,
@@ -383,6 +389,7 @@
   },
   {
     "slug": "matisse",
+    "publicFolder": "matisse",
     "folder": "matisse",
     "order": 7,
     "published": true,
@@ -447,6 +454,7 @@
   },
   {
     "slug": "punta-espinillo",
+    "publicFolder": "punta-espinillo",
     "folder": "puntaespinillo",
     "order": 8,
     "published": true,
@@ -501,6 +509,7 @@
   },
   {
     "slug": "reforma-nelson",
+    "publicFolder": "reforma-nelson",
     "folder": "reformanelson",
     "order": 9,
     "published": true,

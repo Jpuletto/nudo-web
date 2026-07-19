@@ -17,6 +17,8 @@ export const projectHref = project => `proyecto-${project.slug}.html`;
 
 export const projectAsset = (project, file) => `projects/${project.folder || project.slug}/${file || project.cover || ''}`;
 
+export const projectVideoAsset = (project, file) => `projects/${project.publicFolder || project.slug}/${file || project.cover || ''}`;
+
 export const imageAttrs = ({
   src,
   alt,

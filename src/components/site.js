@@ -4,7 +4,8 @@ import {
   imageAttrs,
   localized,
   projectAsset,
-  projectHref
+  projectHref,
+  projectVideoAsset
 } from '../lib/html.js';
 
 const projectTitle = (project, lang) => localized(project.title, lang, project.slug);
@@ -25,6 +26,7 @@ const setOptimizedImages = content => {
 const mediaPath = (project, file) => {
   if (!file) return 'assets/project-placeholder.svg';
   if (/^(assets|img|projects)\//.test(file)) return file;
+  if (isVideo(file)) return project ? projectVideoAsset(project, file) : file;
   return project ? projectAsset(project, file) : file;
 };
 const isVideo = file => /\.(mp4|mov|webm)$/i.test(file || '');
