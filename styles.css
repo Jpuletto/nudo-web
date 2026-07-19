@@ -272,6 +272,12 @@ body[data-page="project"] .site-header:not(.is-scrolled) {
 
 /* Studio */
 .studio { padding: var(--section-y) 0; }
+.studio .section-note {
+  max-width: 34ch;
+  font-size: clamp(14px, 1.15vw, 18px);
+  line-height: 1.35;
+  letter-spacing: .02em;
+}
 .studio__story { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(55px, 12vw, 190px); padding-bottom: clamp(85px, 11vw, 170px); }
 .studio__lead { font-size: clamp(31px, 4.25vw, 67px); line-height: 1.05; letter-spacing: -.045em; }
 .studio__copy { display: grid; align-content: start; gap: 1.5em; font-size: clamp(16px, 1.38vw, 21px); line-height: 1.55; }
