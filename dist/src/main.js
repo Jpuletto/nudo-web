@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=deploy-fixes-1';
-import { loadContent } from './lib/content.js?v=deploy-fixes-1';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260719-anchors-8';
+import { loadContent } from './lib/content.js?v=20260719-anchors-8';
 
 const body = document.body;
 const page = body.dataset.page || 'home';
@@ -7,7 +7,16 @@ const mount = document.querySelector('#app');
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+window.addEventListener('pageshow', event => {
+  if (event.persisted) window.location.reload();
+});
+
 const renderPage = async () => {
+  if (page === 'project' && !window.location.hash) window.scrollTo(0, 0);
   const content = await loadContent();
   const slug = body.dataset.projectSlug;
   const html = page === 'projects'
@@ -19,6 +28,7 @@ const renderPage = async () => {
   mount.innerHTML = html;
   document.title = getPageTitle(content, page, slug);
   initInteractions();
+  scrollToHashTarget();
 };
 
 const getPageTitle = (content, currentPage, slug) => {
@@ -29,6 +39,19 @@ const getPageTitle = (content, currentPage, slug) => {
     return `${title} — NUDO Arquitectura`;
   }
   return 'NUDO Arquitectura';
+};
+
+const scrollToHashTarget = () => {
+  if (page !== 'home' || !window.location.hash) return;
+  const targetId = decodeURIComponent(window.location.hash.slice(1));
+  const scroll = () => {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    target.scrollIntoView({ block: 'start', behavior: reducedMotion ? 'auto' : 'smooth' });
+  };
+  requestAnimationFrame(scroll);
+  window.setTimeout(scroll, 120);
+  window.setTimeout(scroll, 650);
 };
 
 const initInteractions = () => {
@@ -44,19 +67,38 @@ const initInteractions = () => {
   };
   if (document.readyState === 'complete') hideLoader();
   window.addEventListener('load', hideLoader, { once: true });
-  window.addEventListener('pageshow', hideLoader);
+  window.addEventListener('pageshow', () => {
+    transitionLayer?.classList.remove('is-active');
+    hideLoader();
+  });
   window.setTimeout(hideLoader, 650);
 
   const updateScrollUI = () => {
-    header?.classList.toggle('is-scrolled', window.scrollY > 28);
+    const projectHero = page === 'project' ? document.querySelector('.project-hero') : null;
+    const solidThreshold = projectHero
+      ? Math.max(90, projectHero.offsetHeight - (header?.offsetHeight || 0) - 8)
+      : 28;
+    header?.classList.toggle('is-scrolled', window.scrollY > solidThreshold);
     if (progress) {
       const height = document.documentElement.scrollHeight - window.innerHeight;
       const amount = height > 0 ? window.scrollY / height : 0;
       progress.style.transform = `scaleX(${Math.min(Math.max(amount, 0), 1)})`;
     }
   };
+  if (page === 'project' && !window.location.hash) {
+    window.scrollTo(0, 0);
+    header?.classList.remove('is-scrolled');
+  }
   updateScrollUI();
+  if (page === 'project' && !window.location.hash) {
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      header?.classList.remove('is-scrolled');
+      updateScrollUI();
+    });
+  }
   window.addEventListener('scroll', updateScrollUI, { passive: true });
+  if (page === 'home') window.addEventListener('hashchange', scrollToHashTarget);
 
   menuButton?.addEventListener('click', () => {
     const open = menuButton.getAttribute('aria-expanded') === 'true';
@@ -188,15 +230,20 @@ const initProjectRail = () => {
 
   rail.addEventListener('wheel', event => {
     if (Math.abs(event.deltaY) <= Math.abs(event.deltaX) || rail.scrollWidth <= rail.clientWidth) return;
-    event.preventDefault();
-    rail.scrollLeft += event.deltaY;
-  }, { passive: false });
+    const maxScroll = rail.scrollWidth - rail.clientWidth;
+    const scrollingForward = event.deltaY > 0;
+    const canScrollForward = scrollingForward && rail.scrollLeft < maxScroll - 2;
+    const canScrollBackward = !scrollingForward && rail.scrollLeft > 2;
+    if (!canScrollForward && !canScrollBackward) return;
+    rail.scrollLeft += event.deltaY * 0.7;
+  }, { passive: true });
 
   rail.addEventListener('click', event => {
     const card = event.target.closest('.project-card');
     if (!card) return;
     if (movedDuringPointer) {
       event.preventDefault();
+      movedDuringPointer = false;
       return;
     }
     const href = card.getAttribute('href');
@@ -210,27 +257,43 @@ const initProjectRail = () => {
 
   if (!window.matchMedia('(pointer:fine)').matches) return;
 
+  let pointerIsDown = false;
   let dragging = false;
   let startX = 0;
   let startScroll = 0;
+  let activePointerId = null;
 
   rail.addEventListener('pointerdown', event => {
-    dragging = true;
+    if (event.button !== 0) return;
+    pointerIsDown = true;
+    dragging = false;
     movedDuringPointer = false;
+    activePointerId = event.pointerId;
     startX = event.clientX;
     startScroll = rail.scrollLeft;
-    rail.classList.add('is-dragging');
-    rail.setPointerCapture(event.pointerId);
   });
 
   rail.addEventListener('pointermove', event => {
+    if (!pointerIsDown) return;
+    const movement = event.clientX - startX;
+    if (!dragging && Math.abs(movement) > 8) {
+      dragging = true;
+      movedDuringPointer = true;
+      rail.classList.add('is-dragging');
+      if (!rail.hasPointerCapture(event.pointerId)) rail.setPointerCapture(event.pointerId);
+    }
     if (!dragging) return;
-    if (Math.abs(event.clientX - startX) > 8) movedDuringPointer = true;
-    rail.scrollLeft = startScroll - (event.clientX - startX) * 1.2;
+    event.preventDefault();
+    rail.scrollLeft = startScroll - movement * 1.2;
   });
 
   const endDrag = () => {
+    if (activePointerId != null && rail.hasPointerCapture(activePointerId)) {
+      rail.releasePointerCapture(activePointerId);
+    }
+    pointerIsDown = false;
     dragging = false;
+    activePointerId = null;
     rail.classList.remove('is-dragging');
   };
   rail.addEventListener('pointerup', endDrag);

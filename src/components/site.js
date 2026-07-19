@@ -228,7 +228,7 @@ export const FeaturedProjectsRail = (projects, lang) => `
 `;
 
 export const ProjectRailCard = (project, index, lang) => `
-  <a class="project-card ${index === 0 ? 'project-card--feature' : ''}" href="${projectHref(project)}" data-transition>
+  <a class="project-card ${index === 0 ? 'project-card--feature' : ''}" href="${projectHref(project)}">
     <figure>
       ${Media({
         project,

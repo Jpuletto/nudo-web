@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import {
   copyIfExists,
+  faviconAsset,
   copyRecursive,
   localized,
   readJson,
@@ -103,7 +104,32 @@ const copyVisibleFiles = async relativeDir => {
 };
 
 const copyFavicon = async () => {
+  const faviconSource = path.join(rootDir, 'img', 'favicon.png');
   await copyRequiredFile('img/favicon.png');
+  await copyIfExists(
+    faviconSource,
+    path.join(distDir, faviconAsset)
+  );
+  await copyIfExists(
+    faviconSource,
+    path.join(distDir, 'favicon.png')
+  );
+  if (await exists(faviconSource)) {
+    const png = await fs.readFile(faviconSource);
+    const header = Buffer.alloc(22);
+    header.writeUInt16LE(0, 0);
+    header.writeUInt16LE(1, 2);
+    header.writeUInt16LE(1, 4);
+    header.writeUInt8(42, 6);
+    header.writeUInt8(42, 7);
+    header.writeUInt8(0, 8);
+    header.writeUInt8(0, 9);
+    header.writeUInt16LE(1, 10);
+    header.writeUInt16LE(32, 12);
+    header.writeUInt32LE(png.length, 14);
+    header.writeUInt32LE(22, 18);
+    await fs.writeFile(path.join(distDir, 'favicon.ico'), Buffer.concat([header, png]));
+  }
 };
 
 const validatePublicationInputs = async assets => {

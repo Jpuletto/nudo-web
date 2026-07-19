@@ -6,6 +6,8 @@ export const rootDir = process.cwd();
 const imageExtensions = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp']);
 const videoExtensions = new Set(['.mp4', '.mov', '.webm']);
 const mediaExtensions = new Set([...imageExtensions, ...videoExtensions]);
+export const assetVersion = '20260719-anchors-8';
+export const faviconAsset = `img/favicon-nudo-${assetVersion}.png`;
 
 export const shell = ({ page, slug, title, description }) => `<!doctype html>
 <html lang="es">
@@ -15,10 +17,12 @@ export const shell = ({ page, slug, title, description }) => `<!doctype html>
   <meta name="description" content="${escapeAttribute(description)}" />
   <meta name="theme-color" content="#000000" />
   <title>${escapeHtml(title)}</title>
-  <link rel="icon" href="img/favicon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="img/favicon.png" />
-  <link rel="stylesheet" href="styles.css" />
-  <script type="module" src="src/main.js"></script>
+  <link rel="icon" href="${faviconAsset}" type="image/png" />
+  <link rel="icon" href="favicon.ico?v=${assetVersion}" sizes="any" />
+  <link rel="shortcut icon" href="${faviconAsset}" type="image/png" />
+  <link rel="apple-touch-icon" href="${faviconAsset}" />
+  <link rel="stylesheet" href="styles.css?v=${assetVersion}" />
+  <script type="module" src="src/main.js?v=${assetVersion}"></script>
 </head>
 <body data-page="${page}"${slug ? ` data-project-slug="${escapeAttribute(slug)}"` : ''}>
   <div id="app"></div>
