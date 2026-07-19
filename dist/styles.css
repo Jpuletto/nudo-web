@@ -1046,3 +1046,29 @@ body[data-page="home"] .site-header {
     gap: 18px;
   }
 }
+
+/* ===== Ajuste final — equipo centrado ===== */
+.team__heading {
+  justify-content: center;
+  text-align: center;
+}
+
+.team-grid {
+  justify-content: center;
+  margin-inline: auto;
+}
+
+.person {
+  text-align: center;
+}
+
+.person__photo {
+  margin-inline: auto;
+}
+
+.person__meta {
+  justify-content: center;
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
