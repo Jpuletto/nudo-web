@@ -486,7 +486,7 @@
       "es": "Dirección de obra"
     },
     "category": {
-      "es": "Vivienda unifamiliar"
+      "es": "Residencial"
     },
     "surface_m2": 200,
     "location": {
@@ -544,7 +544,7 @@
       "es": "Proyecto / Dirección de obra"
     },
     "category": {
-      "es": "Vivienda unifamiliar"
+      "es": "Residencial"
     },
     "surface_m2": 50,
     "location": {

@@ -1155,3 +1155,35 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
     background-color: #000;
   }
 }
+
+/* ===== Ajuste final — títulos de proyecto contenidos ===== */
+.project-hero__title {
+  right: var(--page-pad);
+  max-width: calc(100vw - (var(--page-pad) * 2));
+}
+
+.project-hero__title h1 {
+  max-width: 8.6ch;
+  overflow-wrap: normal;
+}
+
+@media (max-width: 980px) {
+  .project-hero__title {
+    bottom: clamp(42px, 9vw, 78px);
+  }
+
+  .project-hero__title h1 {
+    max-width: 6.8ch;
+    font-size: clamp(58px, 19vw, 110px);
+    line-height: .76;
+    letter-spacing: -.075em;
+  }
+}
+
+@media (max-width: 420px) {
+  .project-hero__title h1 {
+    max-width: 7.5ch;
+    font-size: clamp(48px, 16vw, 68px);
+    line-height: .82;
+  }
+}
