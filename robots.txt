@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /test/
+Disallow: /tests/
+Disallow: /prueba/
+Disallow: /pruebas/
+
+Sitemap: https://nudoarq.uy/sitemap.xml

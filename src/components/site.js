@@ -78,11 +78,11 @@ const Media = ({
 
 export const BaseChrome = (content, page, children) => `
   <div class="loader" aria-hidden="true">
-    <img src="assets/brand/logo-nudo-white.png" alt="" class="loader__logo" />
+    <img src="assets/brand/logo-nudo-white.png" alt="NUDO Arquitectura" class="loader__logo" />
     <span class="loader__line"></span>
   </div>
   <div class="page-transition" aria-hidden="true">
-    <img src="assets/brand/logo-nudo-white.png" alt="" />
+    <img src="assets/brand/logo-nudo-white.png" alt="NUDO Arquitectura" />
   </div>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
   ${Header(page)}
@@ -160,14 +160,14 @@ export const HeroVideo = (project, heroImages = [], heroVideo = '') => {
                 ${mobileWebp ? `<source media="(max-width: 680px)" type="image/webp" srcset="${mobileWebp}" sizes="100vw" />` : ''}
                 <source media="(max-width: 680px)" srcset="${escapeHtml(optimizedFallback(mobileSrc))}" />
                 ${desktopWebp ? `<source type="image/webp" srcset="${desktopWebp}" sizes="100vw" />` : ''}
-                <img ${imageAttrs({ src: optimizedFallback(desktopSrc), alt: '', fetchPriority, loading: imageLoading, sizes: '100vw' })} />
+                <img ${imageAttrs({ src: optimizedFallback(desktopSrc), alt: `Portada de NUDO Arquitectura ${index + 1}`, fetchPriority, loading: imageLoading, sizes: '100vw' })} />
               </picture>
             ` : desktopWebp ? `
               <picture>
                 <source type="image/webp" srcset="${desktopWebp}" sizes="100vw" />
-                <img ${imageAttrs({ src: optimizedFallback(desktopSrc), alt: '', fetchPriority, loading: imageLoading, sizes: '100vw' })} />
+                <img ${imageAttrs({ src: optimizedFallback(desktopSrc), alt: `Portada de NUDO Arquitectura ${index + 1}`, fetchPriority, loading: imageLoading, sizes: '100vw' })} />
               </picture>
-            ` : `<img ${imageAttrs({ src: desktopSrc, alt: '', fetchPriority, loading: imageLoading, sizes: '100vw' })} />`}
+            ` : `<img ${imageAttrs({ src: desktopSrc, alt: `Portada de NUDO Arquitectura ${index + 1}`, fetchPriority, loading: imageLoading, sizes: '100vw' })} />`}
           </figure>
         `;}).join('')}
       </div>
@@ -242,7 +242,7 @@ export const ProjectRailCard = (project, index, lang) => `
       ${Media({
         project,
         file: projectListingCover(project),
-        alt: projectTitle(project, lang),
+        alt: `Imagen de portada del proyecto ${projectTitle(project, lang)}`,
         loading: index === 0 ? 'eager' : 'lazy',
         sizes: '(max-width: 680px) 88vw, 76vw'
       })}
@@ -312,7 +312,9 @@ export const ProcessSection = (site, project, lang, processAssets = []) => {
                 className: index === 0 ? 'is-active' : '',
                 project,
                 file,
-                alt: index === 0 ? 'Proyecto construido' : 'Proceso de trabajo'
+                alt: site.process?.[index]?.title
+                  ? `Imagen del proceso de trabajo ${site.process[index].title}`
+                  : 'Imagen del proceso de trabajo de NUDO Arquitectura'
               })}
             `).join('')}
           </div>
@@ -369,11 +371,11 @@ export const TeamSection = (directorAssets = []) => {
       </div>
       <div class="team-grid">
         <article class="person reveal">
-          ${PersonPhoto({ asset: juanPhoto, initials: 'JP', alt: 'Juan Pablo Puletto', modifier: 'person__photo--one' })}
+          ${PersonPhoto({ asset: juanPhoto, initials: 'JP', alt: 'Retrato de Juan Pablo Puletto, arquitecto director de NUDO Arquitectura', modifier: 'person__photo--one' })}
           <div class="person__meta"><h3>Juan Pablo Puletto</h3><p>Arquitecto · Director</p></div>
         </article>
         <article class="person reveal">
-          ${PersonPhoto({ asset: joaquinPhoto, initials: 'JR', alt: 'Joaquín Rivera', modifier: 'person__photo--two' })}
+          ${PersonPhoto({ asset: joaquinPhoto, initials: 'JR', alt: 'Retrato de Joaquín Rivera, arquitecto director de NUDO Arquitectura', modifier: 'person__photo--two' })}
           <div class="person__meta"><h3>Joaquín Rivera</h3><p>Arquitecto · Director</p></div>
         </article>
       </div>
@@ -445,7 +447,7 @@ export const ArchiveCard = (project, index, lang) => `
       ${Media({
         project,
         file: projectListingCover(project),
-        alt: projectTitle(project, lang),
+        alt: `Imagen de portada del proyecto ${projectTitle(project, lang)}`,
         sizes: '(max-width: 680px) 92vw, (max-width: 980px) 45vw, 30vw'
       })}
       <div class="archive-card__overlay"></div>
@@ -548,7 +550,7 @@ export const ProjectNavigation = (previous, next) => `
 export const Lightbox = () => `
   <div class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Vista ampliada">
     <button class="lightbox__close" type="button" aria-label="Cerrar">×</button>
-    <img src="" alt="" />
+    <img src="" alt="Vista ampliada del proyecto" />
     <p></p>
   </div>
 `;
