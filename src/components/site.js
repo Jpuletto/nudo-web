@@ -14,6 +14,12 @@ const projectLocation = (project, lang) => localized(project.location, lang, 'Ub
 const projectStatus = (project, lang) => localized(project.status, lang, 'Estado a confirmar');
 const projectScope = (project, lang) => localized(project.scope, lang, 'Alcance a confirmar');
 const projectListingCover = project => project.listingCover || project.cover;
+const textParagraphs = text => String(text || '')
+  .split(/\n+/)
+  .map(paragraph => paragraph.trim())
+  .filter(Boolean)
+  .map(paragraph => `<p>${escapeHtml(paragraph)}</p>`)
+  .join('');
 const ARROW_NE = '↗︎';
 const ARROW_SE = '↘︎';
 const ARROW_LEFT = '←';
@@ -485,28 +491,32 @@ export const ProjectHero = (project, lang) => `
   </section>
 `;
 
-export const ProjectSummary = (project, lang) => `
-  <section class="project-summary section-light">
-    <div class="section-shell project-summary__grid">
-      <aside class="project-facts reveal">
-        <p class="section-index">DATOS</p>
-        <dl>
-          <div><dt>UBICACIÓN</dt><dd>${escapeHtml(projectLocation(project, lang))}</dd></div>
-          ${project.client ? `<div><dt>CLIENTE</dt><dd>${escapeHtml(localized(project.client, lang))}</dd></div>` : ''}
-          <div><dt>AÑO</dt><dd>${escapeHtml(project.year || 'A confirmar')}</dd></div>
-          <div><dt>ESTADO</dt><dd>${escapeHtml(projectStatus(project, lang))}</dd></div>
-          <div><dt>ALCANCE</dt><dd>${escapeHtml(projectScope(project, lang))}</dd></div>
-          <div><dt>SUPERFICIE</dt><dd>${project.surface_m2 ? `${formatNumber(project.surface_m2)} m²` : 'A confirmar'}</dd></div>
-        </dl>
-      </aside>
-      <div class="project-description reveal">
-        <p class="project-description__lead">${escapeHtml(localized(project.summary, lang, 'Memoria de proyecto'))}</p>
-        <p>${escapeHtml(localized(project.description, lang, 'Memoria del proyecto en desarrollo.'))}</p>
-        ${project.surface_m2 ? '' : '<p class="project-description__note">Memoria en desarrollo. Este texto se actualizará con la información definitiva del proyecto.</p>'}
+export const ProjectSummary = (project, lang) => {
+  const summary = localized(project.summary, lang, '');
+  const description = localized(project.description, lang, 'Memoria del proyecto en desarrollo.');
+  return `
+    <section class="project-summary section-light">
+      <div class="section-shell project-summary__grid">
+        <aside class="project-facts reveal">
+          <p class="section-index">DATOS</p>
+          <dl>
+            <div><dt>UBICACIÓN</dt><dd>${escapeHtml(projectLocation(project, lang))}</dd></div>
+            ${project.client ? `<div><dt>CLIENTE</dt><dd>${escapeHtml(localized(project.client, lang))}</dd></div>` : ''}
+            <div><dt>AÑO</dt><dd>${escapeHtml(project.year || 'A confirmar')}</dd></div>
+            <div><dt>ESTADO</dt><dd>${escapeHtml(projectStatus(project, lang))}</dd></div>
+            <div><dt>ALCANCE</dt><dd>${escapeHtml(projectScope(project, lang))}</dd></div>
+            <div><dt>SUPERFICIE</dt><dd>${project.surface_m2 ? `${formatNumber(project.surface_m2)} m²` : 'A confirmar'}</dd></div>
+          </dl>
+        </aside>
+        <div class="project-description reveal">
+          ${summary ? `<p class="project-description__lead">${escapeHtml(summary)}</p>` : ''}
+          ${textParagraphs(description)}
+          ${project.surface_m2 ? '' : '<p class="project-description__note">Memoria en desarrollo. Este texto se actualizará con la información definitiva del proyecto.</p>'}
+        </div>
       </div>
-    </div>
-  </section>
-`;
+    </section>
+  `;
+};
 
 export const ProjectGallery = (project, lang) => `
   <section class="project-gallery-detail section-light">

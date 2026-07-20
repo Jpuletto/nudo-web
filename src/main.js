@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260719-studio-note-12';
-import { loadContent } from './lib/content.js?v=20260719-studio-note-12';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260719-project-copy-13';
+import { loadContent } from './lib/content.js?v=20260719-project-copy-13';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);
