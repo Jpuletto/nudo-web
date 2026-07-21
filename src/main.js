@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260720-before-after-17';
-import { loadContent } from './lib/content.js?v=20260720-before-after-17';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260721-matisse-slider-20';
+import { loadContent } from './lib/content.js?v=20260721-matisse-slider-20';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);

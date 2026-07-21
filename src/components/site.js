@@ -508,6 +508,7 @@ export const ProjectSummary = (project, lang) => {
             <div><dt>AÑO</dt><dd>${escapeHtml(project.year || 'A confirmar')}</dd></div>
             <div><dt>ESTADO</dt><dd>${escapeHtml(projectStatus(project, lang))}</dd></div>
             <div><dt>ALCANCE</dt><dd>${escapeHtml(projectScope(project, lang))}</dd></div>
+            ${project.intervention ? `<div><dt>INTERVENCIÓN</dt><dd>${escapeHtml(localized(project.intervention, lang))}</dd></div>` : ''}
             <div><dt>SUPERFICIE</dt><dd>${project.surface_m2 ? `${formatNumber(project.surface_m2)} m²` : 'A confirmar'}</dd></div>
           </dl>
         </aside>
@@ -558,23 +559,27 @@ export const BeforeAfterSection = (project, lang) => {
   `;
 };
 
-export const ProjectGallery = (project, lang) => `
-  <section class="project-gallery-detail section-light">
-    <div class="section-shell project-gallery-detail__grid">
-      ${(project.gallery || []).map((image, index) => `
-        <figure class="detail-image ${index % 3 === 0 ? 'detail-image--wide' : 'detail-image--portrait'} reveal" ${isVideo(image.file) ? '' : 'data-lightbox'}>
-          ${Media({
-            project,
-            file: image.file,
-            alt: localized(image.alt_es ? { es: image.alt_es, en: image.alt_en } : image.alt, lang, `${projectTitle(project, lang)} ${index + 1}`),
-            sizes: index % 3 === 0 ? '92vw' : '(max-width: 680px) 92vw, 46vw'
-          })}
-          <figcaption>${String(index + 1).padStart(2, '0')} / ${escapeHtml(localized(image.caption_es ? { es: image.caption_es, en: image.caption_en } : image.caption, lang, 'Imagen'))}</figcaption>
-        </figure>
-      `).join('')}
-    </div>
-  </section>
-`;
+export const ProjectGallery = (project, lang) => {
+  const comparisonFiles = new Set([project.beforeAfter?.before, project.beforeAfter?.after].filter(Boolean));
+  const gallery = (project.gallery || []).filter(image => !comparisonFiles.has(image.file));
+  return `
+    <section class="project-gallery-detail section-light">
+      <div class="section-shell project-gallery-detail__grid">
+        ${gallery.map((image, index) => `
+          <figure class="detail-image ${index % 3 === 0 ? 'detail-image--wide' : 'detail-image--portrait'} reveal" ${isVideo(image.file) ? '' : 'data-lightbox'}>
+            ${Media({
+              project,
+              file: image.file,
+              alt: localized(image.alt_es ? { es: image.alt_es, en: image.alt_en } : image.alt, lang, `${projectTitle(project, lang)} ${index + 1}`),
+              sizes: index % 3 === 0 ? '92vw' : '(max-width: 680px) 92vw, 46vw'
+            })}
+            <figcaption>${String(index + 1).padStart(2, '0')} / ${escapeHtml(localized(image.caption_es ? { es: image.caption_es, en: image.caption_en } : image.caption, lang, 'Imagen'))}</figcaption>
+          </figure>
+        `).join('')}
+      </div>
+    </section>
+  `;
+};
 
 export const ProjectNavigation = (previous, next) => `
   <nav class="project-navigation section-light" aria-label="Navegación entre proyectos">

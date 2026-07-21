@@ -1216,7 +1216,9 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
 .before-after__stage {
   --position: 50%;
   position: relative;
-  min-height: 420px;
+  width: 80%;
+  min-height: 0;
+  margin-inline: auto;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #000;
@@ -1320,8 +1322,14 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
   }
 
   .before-after__stage {
+    width: 100%;
     min-height: 0;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 16 / 9;
+    background: transparent;
+  }
+
+  .before-after__image img {
+    object-fit: contain;
   }
 
   .before-after__image span {
