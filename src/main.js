@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260720-seo-16';
-import { loadContent } from './lib/content.js?v=20260720-seo-16';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260720-before-after-17';
+import { loadContent } from './lib/content.js?v=20260720-before-after-17';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);
@@ -143,6 +143,7 @@ const initInteractions = () => {
   initCounters();
   initProjectRail();
   initProcess();
+  initBeforeAfter();
   initLightbox();
   initMediaProtection();
 
@@ -330,6 +331,20 @@ const initProcess = () => {
     item.addEventListener('click', activate);
     item.addEventListener('mouseenter', activate);
     item.addEventListener('focus', activate);
+  });
+};
+
+const initBeforeAfter = () => {
+  document.querySelectorAll('[data-before-after]').forEach(stage => {
+    const range = stage.querySelector('.before-after__range');
+    if (!range) return;
+    const update = () => {
+      const value = Math.min(Math.max(Number(range.value || 50), 0), 100);
+      stage.style.setProperty('--position', `${value}%`);
+      range.setAttribute('aria-valuetext', `${value}% después`);
+    };
+    range.addEventListener('input', update);
+    update();
   });
 };
 

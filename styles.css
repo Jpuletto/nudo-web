@@ -1187,3 +1187,152 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
     line-height: .82;
   }
 }
+
+/* ===== Ajuste final — comparador antes/después ===== */
+.before-after {
+  padding: clamp(8px, 2vw, 30px) 0 clamp(70px, 8vw, 120px);
+}
+
+.before-after__inner {
+  display: grid;
+  gap: clamp(26px, 4vw, 58px);
+}
+
+.before-after__heading {
+  display: grid;
+  grid-template-columns: minmax(110px, .65fr) 3fr;
+  gap: clamp(30px, 6vw, 100px);
+  align-items: end;
+}
+
+.before-after__heading h2 {
+  max-width: 15ch;
+  font-size: clamp(34px, 4.6vw, 74px);
+  font-weight: 400;
+  line-height: .98;
+  letter-spacing: -.05em;
+}
+
+.before-after__stage {
+  --position: 50%;
+  position: relative;
+  min-height: 420px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  cursor: ew-resize;
+}
+
+.before-after__image,
+.before-after__image picture,
+.before-after__image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.before-after__image img {
+  object-fit: cover;
+  user-select: none;
+}
+
+.before-after__image--after {
+  clip-path: inset(0 calc(100% - var(--position)) 0 0);
+}
+
+.before-after__image span {
+  position: absolute;
+  z-index: 3;
+  bottom: 22px;
+  padding: 9px 11px;
+  background: #000;
+  color: #fff;
+  font-size: 8px;
+  letter-spacing: .16em;
+}
+
+.before-after__image--before span {
+  right: 22px;
+}
+
+.before-after__image--after span {
+  left: 22px;
+}
+
+.before-after__divider {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  left: var(--position);
+  width: 2px;
+  background: #fff;
+  transform: translateX(-1px);
+  pointer-events: none;
+}
+
+.before-after__divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #fff;
+  background: #000;
+  transform: translate(-50%, -50%);
+}
+
+.before-after__divider::after {
+  content: "← →";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+.before-after__range {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.before-after__stage:focus-within {
+  outline: 2px solid #fff;
+  outline-offset: -6px;
+}
+
+@media (max-width: 680px) {
+  .before-after__heading {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .before-after__stage {
+    min-height: 0;
+    aspect-ratio: 4 / 5;
+  }
+
+  .before-after__image span {
+    bottom: 14px;
+  }
+
+  .before-after__image--before span {
+    right: 14px;
+  }
+
+  .before-after__image--after span {
+    left: 14px;
+  }
+}

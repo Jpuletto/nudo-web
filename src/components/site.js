@@ -208,7 +208,7 @@ export const Metrics = site => `
         <div><b>PROYECTOS</b><small>desarrollados desde ${site.founded || 2022}</small></div>
       </article>
       <article class="metric reveal">
-        <span class="metric__number"><strong data-counter="${Number(site.metrics?.projected_m2 || 0)}">0</strong><em>m²</em></span>
+        <span class="metric__number"><em>+</em><strong data-counter="${Number(site.metrics?.projected_m2 || 0)}">0</strong><em>m²</em></span>
         <div><b>PROYECTADOS</b><small>en proyectos de distintas escalas</small></div>
       </article>
       <article class="metric reveal">
@@ -470,6 +470,7 @@ export const ProjectPage = (content, slug) => {
   return BaseChrome(content, 'project', `
     ${ProjectHero(project, lang)}
     ${ProjectSummary(project, lang)}
+    ${BeforeAfterSection(project, lang)}
     ${ProjectGallery(project, lang)}
     ${ProjectNavigation(previous, next)}
     ${Lightbox()}
@@ -514,6 +515,43 @@ export const ProjectSummary = (project, lang) => {
           ${summary ? `<p class="project-description__lead">${escapeHtml(summary)}</p>` : ''}
           ${textParagraphs(description)}
           ${project.surface_m2 ? '' : '<p class="project-description__note">Memoria en desarrollo. Este texto se actualizará con la información definitiva del proyecto.</p>'}
+        </div>
+      </div>
+    </section>
+  `;
+};
+
+export const BeforeAfterSection = (project, lang) => {
+  if (!project.beforeAfter?.before || !project.beforeAfter?.after) return '';
+  const title = projectTitle(project, lang);
+  return `
+    <section class="before-after section-light">
+      <div class="section-shell before-after__inner reveal">
+        <div class="before-after__heading">
+          <p class="section-index">ANTES / DESPUÉS</p>
+          <h2>${escapeHtml(localized(project.beforeAfter.title, lang, 'Transformación del proyecto'))}</h2>
+        </div>
+        <div class="before-after__stage" data-before-after style="--position: 50%;">
+          <div class="before-after__image before-after__image--before">
+            ${Media({
+              project,
+              file: project.beforeAfter.before,
+              alt: `Antes de la intervención en el proyecto ${title}`,
+              sizes: '92vw'
+            })}
+            <span>ANTES</span>
+          </div>
+          <div class="before-after__image before-after__image--after">
+            ${Media({
+              project,
+              file: project.beforeAfter.after,
+              alt: `Después de la intervención en el proyecto ${title}`,
+              sizes: '92vw'
+            })}
+            <span>DESPUÉS</span>
+          </div>
+          <span class="before-after__divider" aria-hidden="true"></span>
+          <input class="before-after__range" type="range" min="0" max="100" value="50" aria-label="Comparar antes y después del proyecto ${escapeHtml(title)}" />
         </div>
       </div>
     </section>

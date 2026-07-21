@@ -348,6 +348,13 @@
     "title": {
       "es": "Ingreso Berro"
     },
+    "beforeAfter": {
+      "before": "01.jpg",
+      "after": "03.jpg",
+      "title": {
+        "es": "Reforma del acceso"
+      }
+    },
     "client": {
       "es": "Particular"
     },
