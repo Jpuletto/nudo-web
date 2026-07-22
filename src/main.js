@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260721-matisse-slider-20';
-import { loadContent } from './lib/content.js?v=20260721-matisse-slider-20';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260722-text-revisions-25';
+import { loadContent } from './lib/content.js?v=20260722-text-revisions-25';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);
@@ -239,7 +239,20 @@ const initCounters = () => {
 const initProjectRail = () => {
   const rail = document.querySelector('[data-project-rail]');
   if (!rail) return;
+  const previousButton = document.querySelector('[data-project-rail-prev]');
+  const nextButton = document.querySelector('[data-project-rail-next]');
   let movedDuringPointer = false;
+  const scrollRail = direction => {
+    const card = rail.querySelector('.project-card');
+    const amount = card ? card.getBoundingClientRect().width + 32 : rail.clientWidth * 0.78;
+    rail.scrollBy({
+      left: direction * amount,
+      behavior: reducedMotion ? 'auto' : 'smooth'
+    });
+  };
+
+  previousButton?.addEventListener('click', () => scrollRail(-1));
+  nextButton?.addEventListener('click', () => scrollRail(1));
 
   rail.addEventListener('wheel', event => {
     if (Math.abs(event.deltaY) <= Math.abs(event.deltaX) || rail.scrollWidth <= rail.clientWidth) return;
@@ -353,7 +366,11 @@ const initLightbox = () => {
   const lightboxImage = lightbox?.querySelector('img');
   const lightboxCaption = lightbox?.querySelector('p');
   const closeButton = lightbox?.querySelector('.lightbox__close');
+  const previousButton = lightbox?.querySelector('.lightbox__nav--prev');
+  const nextButton = lightbox?.querySelector('.lightbox__nav--next');
+  const figures = [...document.querySelectorAll('[data-lightbox]')];
   let lastFocusedElement = null;
+  let currentIndex = 0;
 
   const closeLightbox = () => {
     lightbox?.classList.remove('is-open');
@@ -362,19 +379,33 @@ const initLightbox = () => {
     lastFocusedElement?.focus();
   };
 
-  document.querySelectorAll('[data-lightbox]').forEach(figure => {
+  const showImage = index => {
+    const figure = figures[index];
+    const image = figure?.querySelector('img');
+    const caption = figure?.querySelector('figcaption');
+    if (!image || !lightboxImage) return;
+    currentIndex = index;
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = image.alt;
+    if (lightboxCaption) lightboxCaption.textContent = caption?.textContent || '';
+    previousButton?.toggleAttribute('disabled', figures.length < 2);
+    nextButton?.toggleAttribute('disabled', figures.length < 2);
+  };
+
+  const showRelativeImage = direction => {
+    if (!figures.length) return;
+    showImage((currentIndex + direction + figures.length) % figures.length);
+  };
+
+  figures.forEach((figure, index) => {
     figure.tabIndex = 0;
     figure.setAttribute('role', 'button');
     figure.setAttribute('aria-label', 'Ampliar imagen');
 
     const open = () => {
-      const image = figure.querySelector('img');
-      const caption = figure.querySelector('figcaption');
-      if (!image || !lightbox || !lightboxImage) return;
+      if (!lightbox || !lightboxImage) return;
       lastFocusedElement = document.activeElement;
-      lightboxImage.src = image.src;
-      lightboxImage.alt = image.alt;
-      if (lightboxCaption) lightboxCaption.textContent = caption?.textContent || '';
+      showImage(index);
       lightbox.classList.add('is-open');
       lightbox.setAttribute('aria-hidden', 'false');
       body.classList.add('lightbox-open');
@@ -391,11 +422,16 @@ const initLightbox = () => {
   });
 
   closeButton?.addEventListener('click', closeLightbox);
+  previousButton?.addEventListener('click', () => showRelativeImage(-1));
+  nextButton?.addEventListener('click', () => showRelativeImage(1));
   lightbox?.addEventListener('click', event => {
     if (event.target === lightbox) closeLightbox();
   });
   window.addEventListener('keydown', event => {
     if (event.key === 'Escape') closeLightbox();
+    if (!lightbox?.classList.contains('is-open')) return;
+    if (event.key === 'ArrowLeft') showRelativeImage(-1);
+    if (event.key === 'ArrowRight') showRelativeImage(1);
   });
 };
 

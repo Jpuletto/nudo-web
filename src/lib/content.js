@@ -1,9 +1,11 @@
 import { localized } from './html.js';
 
 const DEV = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+const DATA_VERSION = new URL(import.meta.url).searchParams.get('v') || '';
 
 const fetchJson = async path => {
-  const response = await fetch(path);
+  const versionedPath = DATA_VERSION ? `${path}?v=${encodeURIComponent(DATA_VERSION)}` : path;
+  const response = await fetch(versionedPath);
   if (!response.ok) throw new Error(`No se pudo cargar ${path}`);
   return response.json();
 };

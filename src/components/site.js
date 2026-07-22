@@ -229,9 +229,11 @@ export const FeaturedProjectsRail = (projects, lang) => `
       </div>
       </div>
       <div class="project-rail-wrap reveal">
-      <div class="project-rail" data-project-rail tabindex="0" aria-label="Proyectos destacados">
-        ${projects.map((project, index) => ProjectRailCard(project, index, lang)).join('')}
-      </div>
+        <button class="project-rail-arrow project-rail-arrow--prev" type="button" data-project-rail-prev aria-label="Ver proyectos anteriores">${ARROW_LEFT}</button>
+        <div class="project-rail" data-project-rail tabindex="0" aria-label="Proyectos destacados">
+          ${projects.map((project, index) => ProjectRailCard(project, index, lang)).join('')}
+        </div>
+        <button class="project-rail-arrow project-rail-arrow--next" type="button" data-project-rail-next aria-label="Ver proyectos siguientes">${ARROW_RIGHT}</button>
     </div>
   </section>
 `;
@@ -593,7 +595,9 @@ export const ProjectNavigation = (previous, next) => `
 export const Lightbox = () => `
   <div class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Vista ampliada">
     <button class="lightbox__close" type="button" aria-label="Cerrar">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Ver imagen anterior">${ARROW_LEFT}</button>
     <img src="" alt="Vista ampliada del proyecto" />
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Ver imagen siguiente">${ARROW_RIGHT}</button>
     <p></p>
   </div>
 `;
