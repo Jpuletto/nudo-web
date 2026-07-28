@@ -267,7 +267,7 @@ export const Manifesto = () => `
     </div>
     <div class="section-shell manifesto__content">
       <p class="section-index reveal">FORMA DE TRABAJO</p>
-      <blockquote class="reveal">La obra no es una etapa posterior al proyecto. Es parte del proyecto desde el primer día.</blockquote>
+      <blockquote class="reveal">La obra no es una etapa posterior al proyecto. Es parte de este desde el primer día.</blockquote>
     </div>
   </section>
 `;

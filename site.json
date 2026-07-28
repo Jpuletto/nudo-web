@@ -7,7 +7,7 @@
     "years_creating": 5
   },
   "operational_base": {
-    "es": "Trabajamos en todo el país, nuestra base operativa se encuentra en Montevideo y Maldonado.",
+    "es": "Trabajamos en todo el país, con base operativa en Montevideo y Maldonado.",
     "en": "We work throughout Uruguay, with our operational base in Montevideo and Maldonado."
   },
   "contact": {
@@ -32,10 +32,10 @@
   "default_language": "es",
   "about": {
     "es": {
-      "lead_html": "<strong>NUDO</strong> es un estudio joven creado en 2022, cuando sus fundadores decidieron sumar su experiencia.",
+      "lead_html": "<strong>NUDO</strong> es un estudio joven creado en 2022, cuando sus fundadores decidieron sumar su experiencia para afrontar nuevos retos y proyectos.",
       "body": [
         "Nos enfocamos en proyectos de pequeña y mediana escala, abarcando anteproyecto, diseño arquitectónico, proyecto ejecutivo, dirección y gestión de obra.",
-        "Estamos en constante búsqueda de proyectos innovadores y que nos desafíen a nivel profesional."
+        "Estamos en constante búsqueda de proyectos innovadores que nos desafíen a nivel profesional."
       ]
     }
   },
