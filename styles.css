@@ -970,6 +970,11 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
   object-fit: cover;
 }
 
+.person__image img {
+  height: 100%;
+  object-fit: cover;
+}
+
 .person__photo--has-hover .person__image {
   position: absolute;
   inset: 0;

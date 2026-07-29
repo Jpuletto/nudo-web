@@ -357,16 +357,26 @@ const directorPhotoExact = (assets, name) => {
   return assets.find(asset => normalizeAssetName(asset).split('/').pop().replace(/\.[a-z0-9]+$/i, '') === expected);
 };
 
-const PersonPhoto = ({ asset, hoverAsset, initials, alt, hoverAlt, modifier }) => {
+const PersonImage = ({ asset, className, alt }) => {
   const optimized = optimizedImages[asset];
-  const optimizedHover = optimizedImages[hoverAsset];
   const dimensions = optimized ? ` width="${optimized.width}" height="${optimized.height}"` : '';
-  const hoverDimensions = optimizedHover ? ` width="${optimizedHover.width}" height="${optimizedHover.height}"` : '';
+  const srcset = optimizedSrcset(asset);
+  if (optimized?.variants?.length && srcset) {
+    return `
+        <picture class="person__image ${className}">
+          <source type="image/webp" srcset="${srcset}" sizes="(max-width: 680px) 92vw, 38vw" />
+          <img src="${escapeHtml(optimizedFallback(asset))}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"${dimensions} />
+        </picture>`;
+  }
+  return `<img class="person__image ${className}" src="${escapeHtml(asset)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"${dimensions} />`;
+};
+
+const PersonPhoto = ({ asset, hoverAsset, initials, alt, hoverAlt, modifier }) => {
   return `
     <div class="person__photo ${modifier}${hoverAsset ? ' person__photo--has-hover' : ''}">
       ${asset ? `
-        <img class="person__image person__image--primary" src="${escapeHtml(optimizedFallback(asset))}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"${dimensions} />
-        ${hoverAsset ? `<img class="person__image person__image--hover" src="${escapeHtml(optimizedFallback(hoverAsset))}" alt="${escapeHtml(hoverAlt || alt)}" loading="lazy" decoding="async"${hoverDimensions} />` : ''}
+        ${PersonImage({ asset, className: 'person__image--primary', alt })}
+        ${hoverAsset ? PersonImage({ asset: hoverAsset, className: 'person__image--hover', alt: hoverAlt || alt }) : ''}
       ` : `<span>${initials}</span><small>FOTOGRAFÍA PENDIENTE</small>`}
     </div>
   `;
