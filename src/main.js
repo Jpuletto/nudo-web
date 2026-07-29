@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260727-final-texts-26';
-import { loadContent } from './lib/content.js?v=20260727-final-texts-26';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260729-director-hover-29';
+import { loadContent } from './lib/content.js?v=20260729-director-hover-29';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);
@@ -354,6 +354,8 @@ const initBeforeAfter = () => {
     const update = () => {
       const value = Math.min(Math.max(Number(range.value || 50), 0), 100);
       stage.style.setProperty('--position', `${value}%`);
+      stage.classList.toggle('is-before-only', value <= 4);
+      stage.classList.toggle('is-after-only', value >= 96);
       range.setAttribute('aria-valuetext', `${value}% después`);
     };
     range.addEventListener('input', update);

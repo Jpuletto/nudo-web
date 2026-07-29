@@ -970,6 +970,26 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
   object-fit: cover;
 }
 
+.person__photo--has-hover .person__image {
+  position: absolute;
+  inset: 0;
+  transition: opacity .35s var(--ease);
+}
+
+.person__image--hover {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .person__photo--has-hover:hover .person__image--primary {
+    opacity: 0;
+  }
+
+  .person__photo--has-hover:hover .person__image--hover {
+    opacity: 1;
+  }
+}
+
 .person__photo:has(.person__image)::before { opacity: 0; }
 
 .contact__actions {
@@ -1241,6 +1261,10 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
   user-select: none;
 }
 
+.before-after__image--before {
+  clip-path: inset(0 0 0 var(--position));
+}
+
 .before-after__image--after {
   clip-path: inset(0 calc(100% - var(--position)) 0 0);
 }
@@ -1254,6 +1278,7 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
   color: #fff;
   font-size: 8px;
   letter-spacing: .16em;
+  transition: opacity .2s ease, visibility .2s ease;
 }
 
 .before-after__image--before span {
@@ -1262,6 +1287,12 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
 
 .before-after__image--after span {
   left: 22px;
+}
+
+.before-after__stage.is-before-only .before-after__image--after span,
+.before-after__stage.is-after-only .before-after__image--before span {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .before-after__divider {
@@ -1277,15 +1308,7 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
 }
 
 .before-after__divider::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 44px;
-  height: 44px;
-  border: 1px solid #fff;
-  background: #000;
-  transform: translate(-50%, -50%);
+  content: none;
 }
 
 .before-after__divider::after {

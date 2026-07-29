@@ -352,18 +352,29 @@ const directorPhoto = (assets, patterns, fallbackIndex) => {
   return byName || assets[fallbackIndex];
 };
 
-const PersonPhoto = ({ asset, initials, alt, modifier }) => {
+const directorPhotoExact = (assets, name) => {
+  const expected = normalizeAssetName(name);
+  return assets.find(asset => normalizeAssetName(asset).split('/').pop().replace(/\.[a-z0-9]+$/i, '') === expected);
+};
+
+const PersonPhoto = ({ asset, hoverAsset, initials, alt, hoverAlt, modifier }) => {
   const optimized = optimizedImages[asset];
+  const optimizedHover = optimizedImages[hoverAsset];
   const dimensions = optimized ? ` width="${optimized.width}" height="${optimized.height}"` : '';
+  const hoverDimensions = optimizedHover ? ` width="${optimizedHover.width}" height="${optimizedHover.height}"` : '';
   return `
-    <div class="person__photo ${modifier}">
-      ${asset ? `<img class="person__image" src="${escapeHtml(optimizedFallback(asset))}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"${dimensions} />` : `<span>${initials}</span><small>FOTOGRAFÍA PENDIENTE</small>`}
+    <div class="person__photo ${modifier}${hoverAsset ? ' person__photo--has-hover' : ''}">
+      ${asset ? `
+        <img class="person__image person__image--primary" src="${escapeHtml(optimizedFallback(asset))}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"${dimensions} />
+        ${hoverAsset ? `<img class="person__image person__image--hover" src="${escapeHtml(optimizedFallback(hoverAsset))}" alt="${escapeHtml(hoverAlt || alt)}" loading="lazy" decoding="async"${hoverDimensions} />` : ''}
+      ` : `<span>${initials}</span><small>FOTOGRAFÍA PENDIENTE</small>`}
     </div>
   `;
 };
 
 export const TeamSection = (directorAssets = []) => {
-  const juanPhoto = directorPhoto(directorAssets, ['juan', 'pablo', 'puletto'], 0);
+  const juanPhoto = directorPhotoExact(directorAssets, 'juan pablo') || directorPhoto(directorAssets, ['juan pablo', 'puletto'], 0);
+  const juanHoverPhoto = directorPhotoExact(directorAssets, 'juan pablo 02');
   const joaquinPhoto = directorPhoto(directorAssets, ['joaquin', 'joaquín', 'rivera'], 1);
   return `
     <section class="team section-light">
@@ -373,7 +384,7 @@ export const TeamSection = (directorAssets = []) => {
       </div>
       <div class="team-grid">
         <article class="person reveal">
-          ${PersonPhoto({ asset: juanPhoto, initials: 'JP', alt: 'Retrato de Juan Pablo Puletto, arquitecto director de NUDO Arquitectura', modifier: 'person__photo--one' })}
+          ${PersonPhoto({ asset: juanPhoto, hoverAsset: juanHoverPhoto, initials: 'JP', alt: 'Retrato de Juan Pablo Puletto, arquitecto director de NUDO Arquitectura', hoverAlt: 'Segundo retrato de Juan Pablo Puletto, arquitecto director de NUDO Arquitectura', modifier: 'person__photo--one' })}
           <div class="person__meta"><h3>Juan Pablo Puletto</h3><p>Arquitecto · Director</p></div>
         </article>
         <article class="person reveal">

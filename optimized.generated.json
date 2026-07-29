@@ -10,14 +10,33 @@
       }
     ]
   },
-  "img/directores/juan pablo.jpg": {
-    "src": "img/directores/juan pablo.jpg",
-    "width": 300,
-    "height": 300,
+  "img/directores/juan pablo 02.jpg": {
+    "src": "img/directores/juan pablo 02.jpg",
+    "width": 500,
+    "height": 500,
     "variants": [
       {
-        "w": 300,
-        "src": "optimized/img/directores/juan-pablo-300.webp"
+        "w": 480,
+        "src": "optimized/img/directores/juan-pablo-02-480.webp"
+      },
+      {
+        "w": 500,
+        "src": "optimized/img/directores/juan-pablo-02-500.webp"
+      }
+    ]
+  },
+  "img/directores/juan pablo.jpg": {
+    "src": "img/directores/juan pablo.jpg",
+    "width": 500,
+    "height": 500,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/img/directores/juan-pablo-480.webp"
+      },
+      {
+        "w": 500,
+        "src": "optimized/img/directores/juan-pablo-500.webp"
       }
     ]
   },
