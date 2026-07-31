@@ -1,12 +1,36 @@
 {
   "img/directores/joaquin.jpg": {
     "src": "img/directores/joaquin.jpg",
-    "width": 300,
-    "height": 300,
+    "width": 2000,
+    "height": 2000,
     "variants": [
       {
-        "w": 300,
-        "src": "optimized/img/directores/joaquin-300.webp"
+        "w": 480,
+        "src": "optimized/img/directores/joaquin-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/img/directores/joaquin-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/img/directores/joaquin-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/img/directores/joaquin-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/img/directores/joaquin-1600.webp"
+      },
+      {
+        "w": 1920,
+        "src": "optimized/img/directores/joaquin-1920.webp"
+      },
+      {
+        "w": 2000,
+        "src": "optimized/img/directores/joaquin-2000.webp"
       }
     ]
   },
