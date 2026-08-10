@@ -49,6 +49,41 @@
       }
     ]
   },
+  "img/directores/juan pablo.jpg": {
+    "src": "img/directores/juan pablo.jpg",
+    "width": 2000,
+    "height": 2000,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/img/directores/juan-pablo-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/img/directores/juan-pablo-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/img/directores/juan-pablo-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/img/directores/juan-pablo-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/img/directores/juan-pablo-1600.webp"
+      },
+      {
+        "w": 1920,
+        "src": "optimized/img/directores/juan-pablo-1920.webp"
+      },
+      {
+        "w": 2000,
+        "src": "optimized/img/directores/juan-pablo-2000.webp"
+      }
+    ]
+  },
   "img/portadas/mobile/01.jpg": {
     "src": "img/portadas/mobile/01.jpg",
     "width": 576,

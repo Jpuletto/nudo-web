@@ -393,8 +393,10 @@ const PersonPhoto = ({ asset, hoverAsset, initials, alt, hoverAlt, modifier }) =
 };
 
 export const TeamSection = (directorAssets = []) => {
-  const juanPhoto = directorPhotoExact(directorAssets, 'juan pablo') || directorPhoto(directorAssets, ['juan pablo', 'puletto'], 0);
-  const juanHoverPhoto = directorPhotoExact(directorAssets, 'juan pablo 02');
+  const juanPrimaryPhoto = directorPhotoExact(directorAssets, 'juan pablo');
+  const juanSecondaryPhoto = directorPhotoExact(directorAssets, 'juan pablo 02');
+  const juanPhoto = juanPrimaryPhoto || juanSecondaryPhoto || directorPhoto(directorAssets, ['juan pablo', 'puletto'], 0);
+  const juanHoverPhoto = juanPrimaryPhoto && juanSecondaryPhoto && juanPrimaryPhoto !== juanSecondaryPhoto ? juanSecondaryPhoto : null;
   const joaquinPhoto = directorPhoto(directorAssets, ['joaquin', 'joaquín', 'rivera'], 1);
   return `
     <section class="team section-light">
@@ -604,6 +606,8 @@ export const ProjectGallery = (project, lang) => {
   const galleryFirst = Array.isArray(project.galleryFirst) ? project.galleryFirst : [];
   const galleryFirstSet = new Set(galleryFirst);
   const galleryContainSet = new Set(Array.isArray(project.galleryContain) ? project.galleryContain : []);
+  const galleryWideSet = new Set(Array.isArray(project.galleryWide) ? project.galleryWide : []);
+  const galleryPortraitSet = new Set(Array.isArray(project.galleryPortrait) ? project.galleryPortrait : []);
   const excludedFiles = new Set([
     galleryFirstSet.has(project.cover) ? null : project.cover,
     project.heroPoster,
@@ -626,7 +630,7 @@ export const ProjectGallery = (project, lang) => {
     <section class="project-gallery-detail section-light">
       <div class="section-shell project-gallery-detail__grid">
         ${gallery.map((image, index) => `
-          <figure class="detail-image ${index % 3 === 0 ? 'detail-image--wide' : 'detail-image--portrait'} ${galleryContainSet.has(image.file) ? 'detail-image--contain' : ''} reveal" ${isVideo(image.file) ? '' : 'data-lightbox'}>
+          <figure class="detail-image ${!galleryPortraitSet.has(image.file) && (index % 3 === 0 || galleryWideSet.has(image.file)) ? 'detail-image--wide' : 'detail-image--portrait'} ${galleryContainSet.has(image.file) ? 'detail-image--contain' : ''} reveal" ${isVideo(image.file) ? '' : 'data-lightbox'}>
             ${Media({
               project,
               file: image.file,

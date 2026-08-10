@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260810-delta-gallery-03-44';
-import { loadContent } from './lib/content.js?v=20260810-delta-gallery-03-44';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260810-delta-gallery-pair-48';
+import { loadContent } from './lib/content.js?v=20260810-delta-gallery-pair-48';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);
