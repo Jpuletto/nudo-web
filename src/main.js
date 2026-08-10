@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260731-juan-photo-clean-32';
-import { loadContent } from './lib/content.js?v=20260731-juan-photo-clean-32';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260810-metrics-video-36';
+import { loadContent } from './lib/content.js?v=20260810-metrics-video-36';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);

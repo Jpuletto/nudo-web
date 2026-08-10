@@ -49,53 +49,41 @@
       }
     ]
   },
-  "img/directores/juan pablo.jpg": {
-    "src": "img/directores/juan pablo.jpg",
-    "width": 2000,
-    "height": 2000,
+  "img/portadas/mobile/01.jpg": {
+    "src": "img/portadas/mobile/01.jpg",
+    "width": 576,
+    "height": 1024,
     "variants": [
       {
         "w": 480,
-        "src": "optimized/img/directores/juan-pablo-480.webp"
+        "src": "optimized/img/portadas/mobile/01-480.webp"
       },
       {
-        "w": 640,
-        "src": "optimized/img/directores/juan-pablo-640.webp"
-      },
-      {
-        "w": 960,
-        "src": "optimized/img/directores/juan-pablo-960.webp"
-      },
-      {
-        "w": 1280,
-        "src": "optimized/img/directores/juan-pablo-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/img/directores/juan-pablo-1600.webp"
-      },
-      {
-        "w": 1920,
-        "src": "optimized/img/directores/juan-pablo-1920.webp"
-      },
-      {
-        "w": 2000,
-        "src": "optimized/img/directores/juan-pablo-2000.webp"
+        "w": 576,
+        "src": "optimized/img/portadas/mobile/01-576.webp"
       }
     ]
   },
   "img/portadas/mobile/02.jpg": {
     "src": "img/portadas/mobile/02.jpg",
-    "width": 576,
-    "height": 1024,
+    "width": 1067,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
         "src": "optimized/img/portadas/mobile/02-480.webp"
       },
       {
-        "w": 576,
-        "src": "optimized/img/portadas/mobile/02-576.webp"
+        "w": 640,
+        "src": "optimized/img/portadas/mobile/02-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/img/portadas/mobile/02-960.webp"
+      },
+      {
+        "w": 1067,
+        "src": "optimized/img/portadas/mobile/02-1067.webp"
       }
     ]
   },
@@ -205,10 +193,37 @@
       }
     ]
   },
+  "img/portadas/pc/00.jpg": {
+    "src": "img/portadas/pc/00.jpg",
+    "width": 1600,
+    "height": 1000,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/img/portadas/pc/00-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/img/portadas/pc/00-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/img/portadas/pc/00-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/img/portadas/pc/00-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/img/portadas/pc/00-1600.webp"
+      }
+    ]
+  },
   "img/portadas/pc/01.jpg": {
     "src": "img/portadas/pc/01.jpg",
     "width": 1600,
-    "height": 1000,
+    "height": 1067,
     "variants": [
       {
         "w": 480,
@@ -781,8 +796,8 @@
   },
   "projects/colegio maturana/01.jpg": {
     "src": "projects/colegio maturana/01.jpg",
-    "width": 1600,
-    "height": 1000,
+    "width": 1067,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -797,19 +812,15 @@
         "src": "optimized/projects/colegio-maturana/01-960.webp"
       },
       {
-        "w": 1280,
-        "src": "optimized/projects/colegio-maturana/01-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/colegio-maturana/01-1600.webp"
+        "w": 1067,
+        "src": "optimized/projects/colegio-maturana/01-1067.webp"
       }
     ]
   },
   "projects/colegio maturana/02.jpg": {
     "src": "projects/colegio maturana/02.jpg",
     "width": 1600,
-    "height": 1000,
+    "height": 1067,
     "variants": [
       {
         "w": 480,
@@ -835,8 +846,8 @@
   },
   "projects/colegio maturana/03.jpg": {
     "src": "projects/colegio maturana/03.jpg",
-    "width": 1205,
-    "height": 1600,
+    "width": 1600,
+    "height": 1067,
     "variants": [
       {
         "w": 480,
@@ -851,15 +862,19 @@
         "src": "optimized/projects/colegio-maturana/03-960.webp"
       },
       {
-        "w": 1205,
-        "src": "optimized/projects/colegio-maturana/03-1205.webp"
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/03-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/03-1600.webp"
       }
     ]
   },
   "projects/colegio maturana/04.jpg": {
     "src": "projects/colegio maturana/04.jpg",
-    "width": 1000,
-    "height": 1600,
+    "width": 1600,
+    "height": 1000,
     "variants": [
       {
         "w": 480,
@@ -874,15 +889,19 @@
         "src": "optimized/projects/colegio-maturana/04-960.webp"
       },
       {
-        "w": 1000,
-        "src": "optimized/projects/colegio-maturana/04-1000.webp"
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/04-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/04-1600.webp"
       }
     ]
   },
   "projects/colegio maturana/05.jpg": {
     "src": "projects/colegio maturana/05.jpg",
-    "width": 1200,
-    "height": 1600,
+    "width": 1600,
+    "height": 1000,
     "variants": [
       {
         "w": 480,
@@ -897,15 +916,19 @@
         "src": "optimized/projects/colegio-maturana/05-960.webp"
       },
       {
-        "w": 1200,
-        "src": "optimized/projects/colegio-maturana/05-1200.webp"
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/05-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/05-1600.webp"
       }
     ]
   },
   "projects/colegio maturana/06.jpg": {
     "src": "projects/colegio maturana/06.jpg",
-    "width": 1600,
-    "height": 1200,
+    "width": 1205,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -920,19 +943,15 @@
         "src": "optimized/projects/colegio-maturana/06-960.webp"
       },
       {
-        "w": 1280,
-        "src": "optimized/projects/colegio-maturana/06-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/colegio-maturana/06-1600.webp"
+        "w": 1205,
+        "src": "optimized/projects/colegio-maturana/06-1205.webp"
       }
     ]
   },
   "projects/colegio maturana/07.jpg": {
     "src": "projects/colegio maturana/07.jpg",
-    "width": 1600,
-    "height": 1200,
+    "width": 1000,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -947,19 +966,15 @@
         "src": "optimized/projects/colegio-maturana/07-960.webp"
       },
       {
-        "w": 1280,
-        "src": "optimized/projects/colegio-maturana/07-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/colegio-maturana/07-1600.webp"
+        "w": 1000,
+        "src": "optimized/projects/colegio-maturana/07-1000.webp"
       }
     ]
   },
   "projects/colegio maturana/08.jpg": {
     "src": "projects/colegio maturana/08.jpg",
-    "width": 1600,
-    "height": 1000,
+    "width": 1200,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -974,19 +989,15 @@
         "src": "optimized/projects/colegio-maturana/08-960.webp"
       },
       {
-        "w": 1280,
-        "src": "optimized/projects/colegio-maturana/08-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/colegio-maturana/08-1600.webp"
+        "w": 1200,
+        "src": "optimized/projects/colegio-maturana/08-1200.webp"
       }
     ]
   },
   "projects/colegio maturana/09.jpg": {
     "src": "projects/colegio maturana/09.jpg",
-    "width": 1600,
-    "height": 1000,
+    "width": 1067,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -1001,19 +1012,15 @@
         "src": "optimized/projects/colegio-maturana/09-960.webp"
       },
       {
-        "w": 1280,
-        "src": "optimized/projects/colegio-maturana/09-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/colegio-maturana/09-1600.webp"
+        "w": 1067,
+        "src": "optimized/projects/colegio-maturana/09-1067.webp"
       }
     ]
   },
   "projects/colegio maturana/10.jpg": {
     "src": "projects/colegio maturana/10.jpg",
-    "width": 1000,
-    "height": 1600,
+    "width": 1600,
+    "height": 1067,
     "variants": [
       {
         "w": 480,
@@ -1028,15 +1035,19 @@
         "src": "optimized/projects/colegio-maturana/10-960.webp"
       },
       {
-        "w": 1000,
-        "src": "optimized/projects/colegio-maturana/10-1000.webp"
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/10-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/10-1600.webp"
       }
     ]
   },
   "projects/colegio maturana/11.jpg": {
     "src": "projects/colegio maturana/11.jpg",
-    "width": 1600,
-    "height": 1000,
+    "width": 1000,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -1051,12 +1062,197 @@
         "src": "optimized/projects/colegio-maturana/11-960.webp"
       },
       {
+        "w": 1000,
+        "src": "optimized/projects/colegio-maturana/11-1000.webp"
+      }
+    ]
+  },
+  "projects/colegio maturana/12.jpg": {
+    "src": "projects/colegio maturana/12.jpg",
+    "width": 1600,
+    "height": 1000,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/colegio-maturana/12-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/colegio-maturana/12-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/colegio-maturana/12-960.webp"
+      },
+      {
         "w": 1280,
-        "src": "optimized/projects/colegio-maturana/11-1280.webp"
+        "src": "optimized/projects/colegio-maturana/12-1280.webp"
       },
       {
         "w": 1600,
-        "src": "optimized/projects/colegio-maturana/11-1600.webp"
+        "src": "optimized/projects/colegio-maturana/12-1600.webp"
+      }
+    ]
+  },
+  "projects/colegio maturana/13.jpg": {
+    "src": "projects/colegio maturana/13.jpg",
+    "width": 1600,
+    "height": 1000,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/colegio-maturana/13-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/colegio-maturana/13-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/colegio-maturana/13-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/13-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/13-1600.webp"
+      }
+    ]
+  },
+  "projects/colegio maturana/antes.jpg": {
+    "src": "projects/colegio maturana/antes.jpg",
+    "width": 1600,
+    "height": 1067,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/colegio-maturana/antes-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/colegio-maturana/antes-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/colegio-maturana/antes-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/antes-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/antes-1600.webp"
+      }
+    ]
+  },
+  "projects/colegio maturana/despues.jpg": {
+    "src": "projects/colegio maturana/despues.jpg",
+    "width": 1600,
+    "height": 1067,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/colegio-maturana/despues-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/colegio-maturana/despues-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/colegio-maturana/despues-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/despues-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/despues-1600.webp"
+      }
+    ]
+  },
+  "projects/colegio maturana/miniatura.jpg": {
+    "src": "projects/colegio maturana/miniatura.jpg",
+    "width": 1600,
+    "height": 1067,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/colegio-maturana/miniatura-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/colegio-maturana/miniatura-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/colegio-maturana/miniatura-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/miniatura-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/miniatura-1600.webp"
+      }
+    ]
+  },
+  "projects/colegio maturana/portada proyectos 02.jpg": {
+    "src": "projects/colegio maturana/portada proyectos 02.jpg",
+    "width": 1600,
+    "height": 1000,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-02-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-02-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-02-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-02-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-02-1600.webp"
+      }
+    ]
+  },
+  "projects/colegio maturana/portada proyectos.jpg": {
+    "src": "projects/colegio maturana/portada proyectos.jpg",
+    "width": 1600,
+    "height": 1067,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/portada-proyectos-1600.webp"
       }
     ]
   },

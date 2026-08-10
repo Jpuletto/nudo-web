@@ -14,6 +14,7 @@ const projectLocation = (project, lang) => localized(project.location, lang, 'Ub
 const projectStatus = (project, lang) => localized(project.status, lang, 'Estado a confirmar');
 const projectScope = (project, lang) => localized(project.scope, lang, 'Alcance a confirmar');
 const projectListingCover = project => project.listingCover || project.cover;
+const projectArchiveCover = project => project.archiveCover || projectListingCover(project);
 const textParagraphs = text => String(text || '')
   .split(/\n+/)
   .map(paragraph => paragraph.trim())
@@ -204,7 +205,7 @@ export const Metrics = site => `
   <section class="metrics section-dark" id="cifras" aria-label="NUDO en números">
     <div class="section-shell metrics__grid">
       <article class="metric reveal">
-        <span class="metric__number"><strong data-counter="${Number(site.metrics?.projects || 0)}">0</strong></span>
+        <span class="metric__number"><em>+</em><strong data-counter="${Number(site.metrics?.projects || 0)}">0</strong></span>
         <div><b>PROYECTOS</b><small>desarrollados desde ${site.founded || 2022}</small></div>
       </article>
       <article class="metric reveal">
@@ -466,13 +467,20 @@ export const ProjectsPage = content => {
 
 export const ArchiveCard = (project, index, lang) => `
   <a class="archive-card reveal" href="${projectHref(project)}" data-transition>
-    <figure>
+    <figure class="${project.archiveHoverCover ? 'archive-card__figure--has-hover' : ''}">
       ${Media({
         project,
-        file: projectListingCover(project),
+        file: projectArchiveCover(project),
         alt: `Imagen de portada del proyecto ${projectTitle(project, lang)}`,
         sizes: '(max-width: 680px) 92vw, (max-width: 980px) 45vw, 30vw'
       })}
+      ${project.archiveHoverCover ? Media({
+        className: 'archive-card__hover-media',
+        project,
+        file: project.archiveHoverCover,
+        alt: `Segunda imagen de portada del proyecto ${projectTitle(project, lang)}`,
+        sizes: '(max-width: 680px) 92vw, (max-width: 980px) 45vw, 30vw'
+      }) : ''}
       <div class="archive-card__overlay"></div>
       <span class="archive-card__id">${String(index + 1).padStart(2, '0')}</span>
       <figcaption><h2>${escapeHtml(projectTitle(project, lang))}</h2><p>${escapeHtml(projectCategory(project, lang))}</p></figcaption>
@@ -583,8 +591,15 @@ export const BeforeAfterSection = (project, lang) => {
 };
 
 export const ProjectGallery = (project, lang) => {
-  const comparisonFiles = new Set([project.beforeAfter?.before, project.beforeAfter?.after].filter(Boolean));
-  const gallery = (project.gallery || []).filter(image => !comparisonFiles.has(image.file));
+  const excludedFiles = new Set([
+    project.cover,
+    project.listingCover,
+    project.archiveCover,
+    project.archiveHoverCover,
+    project.beforeAfter?.before,
+    project.beforeAfter?.after
+  ].filter(Boolean));
+  const gallery = (project.gallery || []).filter(image => !excludedFiles.has(image.file));
   return `
     <section class="project-gallery-detail section-light">
       <div class="section-shell project-gallery-detail__grid">

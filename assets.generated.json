@@ -1,5 +1,6 @@
 {
   "hero": [
+    "img/portadas/mobile/01.jpg",
     "img/portadas/mobile/02.jpg",
     "img/portadas/mobile/03.jpg",
     "img/portadas/mobile/04.jpg",
@@ -7,6 +8,7 @@
     "img/portadas/mobile/06.jpg",
     "img/portadas/mobile/07.jpg",
     "img/portadas/mobile/08.jpg",
+    "img/portadas/pc/00.jpg",
     "img/portadas/pc/01.jpg",
     "img/portadas/pc/02.jpg",
     "img/portadas/pc/03.jpg",
@@ -15,6 +17,7 @@
     "img/portadas/pc/06.jpg"
   ],
   "heroDesktop": [
+    "img/portadas/pc/00.jpg",
     "img/portadas/pc/01.jpg",
     "img/portadas/pc/02.jpg",
     "img/portadas/pc/03.jpg",
@@ -23,6 +26,7 @@
     "img/portadas/pc/06.jpg"
   ],
   "heroMobile": [
+    "img/portadas/mobile/01.jpg",
     "img/portadas/mobile/02.jpg",
     "img/portadas/mobile/03.jpg",
     "img/portadas/mobile/04.jpg",
@@ -40,7 +44,6 @@
   ],
   "directors": [
     "img/directores/joaquin.jpg",
-    "img/directores/juan pablo 02.jpg",
-    "img/directores/juan pablo.jpg"
+    "img/directores/juan pablo 02.jpg"
   ]
 }
