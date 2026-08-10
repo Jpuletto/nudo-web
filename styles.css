@@ -443,6 +443,14 @@ body[data-page="project"] .site-header:not(.is-scrolled) {
 .detail-image--wide picture,
 .detail-image--wide img,
 .detail-image--wide video { aspect-ratio: 16 / 9; }
+.detail-image--contain,
+.detail-image--contain picture,
+.detail-image--contain img {
+  aspect-ratio: 16 / 10;
+}
+.detail-image--contain picture img {
+  object-fit: contain;
+}
 .detail-image:hover img,
 .detail-image:hover picture,
 .detail-image:hover video { transform: scale(1.025); }
@@ -1377,7 +1385,7 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
   .before-after__stage {
     width: 100%;
     min-height: 0;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     background: transparent;
   }
 

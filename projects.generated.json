@@ -130,6 +130,15 @@
     "title": {
       "es": "Classic Cars"
     },
+    "cover": "01.mp4",
+    "listingCover": "02.jpg",
+    "heroPoster": "02.jpg",
+    "galleryFirst": [
+      "02.jpg"
+    ],
+    "galleryContain": [
+      "02.jpg"
+    ],
     "client": {
       "es": "Alfalider"
     },
@@ -156,8 +165,6 @@
     "description": {
       "es": "El proyecto reúne un showroom y un área de mecánica ligera en planta baja, mientras que la planta alta se concibe como un espacio de planta libre destinado a guardería y exhibición de vehículos clásicos y deportivos.\nEn el centro de la planta baja se concentra un núcleo de servicios, oficinas y un depósito, que organiza el programa sin interferir con la circulación vehicular. La propuesta prioriza el ingreso de luz natural, la amplitud de maniobra y la fácil circulación. Un ascensor vehicular conecta ambos niveles y permite trasladar los vehículos a la planta superior."
     },
-    "cover": "01.mp4",
-    "listingCover": "02.jpg",
     "gallery": [
       {
         "file": "01.mp4",
@@ -192,6 +199,7 @@
       "es": "Colegio Maturana"
     },
     "cover": "00.mp4",
+    "heroPoster": "miniatura.jpg",
     "listingCover": "miniatura.jpg",
     "archiveCover": "portada proyectos.jpg",
     "archiveHoverCover": "portada proyectos 02.jpg",
@@ -200,10 +208,7 @@
     },
     "beforeAfter": {
       "before": "antes.jpg",
-      "after": "despues.jpg",
-      "title": {
-        "es": "Reconversión del cine"
-      }
+      "after": "despues.jpg"
     },
     "client": {
       "es": "Colegio Maturana"
@@ -405,10 +410,7 @@
     },
     "beforeAfter": {
       "before": "02.jpg",
-      "after": "01.jpg",
-      "title": {
-        "es": "Reforma del acceso"
-      }
+      "after": "01.jpg"
     },
     "client": {
       "es": "Particular"
@@ -480,10 +482,7 @@
     },
     "beforeAfter": {
       "before": "02.png",
-      "after": "01.jpg",
-      "title": {
-        "es": "Renovación de la terraza"
-      }
+      "after": "01.jpg"
     },
     "client": {
       "es": "Matisse Parque"
@@ -634,10 +633,7 @@
     },
     "beforeAfter": {
       "before": "02.jpg",
-      "after": "01.jpg",
-      "title": {
-        "es": "Transformación del estar"
-      }
+      "after": "01.jpg"
     },
     "client": {
       "es": "Particular"

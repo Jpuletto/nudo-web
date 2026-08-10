@@ -55,6 +55,7 @@ const Media = ({
   file,
   fetchPriority,
   loading = 'lazy',
+  poster,
   project,
   sizes,
   video = false
@@ -62,7 +63,9 @@ const Media = ({
   const src = mediaPath(project, file);
   const cls = className ? ` class="${escapeHtml(className)}"` : '';
   if (video || isVideo(file)) {
-    return `<video${cls} autoplay muted loop playsinline preload="metadata" aria-label="${escapeHtml(alt)}"><source src="${escapeHtml(src)}" type="video/${src.endsWith('.webm') ? 'webm' : 'mp4'}" /></video>`;
+    const posterSrc = poster ? optimizedFallback(mediaPath(project, poster)) : '';
+    const posterAttr = posterSrc ? ` poster="${escapeHtml(posterSrc)}"` : '';
+    return `<video${cls} autoplay muted loop playsinline preload="metadata"${posterAttr} aria-label="${escapeHtml(alt)}"><source src="${escapeHtml(src)}" type="video/${src.endsWith('.webm') ? 'webm' : 'mp4'}" /></video>`;
   }
   const optimized = optimizedImages[src];
   if (!optimized?.variants?.length) {
@@ -516,6 +519,7 @@ export const ProjectHero = (project, lang) => `
       alt: `Vista exterior del proyecto ${projectTitle(project, lang)}`,
       fetchPriority: 'high',
       loading: 'eager',
+      poster: project.heroPoster || project.listingCover || project.archiveCover,
       sizes: '100vw'
     })}
     <div class="project-hero__veil"></div>
@@ -561,7 +565,6 @@ export const BeforeAfterSection = (project, lang) => {
       <div class="section-shell before-after__inner reveal">
         <div class="before-after__heading">
           <p class="section-index">ANTES / DESPUÉS</p>
-          <h2>${escapeHtml(localized(project.beforeAfter.title, lang, 'Transformación del proyecto'))}</h2>
         </div>
         <div class="before-after__stage" data-before-after style="--position: 50%;">
           <div class="before-after__image before-after__image--before">
@@ -591,20 +594,29 @@ export const BeforeAfterSection = (project, lang) => {
 };
 
 export const ProjectGallery = (project, lang) => {
+  const galleryFirst = Array.isArray(project.galleryFirst) ? project.galleryFirst : [];
+  const galleryFirstSet = new Set(galleryFirst);
+  const galleryContainSet = new Set(Array.isArray(project.galleryContain) ? project.galleryContain : []);
   const excludedFiles = new Set([
     project.cover,
-    project.listingCover,
+    galleryFirstSet.has(project.listingCover) ? null : project.listingCover,
     project.archiveCover,
     project.archiveHoverCover,
     project.beforeAfter?.before,
     project.beforeAfter?.after
   ].filter(Boolean));
-  const gallery = (project.gallery || []).filter(image => !excludedFiles.has(image.file));
+  const pinnedGallery = galleryFirst
+    .map(file => (project.gallery || []).find(image => image.file === file))
+    .filter(Boolean);
+  const gallery = [
+    ...pinnedGallery,
+    ...(project.gallery || []).filter(image => !excludedFiles.has(image.file) && !galleryFirstSet.has(image.file))
+  ];
   return `
     <section class="project-gallery-detail section-light">
       <div class="section-shell project-gallery-detail__grid">
         ${gallery.map((image, index) => `
-          <figure class="detail-image ${index % 3 === 0 ? 'detail-image--wide' : 'detail-image--portrait'} reveal" ${isVideo(image.file) ? '' : 'data-lightbox'}>
+          <figure class="detail-image ${index % 3 === 0 ? 'detail-image--wide' : 'detail-image--portrait'} ${galleryContainSet.has(image.file) ? 'detail-image--contain' : ''} reveal" ${isVideo(image.file) ? '' : 'data-lightbox'}>
             ${Media({
               project,
               file: image.file,
