@@ -794,6 +794,33 @@
       }
     ]
   },
+  "projects/classic cars/video-poster.png": {
+    "src": "projects/classic cars/video-poster.png",
+    "width": 1600,
+    "height": 1066,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/classic-cars/video-poster-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/classic-cars/video-poster-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/classic-cars/video-poster-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/classic-cars/video-poster-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/classic-cars/video-poster-1600.webp"
+      }
+    ]
+  },
   "projects/colegio maturana/01.jpg": {
     "src": "projects/colegio maturana/01.jpg",
     "width": 1067,
@@ -1256,6 +1283,33 @@
       }
     ]
   },
+  "projects/colegio maturana/video-poster.png": {
+    "src": "projects/colegio maturana/video-poster.png",
+    "width": 1600,
+    "height": 1066,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/colegio-maturana/video-poster-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/colegio-maturana/video-poster-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/colegio-maturana/video-poster-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/video-poster-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/video-poster-1600.webp"
+      }
+    ]
+  },
   "projects/deltariego/01.jpg": {
     "src": "projects/deltariego/01.jpg",
     "width": 1600,
@@ -1362,8 +1416,8 @@
   },
   "projects/deltariego/05.jpg": {
     "src": "projects/deltariego/05.jpg",
-    "width": 1600,
-    "height": 1000,
+    "width": 3500,
+    "height": 2332,
     "variants": [
       {
         "w": 480,
@@ -1384,6 +1438,45 @@
       {
         "w": 1600,
         "src": "optimized/projects/deltariego/05-1600.webp"
+      },
+      {
+        "w": 1920,
+        "src": "optimized/projects/deltariego/05-1920.webp"
+      },
+      {
+        "w": 2400,
+        "src": "optimized/projects/deltariego/05-2400.webp"
+      },
+      {
+        "w": 3500,
+        "src": "optimized/projects/deltariego/05-3500.webp"
+      }
+    ]
+  },
+  "projects/deltariego/06.jpg": {
+    "src": "projects/deltariego/06.jpg",
+    "width": 1600,
+    "height": 1000,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/deltariego/06-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/deltariego/06-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/deltariego/06-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/deltariego/06-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/deltariego/06-1600.webp"
       }
     ]
   },

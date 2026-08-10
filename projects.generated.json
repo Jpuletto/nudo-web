@@ -132,7 +132,7 @@
     },
     "cover": "01.mp4",
     "listingCover": "02.jpg",
-    "heroPoster": "02.jpg",
+    "heroPoster": "video-poster.png",
     "galleryFirst": [
       "02.jpg"
     ],
@@ -185,6 +185,11 @@
         "file": "04.jpg",
         "caption_es": "Imagen 04",
         "alt_es": "Vista 04 del proyecto Classic Cars"
+      },
+      {
+        "file": "video-poster.png",
+        "caption_es": "Imagen 05",
+        "alt_es": "Vista 05 del proyecto Classic Cars"
       }
     ]
   },
@@ -199,7 +204,7 @@
       "es": "Colegio Maturana"
     },
     "cover": "00.mp4",
-    "heroPoster": "miniatura.jpg",
+    "heroPoster": "video-poster.png",
     "listingCover": "miniatura.jpg",
     "archiveCover": "portada proyectos.jpg",
     "archiveHoverCover": "portada proyectos 02.jpg",
@@ -328,6 +333,11 @@
         "file": "portada proyectos.jpg",
         "caption_es": "Imagen 19",
         "alt_es": "Vista 19 del proyecto Colegio Maturana"
+      },
+      {
+        "file": "video-poster.png",
+        "caption_es": "Imagen 20",
+        "alt_es": "Vista 20 del proyecto Colegio Maturana"
       }
     ]
   },
@@ -363,6 +373,14 @@
       "es": "El proyecto surge de la necesidad de concentrar en un mismo edificio el área comercial, la atención al público y la operativa de depósito. La propuesta diferencia con claridad los espacios públicos de los sectores logísticos, manteniendo una conexión directa y funcional entre ambos.\nSu implantación sobre la ruta nacional 14, próxima al cruce con la ruta nacional 2, aprovecha la visibilidad del predio y convierte al edificio en un punto de referencia dentro de la zona. Viendo esta situación como una oportunidad, el desafío radicó en incorporar algunos gestos arquitectónicos que diferencien la silueta del edificio y lo hagan resaltar en un entorno predominantemente industrial."
     },
     "cover": "01.jpg",
+    "listingCover": "02.jpg",
+    "mobileCover": "02.jpg",
+    "galleryFirst": [
+      "01.jpg"
+    ],
+    "galleryContain": [
+      "01.jpg"
+    ],
     "gallery": [
       {
         "file": "01.jpg",
@@ -388,12 +406,16 @@
         "file": "05.jpg",
         "caption_es": "Imagen 05",
         "alt_es": "Vista 05 del proyecto Delta Riego"
+      },
+      {
+        "file": "06.jpg",
+        "caption_es": "Imagen 06",
+        "alt_es": "Vista 06 del proyecto Delta Riego"
       }
     ],
     "client": {
       "es": "Deltariego"
-    },
-    "listingCover": "01.jpg"
+    }
   },
   {
     "slug": "ingreso-berro",

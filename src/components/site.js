@@ -55,6 +55,7 @@ const Media = ({
   file,
   fetchPriority,
   loading = 'lazy',
+  mobileFile,
   poster,
   project,
   sizes,
@@ -72,8 +73,13 @@ const Media = ({
     return `<img${cls} ${imageAttrs({ src, alt, fetchPriority, loading, sizes })} />`;
   }
   const srcset = optimizedSrcset(src);
+  const mobileSrc = mobileFile ? mediaPath(project, mobileFile) : '';
+  const mobileSrcset = mobileSrc ? optimizedSrcset(mobileSrc) : '';
+  const mobileFallback = mobileSrc ? optimizedFallback(mobileSrc) : '';
   return `
     <picture${cls}>
+      ${mobileSrcset ? `<source media="(max-width: 680px)" type="image/webp" srcset="${mobileSrcset}" sizes="100vw" />` : ''}
+      ${mobileFallback && !mobileSrcset ? `<source media="(max-width: 680px)" srcset="${escapeHtml(mobileFallback)}" />` : ''}
       <source type="image/webp" srcset="${srcset}" sizes="${escapeHtml(sizes || '(max-width: 680px) 92vw, 50vw')}" />
       <img ${imageAttrs({ src: optimizedFallback(src), alt, fetchPriority, loading, sizes })} width="${optimized.width}" height="${optimized.height}" />
     </picture>
@@ -519,6 +525,7 @@ export const ProjectHero = (project, lang) => `
       alt: `Vista exterior del proyecto ${projectTitle(project, lang)}`,
       fetchPriority: 'high',
       loading: 'eager',
+      mobileFile: project.mobileCover || project.heroMobileCover,
       poster: project.heroPoster || project.listingCover || project.archiveCover,
       sizes: '100vw'
     })}
@@ -598,7 +605,10 @@ export const ProjectGallery = (project, lang) => {
   const galleryFirstSet = new Set(galleryFirst);
   const galleryContainSet = new Set(Array.isArray(project.galleryContain) ? project.galleryContain : []);
   const excludedFiles = new Set([
-    project.cover,
+    galleryFirstSet.has(project.cover) ? null : project.cover,
+    project.heroPoster,
+    project.mobileCover,
+    project.heroMobileCover,
     galleryFirstSet.has(project.listingCover) ? null : project.listingCover,
     project.archiveCover,
     project.archiveHoverCover,
