@@ -376,10 +376,12 @@
     "listingCover": "02.jpg",
     "mobileCover": "02.jpg",
     "galleryFirst": [
-      "01.jpg"
+      "01.jpg",
+      "02.jpg"
     ],
     "galleryContain": [
-      "01.jpg"
+      "01.jpg",
+      "03.jpg"
     ],
     "gallery": [
       {
