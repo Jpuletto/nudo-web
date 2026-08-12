@@ -428,13 +428,14 @@ body[data-page="project"] .site-header:not(.is-scrolled) {
 .project-facts dl > div { display: grid; grid-template-columns: 115px 1fr; padding: 18px 0; border-bottom: 1px solid var(--line); }
 .project-facts dt { font-size: 8px; letter-spacing: .15em; }
 .project-facts dd { font-size: 13px; }
+.project-advisors { display: grid; gap: 6px; line-height: 1.4; }
 .project-description { display: grid; gap: 34px; }
 .project-description__lead { font-size: clamp(34px, 4.8vw, 75px); line-height: 1.02; letter-spacing: -.05em; }
 .project-description > p:not(.project-description__lead):not(.project-description__note) { max-width: 57ch; font-size: clamp(17px, 1.55vw, 23px); line-height: 1.55; }
 .project-description__note { max-width: 58ch; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
 .project-gallery-detail { padding-bottom: var(--section-y); }
 .project-gallery-detail__grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-flow: dense; gap: clamp(14px, 2vw, 30px); }
-.detail-image { position: relative; grid-column: span 6; overflow: hidden; cursor: zoom-in; }
+.detail-image { position: relative; grid-column: span 6; overflow: hidden; cursor: zoom-in; touch-action: pan-y; }
 .detail-image--wide { grid-column: span 12; }
 .detail-image picture,
 .detail-image img,
@@ -454,7 +455,10 @@ body[data-page="project"] .site-header:not(.is-scrolled) {
 .detail-image:hover img,
 .detail-image:hover picture,
 .detail-image:hover video { transform: scale(1.025); }
-.detail-image figcaption { display: flex; justify-content: space-between; padding-top: 10px; color: var(--muted); font-size: 8px; letter-spacing: .15em; }
+.detail-image figcaption { display: flex; justify-content: space-between; gap: 18px; padding-top: 10px; color: var(--muted); font-size: 8px; letter-spacing: .15em; }
+.detail-image__project { display: grid; gap: 4px; text-align: right; text-transform: uppercase; }
+.detail-image__project b { font-weight: 500; }
+.detail-image__project small { font-size: 8px; letter-spacing: .15em; }
 .project-process-band { position: relative; min-height: 85svh; display: flex; align-items: flex-end; overflow: hidden; }
 .project-process-band__image { position: absolute; inset: 0; }
 .project-process-band__image img { height: 100%; object-fit: cover; filter: grayscale(1) brightness(.45); }
@@ -467,10 +471,12 @@ body[data-page="project"] .site-header:not(.is-scrolled) {
 .project-navigation a span { grid-row: 1 / 3; font-size: 24px; }
 .project-navigation a small { font-size: 8px; letter-spacing: .15em; color: var(--muted); }
 .project-navigation a b { font-size: clamp(22px, 2.4vw, 38px); font-weight: 400; letter-spacing: -.035em; }
-.lightbox { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: 70px var(--page-pad) 45px; background: rgba(0,0,0,.96); opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; }
+.lightbox { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: 70px var(--page-pad) 45px; background: rgba(0,0,0,.96); opacity: 0; visibility: hidden; touch-action: pan-y; transition: opacity .35s, visibility .35s; }
 .lightbox.is-open { opacity: 1; visibility: visible; }
 .lightbox img { max-width: min(1500px, 92vw); max-height: 80vh; object-fit: contain; }
-.lightbox p { margin-top: 16px; color: rgba(255,255,255,.58); font-size: 9px; letter-spacing: .15em; }
+.lightbox p { display: grid; gap: 5px; margin-top: 16px; color: rgba(255,255,255,.58); font-size: 9px; letter-spacing: .15em; text-align: center; text-transform: uppercase; }
+.lightbox p b { font-weight: 500; }
+.lightbox p small { font-size: 9px; letter-spacing: .15em; }
 .lightbox__close { position: absolute; top: 18px; right: var(--page-pad); width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.35); background: transparent; color: #fff; font-size: 30px; cursor: pointer; }
 
 /* Admin mockup */
@@ -1022,6 +1028,18 @@ body[data-page="project"] .site-header:not(.is-scrolled) .site-nav {
   }
 
   .person__photo--has-hover:hover .person__image--hover {
+    opacity: 1;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .person__photo--has-hover.is-touch-active .person__image--primary,
+  .person__photo--has-hover:active .person__image--primary {
+    opacity: 0;
+  }
+
+  .person__photo--has-hover.is-touch-active .person__image--hover,
+  .person__photo--has-hover:active .person__image--hover {
     opacity: 1;
   }
 }

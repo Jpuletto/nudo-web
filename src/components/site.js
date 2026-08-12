@@ -15,6 +15,11 @@ const projectStatus = (project, lang) => localized(project.status, lang, 'Estado
 const projectScope = (project, lang) => localized(project.scope, lang, 'Alcance a confirmar');
 const projectListingCover = project => project.listingCover || project.cover;
 const projectArchiveCover = project => project.archiveCover || projectListingCover(project);
+const projectAdvisors = (project, lang) => Array.isArray(project.advisors) && project.advisors.length
+  ? `<div><dt>ASESORES</dt><dd class="project-advisors">${project.advisors.map(advisor => `
+      <span>${escapeHtml(localized(advisor.label, lang))}: ${escapeHtml(localized(advisor.value, lang))}</span>
+    `).join('')}</dd></div>`
+  : '';
 const textParagraphs = text => String(text || '')
   .split(/\n+/)
   .map(paragraph => paragraph.trim())
@@ -553,6 +558,7 @@ export const ProjectSummary = (project, lang) => {
             <div><dt>ESTADO</dt><dd>${escapeHtml(projectStatus(project, lang))}</dd></div>
             <div><dt>ALCANCE</dt><dd>${escapeHtml(projectScope(project, lang))}</dd></div>
             ${project.intervention ? `<div><dt>INTERVENCIÓN</dt><dd>${escapeHtml(localized(project.intervention, lang))}</dd></div>` : ''}
+            ${projectAdvisors(project, lang)}
             <div><dt>SUPERFICIE</dt><dd>${project.surface_m2 ? `${formatNumber(project.surface_m2)} m²` : 'A confirmar'}</dd></div>
           </dl>
         </aside>
@@ -608,6 +614,8 @@ export const ProjectGallery = (project, lang) => {
   const galleryContainSet = new Set(Array.isArray(project.galleryContain) ? project.galleryContain : []);
   const galleryWideSet = new Set(Array.isArray(project.galleryWide) ? project.galleryWide : []);
   const galleryPortraitSet = new Set(Array.isArray(project.galleryPortrait) ? project.galleryPortrait : []);
+  const title = projectTitle(project, lang).toLocaleUpperCase('es-UY');
+  const year = String(project.year || '').toLocaleUpperCase('es-UY');
   const excludedFiles = new Set([
     galleryFirstSet.has(project.cover) ? null : project.cover,
     project.heroPoster,
@@ -637,7 +645,7 @@ export const ProjectGallery = (project, lang) => {
               alt: localized(image.alt_es ? { es: image.alt_es, en: image.alt_en } : image.alt, lang, `${projectTitle(project, lang)} ${index + 1}`),
               sizes: index % 3 === 0 ? '92vw' : '(max-width: 680px) 92vw, 46vw'
             })}
-            <figcaption>${String(index + 1).padStart(2, '0')} / ${escapeHtml(localized(image.caption_es ? { es: image.caption_es, en: image.caption_en } : image.caption, lang, 'Imagen'))}</figcaption>
+            <figcaption><span>${String(index + 1).padStart(2, '0')}</span><span class="detail-image__project"><b>${escapeHtml(title)}</b>${year ? `<small>${escapeHtml(year)}</small>` : ''}</span></figcaption>
           </figure>
         `).join('')}
       </div>

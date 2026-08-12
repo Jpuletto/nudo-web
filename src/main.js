@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260810-juan-pablo-50';
-import { loadContent } from './lib/content.js?v=20260810-juan-pablo-50';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260812-gallery-caption-57';
+import { loadContent } from './lib/content.js?v=20260812-gallery-caption-57';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);
@@ -145,6 +145,7 @@ const initInteractions = () => {
   initProcess();
   initBeforeAfter();
   initLightbox();
+  initTeamPhotoTouch();
   initMediaProtection();
 
   document.querySelectorAll('[data-year]').forEach(node => {
@@ -373,6 +374,11 @@ const initLightbox = () => {
   const figures = [...document.querySelectorAll('[data-lightbox]')];
   let lastFocusedElement = null;
   let currentIndex = 0;
+  let lightboxStartX = 0;
+  let lightboxStartY = 0;
+  let lightboxPointerActive = false;
+  let lightboxSwipeHandled = false;
+  let suppressLightboxClick = false;
 
   const closeLightbox = () => {
     lightbox?.classList.remove('is-open');
@@ -389,7 +395,7 @@ const initLightbox = () => {
     currentIndex = index;
     lightboxImage.src = image.currentSrc || image.src;
     lightboxImage.alt = image.alt;
-    if (lightboxCaption) lightboxCaption.textContent = caption?.textContent || '';
+    if (lightboxCaption) lightboxCaption.innerHTML = caption?.querySelector('.detail-image__project')?.innerHTML || '';
     previousButton?.toggleAttribute('disabled', figures.length < 2);
     nextButton?.toggleAttribute('disabled', figures.length < 2);
   };
@@ -403,6 +409,9 @@ const initLightbox = () => {
     figure.tabIndex = 0;
     figure.setAttribute('role', 'button');
     figure.setAttribute('aria-label', 'Ampliar imagen');
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let movedOnTouch = false;
 
     const open = () => {
       if (!lightbox || !lightboxImage) return;
@@ -414,7 +423,26 @@ const initLightbox = () => {
       closeButton?.focus();
     };
 
-    figure.addEventListener('click', open);
+    figure.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse') return;
+      touchStartX = event.clientX;
+      touchStartY = event.clientY;
+      movedOnTouch = false;
+    }, { passive: true });
+    figure.addEventListener('pointermove', event => {
+      if (event.pointerType === 'mouse') return;
+      const movementX = Math.abs(event.clientX - touchStartX);
+      const movementY = Math.abs(event.clientY - touchStartY);
+      if (movementX > 8 || movementY > 8) movedOnTouch = true;
+    }, { passive: true });
+    figure.addEventListener('click', event => {
+      if (movedOnTouch) {
+        event.preventDefault();
+        movedOnTouch = false;
+        return;
+      }
+      open();
+    });
     figure.addEventListener('keydown', event => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
@@ -426,7 +454,41 @@ const initLightbox = () => {
   closeButton?.addEventListener('click', closeLightbox);
   previousButton?.addEventListener('click', () => showRelativeImage(-1));
   nextButton?.addEventListener('click', () => showRelativeImage(1));
+  lightbox?.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse' || event.target.closest('button')) return;
+    lightboxStartX = event.clientX;
+    lightboxStartY = event.clientY;
+    lightboxPointerActive = true;
+    lightboxSwipeHandled = false;
+    suppressLightboxClick = false;
+  }, { passive: true });
+  lightbox?.addEventListener('pointermove', event => {
+    if (!lightboxPointerActive || event.pointerType === 'mouse' || lightboxSwipeHandled || figures.length < 2) return;
+    const deltaX = event.clientX - lightboxStartX;
+    const deltaY = event.clientY - lightboxStartY;
+    if (Math.abs(deltaX) < 44 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
+    lightboxSwipeHandled = true;
+    suppressLightboxClick = true;
+    showRelativeImage(deltaX < 0 ? 1 : -1);
+  }, { passive: true });
+  lightbox?.addEventListener('pointerup', () => {
+    lightboxPointerActive = false;
+    window.setTimeout(() => {
+      lightboxSwipeHandled = false;
+      suppressLightboxClick = false;
+    }, 320);
+  }, { passive: true });
+  lightbox?.addEventListener('pointercancel', () => {
+    lightboxPointerActive = false;
+    lightboxSwipeHandled = false;
+    suppressLightboxClick = false;
+  }, { passive: true });
   lightbox?.addEventListener('click', event => {
+    if (suppressLightboxClick) {
+      event.preventDefault();
+      suppressLightboxClick = false;
+      return;
+    }
     if (event.target === lightbox) closeLightbox();
   });
   window.addEventListener('keydown', event => {
@@ -434,6 +496,22 @@ const initLightbox = () => {
     if (!lightbox?.classList.contains('is-open')) return;
     if (event.key === 'ArrowLeft') showRelativeImage(-1);
     if (event.key === 'ArrowRight') showRelativeImage(1);
+  });
+};
+
+const initTeamPhotoTouch = () => {
+  const photos = [...document.querySelectorAll('.person__photo--has-hover')];
+  if (!photos.length) return;
+  const clear = photo => photo.classList.remove('is-touch-active');
+
+  photos.forEach(photo => {
+    photo.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse') return;
+      photo.classList.add('is-touch-active');
+    }, { passive: true });
+    photo.addEventListener('pointerup', () => clear(photo), { passive: true });
+    photo.addEventListener('pointercancel', () => clear(photo), { passive: true });
+    photo.addEventListener('pointerleave', () => clear(photo), { passive: true });
   });
 };
 

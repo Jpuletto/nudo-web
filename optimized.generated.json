@@ -906,6 +906,33 @@
       }
     ]
   },
+  "projects/colegio maturana/03,1.jpg": {
+    "src": "projects/colegio maturana/03,1.jpg",
+    "width": 1600,
+    "height": 1067,
+    "variants": [
+      {
+        "w": 480,
+        "src": "optimized/projects/colegio-maturana/03-1-480.webp"
+      },
+      {
+        "w": 640,
+        "src": "optimized/projects/colegio-maturana/03-1-640.webp"
+      },
+      {
+        "w": 960,
+        "src": "optimized/projects/colegio-maturana/03-1-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/03-1-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/03-1-1600.webp"
+      }
+    ]
+  },
   "projects/colegio maturana/03.jpg": {
     "src": "projects/colegio maturana/03.jpg",
     "width": 1600,
@@ -935,8 +962,8 @@
   },
   "projects/colegio maturana/04.jpg": {
     "src": "projects/colegio maturana/04.jpg",
-    "width": 1600,
-    "height": 1000,
+    "width": 1067,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -951,19 +978,15 @@
         "src": "optimized/projects/colegio-maturana/04-960.webp"
       },
       {
-        "w": 1280,
-        "src": "optimized/projects/colegio-maturana/04-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/colegio-maturana/04-1600.webp"
+        "w": 1067,
+        "src": "optimized/projects/colegio-maturana/04-1067.webp"
       }
     ]
   },
   "projects/colegio maturana/05.jpg": {
     "src": "projects/colegio maturana/05.jpg",
-    "width": 1600,
-    "height": 1000,
+    "width": 1000,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -978,18 +1001,14 @@
         "src": "optimized/projects/colegio-maturana/05-960.webp"
       },
       {
-        "w": 1280,
-        "src": "optimized/projects/colegio-maturana/05-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/colegio-maturana/05-1600.webp"
+        "w": 1000,
+        "src": "optimized/projects/colegio-maturana/05-1000.webp"
       }
     ]
   },
   "projects/colegio maturana/06.jpg": {
     "src": "projects/colegio maturana/06.jpg",
-    "width": 1205,
+    "width": 1200,
     "height": 1600,
     "variants": [
       {
@@ -1005,14 +1024,14 @@
         "src": "optimized/projects/colegio-maturana/06-960.webp"
       },
       {
-        "w": 1205,
-        "src": "optimized/projects/colegio-maturana/06-1205.webp"
+        "w": 1200,
+        "src": "optimized/projects/colegio-maturana/06-1200.webp"
       }
     ]
   },
   "projects/colegio maturana/07.jpg": {
     "src": "projects/colegio maturana/07.jpg",
-    "width": 1000,
+    "width": 1205,
     "height": 1600,
     "variants": [
       {
@@ -1028,15 +1047,15 @@
         "src": "optimized/projects/colegio-maturana/07-960.webp"
       },
       {
-        "w": 1000,
-        "src": "optimized/projects/colegio-maturana/07-1000.webp"
+        "w": 1205,
+        "src": "optimized/projects/colegio-maturana/07-1205.webp"
       }
     ]
   },
   "projects/colegio maturana/08.jpg": {
     "src": "projects/colegio maturana/08.jpg",
-    "width": 1200,
-    "height": 1600,
+    "width": 1600,
+    "height": 1000,
     "variants": [
       {
         "w": 480,
@@ -1051,15 +1070,19 @@
         "src": "optimized/projects/colegio-maturana/08-960.webp"
       },
       {
-        "w": 1200,
-        "src": "optimized/projects/colegio-maturana/08-1200.webp"
+        "w": 1280,
+        "src": "optimized/projects/colegio-maturana/08-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/colegio-maturana/08-1600.webp"
       }
     ]
   },
   "projects/colegio maturana/09.jpg": {
     "src": "projects/colegio maturana/09.jpg",
-    "width": 1067,
-    "height": 1600,
+    "width": 1600,
+    "height": 1000,
     "variants": [
       {
         "w": 480,
@@ -1074,35 +1097,12 @@
         "src": "optimized/projects/colegio-maturana/09-960.webp"
       },
       {
-        "w": 1067,
-        "src": "optimized/projects/colegio-maturana/09-1067.webp"
-      }
-    ]
-  },
-  "projects/colegio maturana/10.jpg": {
-    "src": "projects/colegio maturana/10.jpg",
-    "width": 1600,
-    "height": 1067,
-    "variants": [
-      {
-        "w": 480,
-        "src": "optimized/projects/colegio-maturana/10-480.webp"
-      },
-      {
-        "w": 640,
-        "src": "optimized/projects/colegio-maturana/10-640.webp"
-      },
-      {
-        "w": 960,
-        "src": "optimized/projects/colegio-maturana/10-960.webp"
-      },
-      {
         "w": 1280,
-        "src": "optimized/projects/colegio-maturana/10-1280.webp"
+        "src": "optimized/projects/colegio-maturana/09-1280.webp"
       },
       {
         "w": 1600,
-        "src": "optimized/projects/colegio-maturana/10-1600.webp"
+        "src": "optimized/projects/colegio-maturana/09-1600.webp"
       }
     ]
   },
@@ -1729,8 +1729,8 @@
   },
   "projects/matisse/04.jpg": {
     "src": "projects/matisse/04.jpg",
-    "width": 1600,
-    "height": 1000,
+    "width": 1067,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -1745,19 +1745,15 @@
         "src": "optimized/projects/matisse/04-960.webp"
       },
       {
-        "w": 1280,
-        "src": "optimized/projects/matisse/04-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/matisse/04-1600.webp"
+        "w": 1067,
+        "src": "optimized/projects/matisse/04-1067.webp"
       }
     ]
   },
   "projects/matisse/05.jpg": {
     "src": "projects/matisse/05.jpg",
-    "width": 1600,
-    "height": 1000,
+    "width": 1000,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
@@ -1772,19 +1768,15 @@
         "src": "optimized/projects/matisse/05-960.webp"
       },
       {
-        "w": 1280,
-        "src": "optimized/projects/matisse/05-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/matisse/05-1600.webp"
+        "w": 1000,
+        "src": "optimized/projects/matisse/05-1000.webp"
       }
     ]
   },
   "projects/matisse/06.jpg": {
     "src": "projects/matisse/06.jpg",
-    "width": 1000,
-    "height": 1600,
+    "width": 1600,
+    "height": 1000,
     "variants": [
       {
         "w": 480,
@@ -1799,8 +1791,12 @@
         "src": "optimized/projects/matisse/06-960.webp"
       },
       {
-        "w": 1000,
-        "src": "optimized/projects/matisse/06-1000.webp"
+        "w": 1280,
+        "src": "optimized/projects/matisse/06-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/matisse/06-1600.webp"
       }
     ]
   },
@@ -1833,8 +1829,8 @@
   },
   "projects/matisse/08.jpg": {
     "src": "projects/matisse/08.jpg",
-    "width": 1067,
-    "height": 1600,
+    "width": 1600,
+    "height": 1000,
     "variants": [
       {
         "w": 480,
@@ -1849,8 +1845,12 @@
         "src": "optimized/projects/matisse/08-960.webp"
       },
       {
-        "w": 1067,
-        "src": "optimized/projects/matisse/08-1067.webp"
+        "w": 1280,
+        "src": "optimized/projects/matisse/08-1280.webp"
+      },
+      {
+        "w": 1600,
+        "src": "optimized/projects/matisse/08-1600.webp"
       }
     ]
   },
@@ -2132,33 +2132,6 @@
       {
         "w": 1000,
         "src": "optimized/projects/reformanelson/05-1000.webp"
-      }
-    ]
-  },
-  "projects/reformanelson/06.jpg": {
-    "src": "projects/reformanelson/06.jpg",
-    "width": 1600,
-    "height": 1200,
-    "variants": [
-      {
-        "w": 480,
-        "src": "optimized/projects/reformanelson/06-480.webp"
-      },
-      {
-        "w": 640,
-        "src": "optimized/projects/reformanelson/06-640.webp"
-      },
-      {
-        "w": 960,
-        "src": "optimized/projects/reformanelson/06-960.webp"
-      },
-      {
-        "w": 1280,
-        "src": "optimized/projects/reformanelson/06-1280.webp"
-      },
-      {
-        "w": 1600,
-        "src": "optimized/projects/reformanelson/06-1600.webp"
       }
     ]
   }

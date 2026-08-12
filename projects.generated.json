@@ -211,6 +211,20 @@
     "intervention": {
       "es": "Reforma"
     },
+    "advisors": [
+      {
+        "label": "Estructural",
+        "value": "MG Ingenieros"
+      },
+      {
+        "label": "Acústica",
+        "value": "Mateo Gargiulo / Martin Brizolara"
+      },
+      {
+        "label": "Constructora",
+        "value": "Possamai"
+      }
+    ],
     "beforeAfter": {
       "before": "antes.jpg",
       "after": "despues.jpg"
@@ -255,42 +269,42 @@
         "alt_es": "Vista 03 del proyecto Colegio Maturana"
       },
       {
-        "file": "03.jpg",
+        "file": "03,1.jpg",
         "caption_es": "Imagen 04",
         "alt_es": "Vista 04 del proyecto Colegio Maturana"
       },
       {
-        "file": "04.jpg",
+        "file": "03.jpg",
         "caption_es": "Imagen 05",
         "alt_es": "Vista 05 del proyecto Colegio Maturana"
       },
       {
-        "file": "05.jpg",
+        "file": "04.jpg",
         "caption_es": "Imagen 06",
         "alt_es": "Vista 06 del proyecto Colegio Maturana"
       },
       {
-        "file": "06.jpg",
+        "file": "05.jpg",
         "caption_es": "Imagen 07",
         "alt_es": "Vista 07 del proyecto Colegio Maturana"
       },
       {
-        "file": "07.jpg",
+        "file": "06.jpg",
         "caption_es": "Imagen 08",
         "alt_es": "Vista 08 del proyecto Colegio Maturana"
       },
       {
-        "file": "08.jpg",
+        "file": "07.jpg",
         "caption_es": "Imagen 09",
         "alt_es": "Vista 09 del proyecto Colegio Maturana"
       },
       {
-        "file": "09.jpg",
+        "file": "08.jpg",
         "caption_es": "Imagen 10",
         "alt_es": "Vista 10 del proyecto Colegio Maturana"
       },
       {
-        "file": "10.jpg",
+        "file": "09.jpg",
         "caption_es": "Imagen 11",
         "alt_es": "Vista 11 del proyecto Colegio Maturana"
       },
@@ -509,8 +523,11 @@
     "title": {
       "es": "Matisse"
     },
-    "cover": "03.jpg",
-    "listingCover": "03.jpg",
+    "cover": "04.jpg",
+    "listingCover": "04.jpg",
+    "galleryFirst": [
+      "03.jpg"
+    ],
     "intervention": {
       "es": "Reforma"
     },
@@ -719,11 +736,6 @@
         "file": "05.jpg",
         "caption_es": "Imagen 05",
         "alt_es": "Vista 05 del proyecto Reforma Nelson"
-      },
-      {
-        "file": "06.jpg",
-        "caption_es": "Imagen 06",
-        "alt_es": "Vista 06 del proyecto Reforma Nelson"
       }
     ]
   }
