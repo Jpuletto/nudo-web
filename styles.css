@@ -473,7 +473,9 @@ body[data-page="project"] .site-header:not(.is-scrolled) {
 .project-navigation a b { font-size: clamp(22px, 2.4vw, 38px); font-weight: 400; letter-spacing: -.035em; }
 .lightbox { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: 70px var(--page-pad) 45px; background: rgba(0,0,0,.96); opacity: 0; visibility: hidden; touch-action: pan-y; transition: opacity .35s, visibility .35s; }
 .lightbox.is-open { opacity: 1; visibility: visible; }
-.lightbox img { max-width: min(1500px, 92vw); max-height: 80vh; object-fit: contain; }
+.lightbox img { max-width: min(1500px, 92vw); max-height: 80vh; object-fit: contain; cursor: zoom-in; touch-action: none; transform-origin: center; transition: transform .18s ease; will-change: transform; }
+.lightbox.is-zoomed img { cursor: grab; transition: none; }
+.lightbox.is-zoomed img:active { cursor: grabbing; }
 .lightbox p { display: grid; gap: 5px; margin-top: 16px; color: rgba(255,255,255,.58); font-size: 9px; letter-spacing: .15em; text-align: center; text-transform: uppercase; }
 .lightbox p b { font-weight: 500; }
 .lightbox p small { font-size: 9px; letter-spacing: .15em; }

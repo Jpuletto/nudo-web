@@ -1,5 +1,5 @@
-import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260812-gallery-caption-57';
-import { loadContent } from './lib/content.js?v=20260812-gallery-caption-57';
+import { HomePage, ProjectPage, ProjectsPage } from './components/site.js?v=20260816-lightbox-fullres-60';
+import { loadContent } from './lib/content.js?v=20260816-lightbox-fullres-60';
 
 const body = document.body;
 const page = body.dataset.page || pageFromPath(window.location.pathname);
@@ -379,8 +379,62 @@ const initLightbox = () => {
   let lightboxPointerActive = false;
   let lightboxSwipeHandled = false;
   let suppressLightboxClick = false;
+  const zoomPointers = new Map();
+  let zoomScale = 1;
+  let zoomStartScale = 1;
+  let zoomStartDistance = 0;
+  let zoomX = 0;
+  let zoomY = 0;
+  let zoomStartX = 0;
+  let zoomStartY = 0;
+  let panStartX = 0;
+  let panStartY = 0;
+  let mousePanActive = false;
+  let mousePanPointerId = null;
+
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  const distanceBetween = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+  const clampZoomPan = () => {
+    const rect = lightboxImage?.getBoundingClientRect();
+    if (!rect || zoomScale <= 1) {
+      zoomX = 0;
+      zoomY = 0;
+      return;
+    }
+    const maxX = Math.max(0, (rect.width * (zoomScale - 1)) / 2);
+    const maxY = Math.max(0, (rect.height * (zoomScale - 1)) / 2);
+    zoomX = clamp(zoomX, -maxX, maxX);
+    zoomY = clamp(zoomY, -maxY, maxY);
+  };
+  const applyZoom = () => {
+    if (!lightboxImage) return;
+    clampZoomPan();
+    lightboxImage.style.transform = `translate3d(${zoomX}px, ${zoomY}px, 0) scale(${zoomScale})`;
+    lightbox?.classList.toggle('is-zoomed', zoomScale > 1.01);
+  };
+  const setZoom = value => {
+    zoomScale = clamp(value, 1, 3.2);
+    if (zoomScale <= 1.01) {
+      zoomScale = 1;
+      zoomX = 0;
+      zoomY = 0;
+    }
+    applyZoom();
+  };
+  const resetZoom = () => {
+    zoomPointers.clear();
+    mousePanActive = false;
+    mousePanPointerId = null;
+    zoomScale = 1;
+    zoomStartScale = 1;
+    zoomStartDistance = 0;
+    zoomX = 0;
+    zoomY = 0;
+    applyZoom();
+  };
 
   const closeLightbox = () => {
+    resetZoom();
     lightbox?.classList.remove('is-open');
     lightbox?.setAttribute('aria-hidden', 'true');
     body.classList.remove('lightbox-open');
@@ -393,7 +447,8 @@ const initLightbox = () => {
     const caption = figure?.querySelector('figcaption');
     if (!image || !lightboxImage) return;
     currentIndex = index;
-    lightboxImage.src = image.currentSrc || image.src;
+    resetZoom();
+    lightboxImage.src = image.src || image.currentSrc;
     lightboxImage.alt = image.alt;
     if (lightboxCaption) lightboxCaption.innerHTML = caption?.querySelector('.detail-image__project')?.innerHTML || '';
     previousButton?.toggleAttribute('disabled', figures.length < 2);
@@ -454,6 +509,123 @@ const initLightbox = () => {
   closeButton?.addEventListener('click', closeLightbox);
   previousButton?.addEventListener('click', () => showRelativeImage(-1));
   nextButton?.addEventListener('click', () => showRelativeImage(1));
+  lightboxImage?.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse') {
+      if (zoomScale <= 1.01) return;
+      mousePanActive = true;
+      mousePanPointerId = event.pointerId;
+      panStartX = event.clientX;
+      panStartY = event.clientY;
+      zoomStartX = zoomX;
+      zoomStartY = zoomY;
+      suppressLightboxClick = true;
+      lightboxImage.setPointerCapture?.(event.pointerId);
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    zoomPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (zoomPointers.size === 1 && zoomScale > 1.01) {
+      panStartX = event.clientX;
+      panStartY = event.clientY;
+      zoomStartX = zoomX;
+      zoomStartY = zoomY;
+      suppressLightboxClick = true;
+    }
+    if (zoomPointers.size === 2) {
+      const [first, second] = [...zoomPointers.values()];
+      zoomStartDistance = distanceBetween(first, second);
+      zoomStartScale = zoomScale;
+      zoomStartX = zoomX;
+      zoomStartY = zoomY;
+      lightboxPointerActive = false;
+      suppressLightboxClick = true;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, { passive: false });
+  lightboxImage?.addEventListener('pointermove', event => {
+    if (event.pointerType === 'mouse') {
+      if (!mousePanActive || mousePanPointerId !== event.pointerId) return;
+      zoomX = zoomStartX + event.clientX - panStartX;
+      zoomY = zoomStartY + event.clientY - panStartY;
+      suppressLightboxClick = true;
+      applyZoom();
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    if (!zoomPointers.has(event.pointerId)) return;
+    zoomPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (zoomPointers.size >= 2) {
+      const [first, second] = [...zoomPointers.values()];
+      const nextScale = zoomStartDistance
+        ? zoomStartScale * (distanceBetween(first, second) / zoomStartDistance)
+        : zoomScale;
+      zoomScale = clamp(nextScale, 1, 3.2);
+      if (zoomScale <= 1.01) {
+        zoomScale = 1;
+        zoomX = 0;
+        zoomY = 0;
+      } else {
+        zoomX = zoomStartX;
+        zoomY = zoomStartY;
+      }
+      suppressLightboxClick = true;
+      applyZoom();
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    if (zoomScale > 1.01) {
+      zoomX = zoomStartX + event.clientX - panStartX;
+      zoomY = zoomStartY + event.clientY - panStartY;
+      suppressLightboxClick = true;
+      applyZoom();
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, { passive: false });
+  lightboxImage?.addEventListener('wheel', event => {
+    if (!lightbox?.classList.contains('is-open')) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const factor = event.deltaY < 0 ? 1.14 : 0.88;
+    setZoom(zoomScale * factor);
+    suppressLightboxClick = true;
+  }, { passive: false });
+  lightboxImage?.addEventListener('dblclick', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    setZoom(zoomScale > 1.01 ? 1 : 2.1);
+    suppressLightboxClick = true;
+  });
+  const endImageTouch = event => {
+    if (event.pointerType === 'mouse') {
+      if (mousePanPointerId === event.pointerId) {
+        lightboxImage?.releasePointerCapture?.(event.pointerId);
+        mousePanActive = false;
+        mousePanPointerId = null;
+      }
+      return;
+    }
+    zoomPointers.delete(event.pointerId);
+    if (zoomScale <= 1.01) {
+      zoomScale = 1;
+      zoomX = 0;
+      zoomY = 0;
+      applyZoom();
+    }
+    if (zoomPointers.size === 1) {
+      const [remaining] = [...zoomPointers.values()];
+      panStartX = remaining.x;
+      panStartY = remaining.y;
+      zoomStartX = zoomX;
+      zoomStartY = zoomY;
+    }
+  };
+  lightboxImage?.addEventListener('pointerup', endImageTouch, { passive: true });
+  lightboxImage?.addEventListener('pointercancel', endImageTouch, { passive: true });
   lightbox?.addEventListener('pointerdown', event => {
     if (event.pointerType === 'mouse' || event.target.closest('button')) return;
     lightboxStartX = event.clientX;
